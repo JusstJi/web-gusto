@@ -252,6 +252,58 @@
     setTimeout(terminar, 4000);
   }
 
+  /* ---------- Decoración de fondo: pegatinas de colores que flotan ---------- */
+  var PEGATINAS = {
+    destello: '<path d="M50 4c4 26 20 42 46 46-26 4-42 20-46 46-4-26-20-42-46-46 26-4 42-20 46-46Z"/>',
+    estrella: '<path d="M50 5l13 29 32 3-24 21 7 31-28-16-28 16 7-31L5 37l32-3Z"/>',
+    corazon: '<path d="M50 88C20 66 6 50 6 32 6 18 17 8 30 8c9 0 16 5 20 12 4-7 11-12 20-12 13 0 24 10 24 24 0 18-14 34-44 56Z"/>',
+    rayo: '<path d="M58 4 18 56h26l-8 40 46-56H54Z"/>',
+    copa: '<path d="M6 10h88L55 50v32h17v8H28v-8h17V50Z"/><circle cx="76" cy="10" r="10"/>',
+    gota: '<path d="M50 6C66 32 80 48 80 64a30 30 0 0 1-60 0c0-16 14-32 30-58Z"/>',
+    espiral: '<path d="M50 50m-6 0a6 6 0 1 1 12 0a14 14 0 1 1-28 0a22 22 0 1 1 44 0a30 30 0 1 1-60 0" fill="none" stroke-width="9" stroke-linecap="round"/>',
+    chupito: '<path d="M22 14h56l-8 74H30Z"/>',
+    nota: '<path d="M38 12 86 4v58a14 12 0 1 1-10-11V22L48 27v45a14 12 0 1 1-10-11Z"/>',
+    labios: '<path d="M4 50c14-24 30-30 46-20 16-10 32-4 46 20-14 24-30 32-46 32S18 74 4 50Z"/>',
+    garabato: '<path d="M6 60c10-30 22-30 26 0s16 30 22 0 18-30 22 0 12 26 18 6" fill="none" stroke-width="10" stroke-linecap="round"/>',
+    aro: '<circle cx="50" cy="50" r="34" fill="none" stroke-width="14"/>'
+  };
+  var TINTAS = { fucsia: '#FF3EA5', naranja: '#FF7A1A', amarillo: '#FFE14D', verde: '#19C27A', azul: '#3A5BFF', rosa: '#F7A8D8', papel: '#FFF4FA' };
+
+  function iniciarDecoracion() {
+    var secciones = document.querySelectorAll('main > section');
+    var nombres = Object.keys(PEGATINAS);
+    var semilla = 7;
+    function azar() { semilla = (semilla * 9301 + 49297) % 233280; return semilla / 233280; }
+    function rgb(hex) { var n = parseInt(hex.slice(1), 16); return 'rgb(' + (n >> 16) + ', ' + (n >> 8 & 255) + ', ' + (n & 255) + ')'; }
+
+    Array.prototype.forEach.call(secciones, function (sec, s) {
+      var fondo = getComputedStyle(sec).backgroundColor;
+      var tintas = Object.keys(TINTAS).filter(function (t) { return rgb(TINTAS[t]) !== fondo; });
+      if (fondo === rgb(TINTAS.rosa)) tintas = tintas.filter(function (t) { return t !== 'papel'; });
+      var capa = document.createElement('div');
+      capa.className = 'deco';
+      capa.setAttribute('aria-hidden', 'true');
+      var cuantas = sec.classList.contains('portada') ? 24 : 14;
+      var html = '';
+      for (var i = 0; i < cuantas; i++) {
+        var forma = nombres[(i + s * 3) % nombres.length];
+        var tinta = TINTAS[tintas[Math.floor(azar() * tintas.length)]];
+        // Sobre todo en los bordes, para no tapar el texto
+        var x = i % 2 === 0 ? azar() * 9 - 4 : 91 + azar() * 9;
+        var y = (i + azar() * 0.8) / cuantas * 100;
+        var tam = 1.8 + azar() * 3;
+        var giro = Math.round(azar() * 60 - 30);
+        var trazo = forma === 'garabato' || forma === 'aro' || forma === 'espiral';
+        html += '<svg class="deco__pieza" viewBox="0 0 100 100" style="left:' + x.toFixed(1) + '%;top:' + y.toFixed(1) + '%;width:' + tam.toFixed(2) + 'rem;--giro:' + giro + 'deg;--dura:' + (5 + azar() * 5).toFixed(1) + 's;--retraso:-' + (azar() * 6).toFixed(1) + 's"' +
+          (trazo ? ' stroke="' + tinta + '" fill="none"' : ' fill="' + tinta + '"') + '>' +
+          '<g class="deco__sombra" transform="translate(5 5)">' + PEGATINAS[forma] + '</g>' + PEGATINAS[forma] + '</svg>';
+      }
+      capa.innerHTML = html;
+      if (!sec.classList.contains('portada')) sec.classList.add('con-deco');
+      sec.insertBefore(capa, sec.firstChild.nextSibling);
+    });
+  }
+
   /* ---------- Estado de la edición según la fecha ---------- */
   var EDICION = {
     inicio: new Date('2026-10-17T00:00:00+02:00'),
@@ -514,6 +566,7 @@
   iniciarIntro();
   actualizarEdicion();
   vigilar();
+  iniciarDecoracion();
   iniciarLuces();
   iniciarCalendario();
   iniciarParallax();
