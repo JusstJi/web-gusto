@@ -12,11 +12,10 @@ Para publicarla en Vercel: en vercel.com, «Add New → Project», importa el re
 
 ## Para cada nueva edición
 - En `index.html`, cambiar el sabor, la fecha y el enlace de Fourvenues (busca `data-entradas`).
-- En `styles.css`, cambiar `--sabor` y `--sabor-oscuro` por el color del sabor.
+- En `styles.css`, cambiar `--sabor`, `--sabor-oscuro` y `--sabor-tinta` por el color del sabor.
 - En `main.js`, actualizar `EDICION.inicio` y `EDICION.fin`. Cuando pasa la fecha, la web oculta los botones de entradas y manda a Instagram.
 
 ## Pendiente de confirmar
-- Color de umami (ahora es un naranja provisional).
 - Música, chupito y chefs de umami (salen como «por desvelar»).
 - Playlist del botón «Pruébalo» (desactivado hasta que exista).
 - Galería: se añade cuando haya fotos.

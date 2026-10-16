@@ -12,7 +12,7 @@ Mundo: carta de restaurante impresa en risografía sobre el rosa de la fiesta. E
 | `--verde` | #19C27A | Cómo se sirve |
 | `--azul` | #3A5BFF | Fondo de La Carta, aro del plato |
 | `--azul-tinta` | #2A22C9 | Títulos de marca (5.3:1 sobre rosa) |
-| `--sabor` / `--sabor-oscuro` | #F2561D / #B8360D | Color del sabor de la edición. Cambiar por edición |
+| `--sabor` / `--sabor-oscuro` / `--sabor-tinta` | #410107 / #6A0A14 / #F7B6BA | Umami (granate del cartel) y su texto rosa. Cambiar por edición |
 
 Cada sección es un campo de color entero. El texto siempre en `--tinta` (o rosa/papel sobre tinta).
 

@@ -45,9 +45,10 @@
   --azul: #3A5BFF;
   --azul-tinta: #2A22C9;
   --papel: #FFF4FA;
-  /* Color del sabor de la edición (umami: pendiente de confirmar) */
-  --sabor: #F2561D;
-  --sabor-oscuro: #B8360D;
+  /* Color del sabor de la edición: umami, granate del cartel */
+  --sabor: #410107;
+  --sabor-oscuro: #6A0A14;
+  --sabor-tinta: #F7B6BA;
 
   --display: "Shrikhand", "Familjen Grotesk", serif;
   --texto: "Familjen Grotesk", system-ui, sans-serif;
@@ -370,7 +371,7 @@ html.con-intro .intro {
   margin-top: -5.5rem;
   padding: 1.4rem 1.6rem 1.6rem;
   background: var(--sabor);
-  color: var(--tinta);
+  color: var(--sabor-tinta);
   border-radius: 1.1rem;
   -webkit-mask: radial-gradient(circle var(--muesca) at 0 62%, #0000 98%, #000) left / 51% 100% no-repeat,
                 radial-gradient(circle var(--muesca) at 100% 62%, #0000 98%, #000) right / 51% 100% no-repeat;
@@ -388,7 +389,12 @@ html.con-intro .intro {
   margin: 0.1em 0 0.15em;
 }
 .ticket__nota { font-size: 0.98rem; margin-bottom: 1.4rem; }
+.ticket .boton,
+.pedido .boton { background: var(--sabor-tinta); border-color: var(--sabor-tinta); color: var(--sabor); }
+.ticket .boton:hover,
+.pedido .boton:hover { background: var(--amarillo); border-color: var(--amarillo); color: var(--tinta); }
 .ticket .boton { width: 100%; }
+.ticket__sabor { color: var(--papel); }
 .ticket__pasada { font-weight: 600; }
 
 @media (min-width: 900px) {
@@ -626,7 +632,7 @@ dd.por-desvelar { justify-self: start; }
   width: 2.7rem; height: 2.7rem;
   border-radius: 50%;
   background: var(--sabor);
-  color: var(--tinta);
+  color: var(--sabor-tinta);
   font-weight: 700;
   text-decoration: none;
   line-height: 1;
@@ -639,6 +645,7 @@ dd.por-desvelar { justify-self: start; }
   transform: translateX(-50%);
   font-size: 0.72rem;
   font-weight: 700;
+  color: var(--sabor);
 }
 .calendario__leyenda { display: flex; align-items: center; gap: 0.45rem; margin-top: 1rem; font-size: 0.95rem; }
 .punto { width: 0.85rem; height: 0.85rem; border-radius: 50%; background: var(--sabor); }
@@ -688,10 +695,12 @@ dd.por-desvelar { justify-self: start; }
 /* ---------- Haz tu pedido ---------- */
 .pedido {
   background: var(--sabor);
+  color: var(--sabor-tinta);
   padding: var(--seccion) var(--hueco);
   text-align: center;
 }
-.pedido .titulo { font-size: clamp(3rem, 12vw, 7rem); }
+.pedido a:not(.boton) { color: var(--papel); }
+.pedido .titulo { color: var(--papel); font-size: clamp(3rem, 12vw, 7rem); }
 .pedido__texto { max-width: 34ch; margin: 0 auto 2rem; font-size: 1.2rem; font-weight: 600; }
 .pedido__pasada { max-width: 40ch; margin: 0 auto; font-size: 1.15rem; font-weight: 600; }
 
