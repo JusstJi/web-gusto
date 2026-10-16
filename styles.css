@@ -1489,3 +1489,16 @@ dd.chefs .chefs-lista { margin-top: 0.3rem; }
   .portada__donde { display: block; font-weight: 600; opacity: 0.85; }
   .portada__sep { display: none; }
 }
+
+/* Solo la entrada de 8 € lleva copa y chupito: etiqueta pegada a su pegatina */
+.precio { position: relative; }
+.precio__extra {
+  position: absolute; left: 50%; bottom: -0.85rem;
+  translate: -50% 0; rotate: 4deg;
+  padding: 0.2rem 0.55rem;
+  border: 2px solid var(--tinta); border-radius: 999px;
+  background: var(--papel); color: var(--tinta);
+  font-family: var(--texto); font-size: 0.72rem; font-weight: 700; line-height: 1.1;
+  white-space: nowrap;
+}
+.precios { margin-bottom: 1.6rem; }
