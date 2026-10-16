@@ -350,6 +350,29 @@
     fondo.appendChild(capa);
   }
 
+  /* ---------- «Pruébalo»: enlaces a las playlists de Spotify ---------- */
+  // Pega aquí el enlace de cada playlist cuando exista; mientras esté vacío, el botón sale como «pronto».
+  var PLAYLISTS = {
+    umami: '',
+    proximo: '',
+    siguiente: ''
+  };
+
+  function iniciarPlaylists() {
+    document.querySelectorAll('[data-playlist]').forEach(function (a) {
+      var url = PLAYLISTS[a.getAttribute('data-playlist')];
+      var pronto = a.querySelector('[data-playlist-pronto]');
+      if (url) {
+        a.href = url; a.target = '_blank'; a.rel = 'noopener';
+        a.removeAttribute('aria-disabled');
+        a.setAttribute('aria-label', 'Pruébalo: escucha la playlist en Spotify');
+        if (pronto) pronto.remove();
+      } else {
+        a.setAttribute('aria-label', 'Pruébalo: la playlist de Spotify llega pronto');
+      }
+    });
+  }
+
   /* ---------- Estado de la edición según la fecha ---------- */
   var EDICION = {
     inicio: new Date('2026-10-17T00:00:00+02:00'),
@@ -627,6 +650,7 @@
   actualizarEdicion();
   vigilar();
   iniciarDecoracion();
+  iniciarPlaylists();
   iniciarLuces();
   iniciarCalendario();
   iniciarParallax();

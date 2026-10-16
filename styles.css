@@ -997,3 +997,119 @@ dd.por-desvelar { justify-self: start; }
 @media (prefers-reduced-motion: reduce) {
   .deco__pieza { animation: none; }
 }
+
+/* ---------- Menú degustación (portada) ---------- */
+.degustacion {
+  background: var(--papel);
+  padding: var(--seccion) var(--borde);
+}
+.chip-titulo {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border: 3px solid var(--tinta);
+  border-radius: 0.6rem;
+  background: #A9C8FF;
+  box-shadow: 3px 3px 0 var(--tinta);
+  font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+  transform: rotate(-2deg);
+  margin-bottom: 1rem;
+}
+.degustacion .titulo { margin-bottom: 0.3em; }
+.degustacion .titulo span { color: var(--fucsia); text-shadow: 0.045em 0.045em 0 var(--tinta); }
+.degustacion__lema { max-width: 40ch; font-size: 1.1rem; }
+.degustacion__lista {
+  list-style: none; margin: 2.5rem calc(var(--borde) * -1) 0; padding: 0.5rem var(--borde) 1.5rem;
+  display: grid; grid-auto-flow: column; grid-auto-columns: min(82vw, 21rem); gap: 1.4rem;
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+}
+.degustacion__lista::-webkit-scrollbar { display: none; }
+.plato {
+  scroll-snap-align: center;
+  display: flex; flex-direction: column; gap: 0.8rem;
+  padding: 1rem 1rem 1.2rem;
+  background: #fff;
+  border: 4px solid var(--tinta);
+  border-radius: 1.4rem;
+  box-shadow: 8px 8px 0 var(--tinta);
+  transform: rotate(-1.5deg);
+  transition: transform 220ms var(--sale);
+}
+.plato:nth-child(2) { transform: rotate(1.2deg) translateY(-0.4rem); }
+.plato:nth-child(3) { transform: rotate(-0.8deg); }
+.plato:hover { transform: rotate(0) translateY(-0.4rem); }
+.plato__dibujo {
+  border: 4px solid var(--tinta);
+  border-radius: 1rem;
+  background: var(--sabor);
+  aspect-ratio: 2 / 1.1;
+  display: grid; place-items: center;
+}
+.plato__dibujo svg { width: 100%; height: 100%; }
+.plato--amarillo .plato__dibujo { background: var(--amarillo); }
+.plato--verde .plato__dibujo { background: var(--verde); }
+.plato__cabeza { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin-top: 0.3rem; }
+.plato h3 { font-family: var(--display); font-weight: 400; font-size: 1.75rem; line-height: 1.05; margin: 0; }
+.etiqueta {
+  flex: none;
+  padding: 0.2rem 0.65rem;
+  border: 3px solid var(--tinta); border-radius: 999px;
+  background: var(--sabor-tinta);
+  font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
+}
+.plato--amarillo .etiqueta { background: var(--amarillo); }
+.plato--verde .etiqueta { background: #9BE3C4; }
+.plato > p { margin: 0; font-size: 0.98rem; line-height: 1.45; }
+.plato__chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.plato__chips span {
+  padding: 0.25rem 0.7rem;
+  border: 2.5px solid var(--tinta); border-radius: 999px;
+  background: var(--papel);
+  font-weight: 700; font-size: 0.8rem;
+}
+.probar {
+  margin-top: auto;
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+  min-height: 3.4rem; padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background: var(--tinta); color: var(--papel);
+  font-family: var(--display); font-size: 1.25rem;
+  text-decoration: none;
+  transition: transform 160ms var(--sale), background-color 160ms var(--sale);
+}
+.probar .spotify { width: 1.6rem; height: 1.6rem; flex: none; }
+.probar small { font-family: var(--texto); font-size: 0.8rem; font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 999px; background: var(--papel); color: var(--tinta); }
+a.probar[href]:hover { background: #1ED760; color: var(--tinta); transform: scale(1.03); }
+.probar[aria-disabled="true"] { cursor: default; background: #4a3d5c; }
+.plato-carta__acciones .probar { margin-top: 0; min-height: 2.9rem; font-size: 1.05rem; }
+.degustacion__pie { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1rem; }
+.degustacion__desliza { font-weight: 700; font-size: 0.95rem; margin: 0; }
+@media (min-width: 1000px) {
+  .degustacion__lista { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); grid-auto-columns: auto; overflow: visible; margin-inline: 0; padding-inline: 0; }
+  .degustacion__desliza { visibility: hidden; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .plato, .plato:nth-child(n) { transition: none; }
+}
+
+/* ---------- Chefs (DJs) ---------- */
+.chefs-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; }
+.chef {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  color: var(--tinta); text-decoration: none;
+}
+.chef__foto {
+  flex: none; display: grid; place-items: center; overflow: hidden;
+  width: 2.9rem; height: 2.9rem; border-radius: 50%;
+  border: 3px solid var(--tinta); box-shadow: 3px 3px 0 var(--tinta);
+  font-family: var(--display); font-size: 1rem; line-height: 1; color: var(--tinta);
+  transition: transform 160ms var(--sale);
+}
+.chef__foto img { width: 100%; height: 100%; object-fit: cover; }
+.chef__foto--fucsia { background: var(--fucsia); color: var(--papel); }
+.chef__foto--naranja { background: var(--naranja); }
+.chef__nombre { display: flex; flex-direction: column; font-weight: 700; font-size: 0.95rem; line-height: 1.15; }
+.chef__nombre small { font-weight: 600; font-size: 0.8rem; text-decoration: underline; text-underline-offset: 2px; }
+.chef:hover .chef__foto, .chef:focus-visible .chef__foto { transform: rotate(-6deg) scale(1.06); }
+.chef:focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; border-radius: 999px; }
+.ticket__nota a { color: inherit; }
+dd.chefs .chefs-lista { margin-top: 0.3rem; }
