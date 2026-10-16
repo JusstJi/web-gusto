@@ -54,6 +54,8 @@
   --texto: "Familjen Grotesk", system-ui, sans-serif;
 
   --hueco: clamp(1.25rem, 5vw, 4rem);
+  /* Borde común: todo el contenido se alinea a la misma columna de 72rem */
+  --borde: max(var(--hueco), calc((100% - 72rem) / 2));
   --seccion: clamp(4.5rem, 11vw, 8.5rem);
   --sale: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -226,7 +228,7 @@ html.con-intro .intro {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem var(--hueco) 0;
+  padding: 1rem var(--borde) 0;
 }
 .cabecera__marca { display: block; line-height: 0; border-radius: 0.6rem; }
 .cabecera__marca img { height: 2.75rem; width: auto; }
@@ -243,7 +245,7 @@ html.con-intro .intro {
   text-decoration: none; white-space: nowrap;
   transition: background-color 160ms var(--sale);
 }
-.cabecera__nav a span { font-weight: 400; font-size: 0.78rem; }
+.cabecera__nav a span { display: none; }
 .cabecera__nav a:hover { background: var(--papel); }
 
 @media (max-width: 899px) {
@@ -271,7 +273,7 @@ html.con-intro .intro {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
-  padding: calc(9rem + env(safe-area-inset-top)) var(--hueco) var(--seccion);
+  padding: calc(9rem + env(safe-area-inset-top)) var(--borde) var(--seccion);
 }
 @media (min-width: 900px) {
   .portada { padding-top: 6.5rem; }
@@ -378,7 +380,6 @@ html.con-intro .intro {
           mask: radial-gradient(circle var(--muesca) at 0 62%, #0000 98%, #000) left / 51% 100% no-repeat,
                 radial-gradient(circle var(--muesca) at 100% 62%, #0000 98%, #000) right / 51% 100% no-repeat;
   filter: drop-shadow(0 14px 22px rgb(30 16 51 / 0.28));
-  transform: rotate(-2deg);
 }
 .ticket__cuando { font-weight: 700; font-size: 1rem; }
 .ticket__sabor {
@@ -414,20 +415,19 @@ html.con-intro .intro {
 /* ---------- La Carta ---------- */
 .carta {
   background: var(--azul);
-  padding: var(--seccion) var(--hueco);
+  padding: var(--seccion) var(--borde);
 }
 .carta__hoja {
   max-width: 54rem;
-  margin: 0 auto;
+  margin: 0;
   padding: clamp(1.75rem, 5vw, 4rem);
   background: var(--amarillo);
   border-radius: 0.5rem;
   box-shadow: 0 24px 60px rgb(12 6 40 / 0.4);
-  transform: rotate(-0.7deg);
 }
-.carta__cabeza { text-align: center; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.carta__cabeza { margin-bottom: clamp(2rem, 5vw, 3.5rem); }
 .carta__cabeza .titulo { color: var(--azul-tinta); text-shadow: 0.035em 0.03em 0 var(--fucsia); }
-.carta__sub { max-width: 40ch; margin: 0 auto; font-style: italic; }
+.carta__sub { max-width: 40ch; font-style: italic; }
 
 .plato-carta__linea { display: flex; align-items: baseline; gap: 0.75rem; }
 .plato-carta__nombre {
@@ -538,19 +538,11 @@ dd.por-desvelar { justify-self: start; }
   width: 78vmin;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: repeating-radial-gradient(circle, rgb(30 16 51 / 0.14) 0 3px, transparent 3px 30px);
-}
-.decor--confeti {
-  inset: -10% 0;
-  background:
-    radial-gradient(circle, var(--amarillo) 0 7px, transparent 8px) 0 0 / 190px 170px,
-    radial-gradient(circle, var(--azul) 0 5px, transparent 6px) 70px 90px / 230px 200px,
-    radial-gradient(circle, var(--rosa) 0 9px, transparent 10px) 140px 30px / 260px 240px;
-  opacity: 0.55;
+  background: repeating-radial-gradient(circle, rgb(30 16 51 / 0.08) 0 2px, transparent 2px 30px);
 }
 .como {
   background: var(--verde);
-  padding: var(--seccion) var(--hueco);
+  padding: var(--seccion) var(--borde);
 }
 .como .titulo { color: var(--tinta); max-width: 14ch; }
 .como__intro {
@@ -600,7 +592,7 @@ dd.por-desvelar { justify-self: start; }
 /* ---------- Menú del mes ---------- */
 .menu-mes {
   background: var(--fucsia);
-  padding: var(--seccion) var(--hueco);
+  padding: var(--seccion) var(--borde);
   display: grid;
   gap: 2.5rem;
 }
@@ -652,9 +644,8 @@ dd.por-desvelar { justify-self: start; }
 @media (min-width: 900px) {
   .menu-mes {
     grid-template-columns: minmax(0, 1fr) minmax(0, 28rem);
-    align-items: center;
+    align-items: start;
     column-gap: 4rem;
-    padding-inline: max(var(--hueco), calc((100% - 64rem) / 2));
   }
 }
 
@@ -662,7 +653,7 @@ dd.por-desvelar { justify-self: start; }
 .donde {
   background: var(--tinta);
   color: var(--rosa);
-  padding: var(--seccion) var(--hueco);
+  padding: var(--seccion) var(--borde);
 }
 .donde .titulo { color: var(--amarillo); }
 .donde__rejilla { display: grid; gap: 2rem; }
@@ -696,14 +687,13 @@ dd.por-desvelar { justify-self: start; }
 .pedido {
   background: var(--sabor);
   color: var(--sabor-tinta);
-  padding: var(--seccion) var(--hueco);
-  text-align: center;
+  padding: var(--seccion) var(--borde);
 }
 .pedido a:not(.boton) { color: var(--papel); }
-.pedido .titulo { color: var(--papel); font-size: clamp(3rem, 12vw, 7rem); }
-.pedido__texto { max-width: 34ch; margin: 0 auto 2rem; font-size: 1.2rem; font-weight: 600; }
+.pedido .titulo { color: var(--papel); }
+.pedido__texto { max-width: 34ch; margin: 0 0 2rem; font-size: 1.2rem; font-weight: 600; }
 .precios {
-  display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem;
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
   margin: 0 0 0.6rem; padding: 0; list-style: none;
 }
 .precios li {
@@ -717,14 +707,13 @@ dd.por-desvelar { justify-self: start; }
 }
 .pedido__nota { margin-bottom: 2rem; font-weight: 600; }
 .chefs { font-weight: 700; }
-.pedido__pasada { max-width: 40ch; margin: 0 auto; font-size: 1.15rem; font-weight: 600; }
+.pedido__pasada { max-width: 40ch; margin: 0; font-size: 1.15rem; font-weight: 600; }
 
 /* ---------- Preguntas ---------- */
 .preguntas {
-  padding: var(--seccion) var(--hueco);
-  max-width: 52rem;
-  margin: 0 auto;
+  padding: var(--seccion) var(--borde);
 }
+.preguntas > * { max-width: 52rem; }
 .preguntas details { border-top: 3px solid var(--tinta); }
 .preguntas details:last-of-type { border-bottom: 3px solid var(--tinta); }
 .preguntas summary {
@@ -752,7 +741,7 @@ dd.por-desvelar { justify-self: start; }
 .pie {
   background: var(--tinta);
   color: var(--rosa);
-  padding: 3.5rem var(--hueco) 4rem;
+  padding: 3.5rem var(--borde) 4rem;
   text-align: center;
 }
 .pie__marca {
@@ -818,10 +807,10 @@ dd.por-desvelar { justify-self: start; }
 .indice {
   background: var(--tinta);
   color: var(--rosa);
-  padding: var(--seccion) var(--hueco);
+  padding: var(--seccion) var(--borde);
 }
 .indice .titulo { color: var(--amarillo); max-width: 12ch; }
-.indice__lista { list-style: none; margin: 0 auto; padding: 0; max-width: 60rem; }
+.indice__lista { list-style: none; margin: 0; padding: 0; max-width: 60rem; }
 .indice__item a {
   display: flex; align-items: baseline; gap: 0.75rem;
   padding: 1.1rem 0;
@@ -847,7 +836,7 @@ dd.por-desvelar { justify-self: start; }
 
 .siguiente {
   display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
-  padding: clamp(2.5rem, 7vw, 4.5rem) var(--hueco);
+  padding: clamp(2.5rem, 7vw, 4.5rem) var(--borde);
   background: var(--amarillo);
   color: var(--tinta);
   text-align: center;

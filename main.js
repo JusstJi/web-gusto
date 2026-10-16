@@ -154,7 +154,7 @@
       { x: 0.9, base: -0.5, amp: 0.36, vel: 0.2, fase: 4.2, color: colores[2] }
     ];
     var motas = [];
-    for (var i = 0; i < 46; i++) {
+    for (var i = 0; i < 24; i++) {
       var capa = i % 3; // 0 lejos, 1 medio, 2 cerca
       motas.push({
         x: Math.random(), y: Math.random(),
@@ -185,7 +185,7 @@
         var ang = Math.PI / 2 + f.base + Math.sin(s * f.vel * Math.PI * 2 * 0.25 + f.fase) * f.amp;
         var largo = alto * 1.25, abre = 0.16;
         var g = ctx.createLinearGradient(ox, oy, ox + Math.cos(ang) * largo, oy + Math.sin(ang) * largo);
-        g.addColorStop(0, 'rgba(' + f.color + ',0.62)');
+        g.addColorStop(0, 'rgba(' + f.color + ',0.45)');
         g.addColorStop(0.5, 'rgba(' + f.color + ',0.2)');
         g.addColorStop(1, 'rgba(' + f.color + ',0)');
         ctx.fillStyle = g;
