@@ -389,7 +389,7 @@
       var anim = frente.animate([
         { transform: 'translate(0,0) rotate(0deg)' },
         { transform: 'translate(-70%, 0.5rem) rotate(-16deg)', offset: 0.5 },
-        { transform: 'translate(2.4rem, -2rem) rotate(12deg)' }
+        { transform: window.matchMedia('(max-width: 899px)').matches ? 'translate(1.4rem, -1.2rem) rotate(7.5deg)' : 'translate(2.4rem, -2rem) rotate(12deg)' }
       ], { duration: 560, easing: 'cubic-bezier(.3,.7,.2,1)' });
       setTimeout(function () { frente.style.zIndex = '0'; mover(); }, 280);
       anim.onfinish = function () { frente.style.zIndex = ''; ocupado = false; };

@@ -1422,3 +1422,12 @@ dd.chefs .chefs-lista { margin-top: 0.3rem; }
   .plato-carta__sello { top: -2.4rem; right: -0.5rem; width: 4.7rem; }
   .plato-carta > .carta__seccion { text-align: left; }
 }
+
+/* Móvil: la baraja baja para dejar ver la boca y abre menos el abanico */
+@media (max-width: 899px) {
+  .baraja { margin-top: -1.5rem; }
+  .baraja__mazo { padding: 1.3rem 1.5rem 0 0; margin-top: 0; }
+  .ticket[data-pos="1"] { transform: translate(0.5rem, -0.45rem) rotate(2.5deg); }
+  .ticket[data-pos="2"] { transform: translate(1rem, -0.85rem) rotate(5deg); }
+  .ticket[data-pos="3"] { transform: translate(1.4rem, -1.2rem) rotate(7.5deg); }
+}
