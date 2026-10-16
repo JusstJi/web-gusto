@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://web-gusto.vercel.app/sitemap.xml
