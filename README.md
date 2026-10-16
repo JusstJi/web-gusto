@@ -11,7 +11,7 @@ y abre http://localhost:8000.
 Para publicarla en Vercel: en vercel.com, «Add New → Project», importa el repositorio `web-gusto` y pulsa «Deploy» (no hace falta configurar nada). Cuando tengas el dominio definitivo, cambia `og-image.png` por la URL completa en las etiquetas `og:image` y `twitter:image` de `index.html`.
 
 ## Páginas
-- `index.html`: inicio con la intro de la lengua, la boca con la lengua de colores y la entrada de la próxima fiesta.
+- `index.html`: inicio con la intro de la lengua, la boca con la lengua de colores sobre una ola de sabores y la entrada de la próxima fiesta.
 - `la-carta.html`, `como-se-sirve.html`, `menu-del-mes.html`, `donde-se-sirve.html`, `preguntas.html`, `haz-tu-pedido.html`.
 
 La cabecera y el pie se repiten en cada página: si cambias el menú, cámbialo en todas.

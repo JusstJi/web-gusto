@@ -1,6 +1,6 @@
 # Design · Viernes de Gusto
 
-Mundo: carta de restaurante impresa en risografía sobre el rosa de la fiesta. En portada, una boca que saca una lengua con los colores de los sabores: un sabor por noche.
+Mundo: carta de restaurante impresa en risografía sobre el rosa de la fiesta. En portada, composición centrada tipo cartel: la marca, una boca que saca una lengua con los colores de los sabores y una ola con esos colores que cruza la pantalla; la entrada apaisada se apoya en la ola.
 
 ## Color
 | Token | Valor | Uso |

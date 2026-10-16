@@ -265,15 +265,15 @@ html.con-intro .intro {
 /* ---------- Portada ---------- */
 .portada {
   background:
-    radial-gradient(ellipse 70% 60% at 72% 45%, #FCC6E7 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 50% 55%, #FCC6E7 0%, transparent 70%),
     linear-gradient(180deg, #EB8FCA 0%, var(--rosa) 55%);
   position: relative;
   isolation: isolate;
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
-  padding: calc(9rem + env(safe-area-inset-top)) var(--borde) var(--seccion);
+  gap: 0.9rem;
+  padding: calc(8.25rem + env(safe-area-inset-top)) var(--borde) var(--seccion);
 }
 @media (min-width: 900px) {
   .portada { padding-top: 6.5rem; }
@@ -287,7 +287,18 @@ html.con-intro .intro {
   pointer-events: none;
 }
 
+.portada__antes {
+  justify-self: center;
+  padding: 0.35rem 0.9rem;
+  border: 2px solid var(--tinta);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-align: center;
+}
 .marca {
+  justify-self: center;
+  text-align: center;
   font-family: var(--display);
   font-weight: 400;
   font-size: clamp(4rem, 19vw, 7.5rem);
@@ -300,21 +311,49 @@ html.con-intro .intro {
 .marca__linea--de {
   font-size: 0.42em;
   line-height: 1.1;
-  margin-left: 0.6em;
   color: var(--tinta);
   text-shadow: 0.06em 0.05em 0 var(--amarillo);
 }
 .portada__lema {
-  max-width: 26ch;
-  font-size: clamp(1.15rem, 1.6vw + 0.8rem, 1.55rem);
-  font-weight: 600;
-  line-height: 1.3;
+  justify-self: center;
+  text-align: center;
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 2.4vw + 0.9rem, 2.3rem);
+  line-height: 1.1;
+  color: var(--tinta);
 }
+
+/* La boca saca la lengua sobre una ola con los colores de los sabores */
+.escena {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  margin-inline: calc(50% - 50vw);
+  padding-bottom: clamp(5rem, 13vw, 9rem);
+}
+.ola {
+  --alto: clamp(6.5rem, 14vw, 10.5rem);
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: var(--alto);
+  overflow: hidden;
+  z-index: 0;
+}
+.ola__svg {
+  display: block;
+  height: var(--alto);
+  width: calc(var(--alto) * 3200 / 190);
+  max-width: none;
+  animation: ola 7s linear infinite;
+}
+@keyframes ola { to { transform: translateX(-12.5%); } }
 
 .boca {
   position: relative;
-  margin: 0 auto;
-  width: min(84vw, 34rem);
+  z-index: 1;
+  width: min(58vw, 25rem);
+  margin: 0;
   aspect-ratio: 372 / 324;
 }
 .boca::before {
@@ -357,7 +396,7 @@ html.con-intro .intro {
   z-index: 2;
   justify-self: center;
   width: min(100%, 24rem);
-  margin-top: -3.5rem;
+  margin-top: clamp(-6.5rem, -9vw, -4rem);
   padding: 1.4rem 1.6rem 1.6rem;
   background: var(--sabor);
   color: var(--sabor-tinta);
@@ -385,18 +424,36 @@ html.con-intro .intro {
 .ticket__sabor { color: var(--papel); }
 .ticket__pasada { font-weight: 600; }
 
+.portada.quieto .boca__lengua,
+.portada.quieto .boca::before,
+.portada.quieto .ola__svg { animation-play-state: paused; }
+
 @media (min-width: 900px) {
-  .portada {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    grid-template-rows: auto auto 1fr;
-    column-gap: clamp(2rem, 5vw, 5rem);
-    align-items: start;
-    min-height: min(92vh, 60rem);
+  .portada { min-height: min(100vh, 64rem); align-content: start; row-gap: 1rem; padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .marca { font-size: clamp(5rem, 7.6vw, 7.75rem); line-height: 1.05; white-space: nowrap; }
+  .marca__linea { display: inline; }
+  .marca__linea--de { font-size: 0.5em; margin: 0 0.12em; vertical-align: 0.3em; }
+  .boca { width: min(26vw, 21rem); }
+  .escena { margin-top: -0.5rem; padding-bottom: clamp(5rem, 8vw, 7.5rem); }
+  /* Entrada apaisada: sabor, datos y botón en una fila */
+  .ticket {
+    width: min(100%, 50rem);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: 2rem;
+    align-items: center;
+    padding: 1.2rem 1.6rem 1.2rem 2.2rem;
+    -webkit-mask: radial-gradient(circle var(--muesca) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+                  radial-gradient(circle var(--muesca) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+            mask: radial-gradient(circle var(--muesca) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+                  radial-gradient(circle var(--muesca) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
   }
-  .marca { grid-column: 1; grid-row: 1; font-size: clamp(5.5rem, 9.5vw, 8.5rem); }
-  .portada__lema { grid-column: 1; grid-row: 2; }
-  .boca { grid-column: 2; grid-row: 1 / 4; align-self: center; margin: 0; width: min(100%, 34rem); }
-  .ticket { grid-column: 1; grid-row: 3; justify-self: start; margin-top: 1rem; }
+  .ticket__cuando { grid-column: 1; grid-row: 1; }
+  .ticket__sabor { grid-column: 1; grid-row: 2; margin: 0; font-size: 3.4rem; }
+  .ticket__nota { grid-column: 2; grid-row: 1 / 3; margin: 0; white-space: nowrap; padding-left: 2rem; border-left: 2px dashed rgb(247 182 186 / 0.45); }
+  .ticket .boton { grid-column: 3; grid-row: 1 / 3; width: auto; }
+  .ticket__pasada { grid-column: 2 / 4; grid-row: 1 / 3; }
 }
 
 /* ---------- La Carta ---------- */
@@ -787,7 +844,8 @@ dd.por-desvelar { justify-self: start; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .boca__lengua,
-  .boca::before { animation: none; }
+  .boca::before,
+  .ola__svg { animation: none; }
   [data-parallax] { transform: none !important; }
   .barra-pedido { transition-property: opacity; }
 }

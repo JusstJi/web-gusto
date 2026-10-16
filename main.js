@@ -133,11 +133,11 @@
     if (barra && ticket) obs.observe(ticket);
     if (barra && pedido) obs.observe(pedido);
 
-    var plato = document.querySelector('.boca');
-    if (plato) {
+    var portada = document.querySelector('.portada');
+    if (portada) {
       new IntersectionObserver(function (entradas) {
-        plato.classList.toggle('quieto', !entradas[0].isIntersecting);
-      }).observe(plato);
+        portada.classList.toggle('quieto', !entradas[0].isIntersecting);
+      }).observe(portada);
     }
   }
 
