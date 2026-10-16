@@ -1503,7 +1503,7 @@ dd.chefs .chefs-lista { margin-top: 0.3rem; }
 }
 .precios { margin-bottom: 1.6rem; }
 
-/* Logo oficial de Gusto, redibujado en vector con el contorno y la sombra de las pegatinas */
+/* Logo oficial de Gusto en vector: sus colores dentro de una píldora oscura, como el botón de entradas */
 .cabecera__marca { border-radius: 0.4rem; transition: rotate 200ms var(--sale); rotate: -2deg; }
 .cabecera__marca:hover { rotate: 0deg; }
 .cabecera__marca img { height: clamp(2.3rem, 2.9vw, 2.75rem); width: auto; }
