@@ -786,27 +786,100 @@ dd.por-desvelar { justify-self: start; }
 
 /* ---------- Haz tu pedido ---------- */
 .pedido {
-  background: var(--sabor);
+  background: var(--confeti), var(--sabor);
   color: var(--sabor-tinta);
   padding: var(--seccion) var(--borde);
+  display: grid; gap: clamp(2.5rem, 6vw, 4.5rem); align-items: center;
+}
+@media (min-width: 900px) {
+  .pedido { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); }
 }
 .pedido a:not(.boton) { color: var(--papel); }
-.pedido .titulo { color: var(--papel); }
+.pedido .titulo { color: var(--papel); margin: 0 0 1rem; }
+.pedido .titulo span { color: var(--sabor-tinta); }
 .pedido__texto { max-width: 34ch; margin: 0 0 2rem; font-size: 1.2rem; font-weight: 600; }
 .precios {
-  display: flex; flex-wrap: wrap; gap: 0.75rem;
-  margin: 0 0 0.6rem; padding: 0; list-style: none;
+  display: flex; flex-wrap: wrap; gap: 0.9rem;
+  margin: 0 0 1.1rem; padding: 0; list-style: none;
 }
-.precios li {
+.precio {
   display: grid; place-items: center;
-  width: 5.5rem; height: 5.5rem;
+  width: clamp(5.2rem, 14vw, 6.5rem); aspect-ratio: 1;
   border-radius: 50%;
-  border: 3px solid var(--sabor-tinta);
-  font-family: var(--display);
-  font-size: 1.9rem;
-  color: var(--papel);
+  border: 4px solid var(--tinta);
+  box-shadow: 5px 5px 0 var(--tinta);
+  color: var(--tinta);
+  font-family: var(--display); font-size: clamp(1.7rem, 4vw, 2.2rem);
+  rotate: -6deg;
+  transition: rotate 220ms var(--sale), scale 220ms var(--sale);
 }
-.pedido__nota { margin-bottom: 2rem; font-weight: 600; }
+.precio strong { font-weight: 400; }
+.precio:nth-child(2) { rotate: 4deg; translate: 0 0.4rem; }
+.precio:nth-child(3) { rotate: -2deg; }
+.precio:hover { rotate: 0deg; scale: 1.06; }
+.precio--fucsia { background: var(--fucsia); }
+.precio--amarillo { background: var(--amarillo); }
+.precio--verde { background: var(--verde); }
+.pedido__nota {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  margin: 0 0 2rem; padding: 0.45rem 1rem 0.45rem 0.7rem;
+  border-radius: 999px; background: rgb(247 182 186 / 0.14);
+  font-weight: 700; color: var(--papel);
+}
+.pedido__icono { width: 1.4rem; height: 1.4rem; fill: none; stroke: var(--sabor-tinta); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+
+.comanda {
+  --diente: 12px;
+  position: relative;
+  justify-self: center;
+  width: min(100%, 25rem);
+  rotate: 2.5deg;
+  filter: drop-shadow(10px 12px 0 var(--fucsia));
+}
+.comanda__papel {
+  position: relative;
+  padding: 2.2rem 1.6rem 2.4rem;
+  background: var(--papel);
+  color: var(--tinta);
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--diente) * 2) 51% repeat-x,
+                conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / calc(var(--diente) * 2) 51% repeat-x;
+          mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--diente) * 2) 51% repeat-x,
+                conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / calc(var(--diente) * 2) 51% repeat-x;
+}
+.comanda__cabeza {
+  margin: 0 0 1.2rem; padding-bottom: 1rem;
+  border-bottom: 3px dashed var(--tinta);
+  font-family: var(--display); font-size: 2.2rem; line-height: 1; text-align: center;
+}
+.comanda__cabeza span { display: block; margin-top: 0.4rem; font-family: var(--texto); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.comanda__lineas { margin: 0; display: grid; gap: 0.7rem; }
+.comanda__lineas div { display: flex; align-items: baseline; gap: 0.5rem; }
+.comanda__lineas dt { font-weight: 700; flex: none; }
+.comanda__lineas div::before {
+  content: ""; order: 1; flex: 1; min-width: 1rem;
+  border-bottom: 3px dotted rgb(30 16 51 / 0.45); translate: 0 -0.3em;
+}
+.comanda__lineas dd { order: 2; margin: 0; text-align: right; font-weight: 600; }
+.comanda__plato { font-family: var(--display); font-size: 1.5rem; line-height: 1; color: var(--sabor); }
+.comanda__total {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin: 1.4rem 0 0; padding-top: 1rem;
+  border-top: 3px dashed var(--tinta);
+  font-weight: 700; font-size: 1.1rem;
+}
+.comanda__total strong { font-family: var(--display); font-weight: 400; font-size: 2.4rem; line-height: 1; color: var(--fucsia); }
+.comanda__sello {
+  position: absolute; left: 50%; bottom: 2.2rem;
+  margin: 0; padding: 0.35rem 0.9rem;
+  border: 4px solid var(--verde); border-radius: 0.7rem;
+  color: var(--verde);
+  font-family: var(--display); font-size: 1.5rem;
+  rotate: -10deg; translate: -50% 0;
+  opacity: 0.92;
+  mix-blend-mode: multiply;
+}
+.evento-pasado .comanda__sello { display: none; }
+@media (prefers-reduced-motion: reduce) { .precio { transition: none; } }
 .chefs { font-weight: 700; }
 .pedido__pasada { max-width: 40ch; margin: 0; font-size: 1.15rem; font-weight: 600; }
 

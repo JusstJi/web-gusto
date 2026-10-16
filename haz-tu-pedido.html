@@ -46,14 +46,38 @@
 
   <main id="contenido" tabindex="-1">
     <section class="pedido" id="pedido" aria-labelledby="titulo-pedido">
-      <h1 class="titulo" id="titulo-pedido">Haz tu pedido</h1>
-      <p class="pedido__texto">Entradas anticipadas para Umami, el viernes 16 de octubre, en Fourvenues.</p>
-      <ul class="precios" aria-label="Precios de las entradas">
-        <li>4 €</li><li>6 €</li><li>8 €</li>
-      </ul>
-      <p class="pedido__nota">Todas con copa y chupito.</p>
-      <a class="boton boton--grande" data-entradas href="https://site.fourvenues.com/es/new-la-miel1/events/viernes-de-gusto-umami-16-10-2026-EDAB" target="_blank" rel="noopener">Haz tu pedido <small>Entradas anticipadas</small></a>
-      <p class="pedido__pasada" data-pasada hidden>Umami ya se sirvió. El próximo pedido abre cuando se anuncie el nuevo sabor en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
+      <div class="pedido__texto-col">
+        <h1 class="titulo" id="titulo-pedido">Haz tu <span>pedido</span></h1>
+        <p class="pedido__texto">Entradas anticipadas para Umami, el viernes 16 de octubre, en Fourvenues.</p>
+        <ul class="precios" aria-label="Precios de las entradas">
+          <li class="precio precio--fucsia"><strong>4&#8239;€</strong></li>
+          <li class="precio precio--amarillo"><strong>6&#8239;€</strong></li>
+          <li class="precio precio--verde"><strong>8&#8239;€</strong></li>
+        </ul>
+        <p class="pedido__nota">
+          <svg class="pedido__icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 4h12l-1.6 7.2A4.5 4.5 0 0 1 12 15a4.5 4.5 0 0 1-4.4-3.8z"/><path d="M12 15v5M8.5 20h7"/></svg>
+          <svg class="pedido__icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.5 6h9l-1.4 13H8.9z"/><path d="M8 10.5h8"/></svg>
+          Todas con copa y chupito.
+        </p>
+        <a class="boton boton--grande" data-entradas href="https://site.fourvenues.com/es/new-la-miel1/events/viernes-de-gusto-umami-16-10-2026-EDAB" target="_blank" rel="noopener">Haz tu pedido <small>Entradas anticipadas</small></a>
+        <p class="pedido__pasada" data-pasada hidden>Umami ya se sirvió. El próximo pedido abre cuando se anuncie el nuevo sabor en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
+      </div>
+
+      <aside class="comanda" aria-label="Resumen de la noche">
+        <div class="comanda__papel">
+        <p class="comanda__cabeza">Comanda <span>Viernes de Gusto</span></p>
+        <dl class="comanda__lineas">
+          <div><dt>Plato</dt><dd class="comanda__plato">Umami</dd></div>
+          <div><dt>Día</dt><dd>Viernes 16 de octubre</dd></div>
+          <div><dt>Servicio</dt><dd>00:00 a 04:30</dd></div>
+          <div><dt>Mesa</dt><dd>New La Miel, Burgos</dd></div>
+          <div><dt>Chefs</dt><dd>URMAXXX · Lemmy Brown</dd></div>
+          <div><dt>Incluye</dt><dd>Copa y chupito</dd></div>
+        </dl>
+        <p class="comanda__total"><span>Desde</span> <strong>4&#8239;€</strong></p>
+        <p class="comanda__sello" aria-hidden="true">¡Marchando!</p>
+        </div>
+      </aside>
     </section>
 
   </main>
