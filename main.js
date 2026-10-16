@@ -151,12 +151,12 @@
 
     // Sale la lengua y se relame: rodea el labio de abajo y enrosca la punta hacia arriba en cada lado
     seguir(linea(p, [
-      { ms: 300, ease: sale, L: 90, onda: 4 },
-      { ms: 260, ease: rebote, L: 170, ang: 90, curva: -10, onda: 10 },
-      { ms: 330, ease: suave, L: 195, ang: 145, curva: 80, onda: 8 },
-      { ms: 480, ease: suave, L: 200, ang: 35, curva: -80, onda: 8 },
-      { ms: 300, ease: suave, L: 170, ang: 90, curva: 0, onda: 6 },
-      { ms: 450, ease: suave, L: 175, onda: 14 }
+      { ms: 220, ease: sale, L: 90, onda: 4 },
+      { ms: 200, ease: rebote, L: 170, ang: 90, curva: -10, onda: 10 },
+      { ms: 250, ease: suave, L: 195, ang: 145, curva: 80, onda: 8 },
+      { ms: 360, ease: suave, L: 200, ang: 35, curva: -80, onda: 8 },
+      { ms: 220, ease: suave, L: 170, ang: 90, curva: 0, onda: 6 },
+      { ms: 180, ease: suave, L: 175, onda: 14 }
     ], dibujar)).then(function () {
       if (!vivo) return;
       lema.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' });
@@ -187,8 +187,8 @@
       var g = { x: W / 2, y: H + W * 0.9, L: 0, h: W * 0.6, ang: 270, curva: 0, onda: 0, fase: 0 };
       var techo = H + W * 0.9; // largo necesario para que la punta pase el borde de arriba
       seguir(linea(g, [
-        { ms: 120, ease: sale, L: W * 0.5 },
-        { ms: 560, ease: suave, L: techo + W * 1.1, curva: -18, onda: 6 }
+        { ms: 100, ease: sale, L: W * 0.5 },
+        { ms: 470, ease: suave, L: techo + W * 1.1, curva: -18, onda: 6 }
       ], function (e, ahora) {
         e.fase = ahora / 160;
         dibujarLengua(gigante, e);
@@ -200,7 +200,7 @@
         if (!vivo) return;
         fondo.style.clipPath = 'inset(0 0 100% 0)';
         var sube = barrido.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-' + (H + W * 1.1).toFixed(0) + 'px)' }],
-          { duration: 460, easing: 'cubic-bezier(0.5, 0, 0.75, 0)', fill: 'forwards' });
+          { duration: 380, easing: 'cubic-bezier(0.5, 0, 0.75, 0)', fill: 'forwards' });
         paradas.push({ parar: function () { sube.cancel(); } });
         sube.onfinish = function () { if (vivo) alTerminar(); };
       });
@@ -252,7 +252,7 @@
     }
 
     parar = animarIntroBoca(intro, 'pantalla', terminar);
-    setTimeout(terminar, 4500);
+    setTimeout(terminar, 3600);
   }
 
   /* ---------- Decoración de fondo: pegatinas de colores que flotan ---------- */
@@ -367,7 +367,9 @@
     var boton = baraja.querySelector('[data-baraja-pasar]');
     var reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var ocupado = false;
+    var contador = baraja.querySelector('[data-baraja-contador]');
     function colocar() {
+      if (contador) contador.textContent = (cartas.findIndex(function (c) { return c.dataset.pos === '0'; }) + 1) + '/' + cartas.length;
       cartas.forEach(function (c) {
         var delante = c.dataset.pos === '0';
         c.inert = !delante;
@@ -400,6 +402,18 @@
     });
     if (boton) boton.addEventListener('click', pasar);
     colocar();
+    // La primera vez que se ve, la baraja se abre un momento para enseñar que hay más tickets detrás
+    if (!reducido && 'IntersectionObserver' in window) {
+      var visto = new IntersectionObserver(function (entradas) {
+        if (!entradas[0].isIntersecting) return;
+        visto.disconnect();
+        setTimeout(function () {
+          baraja.classList.add('baraja--asoma');
+          setTimeout(function () { baraja.classList.remove('baraja--asoma'); }, 900);
+        }, document.documentElement.classList.contains('con-intro') ? 3200 : 700);
+      }, { threshold: 0.6 });
+      visto.observe(baraja);
+    }
   }
 
   function iniciarPlaylists() {
