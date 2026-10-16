@@ -183,7 +183,6 @@ html.con-intro .intro {
   inset: 0;
   z-index: 100;
   overflow: hidden;
-  background: var(--rosa);
 }
 .intro__lema {
   font-family: var(--display);
@@ -199,9 +198,11 @@ html.con-intro .intro { align-content: center; gap: clamp(1.5rem, 5vh, 3rem); }
   height: auto;
   overflow: visible;
 }
-/* Boca abierta con la lengua fuera: lame y se acerca a la pantalla */
-.intro__boca { transform-origin: 50% 80%; }
-.intro__lengua { transform-box: view-box; transform-origin: 200px 186px; }
+/* La lengua la dibuja main.js en cada fotograma para que se doble */
+.intro__fondo { position: absolute; inset: 0; background: var(--rosa); }
+.intro__lema,
+.intro__boca { position: relative; }
+.intro__barrido { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .intro__saltar {
   position: absolute;
   top: max(1rem, env(safe-area-inset-top));

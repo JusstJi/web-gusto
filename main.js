@@ -4,7 +4,206 @@
   var raiz = document.documentElement;
   var movimientoReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Intro: la boca abierta lame y se acerca a la pantalla hasta abrir la web ---------- */
+  /* ---------- Intro: una boca que se relame y lame la pantalla ---------- */
+  // La lengua no es un dibujo fijo: se calcula en cada fotograma a partir de una
+  // "columna" que se curva, así se dobla y se enrosca como una lengua de verdad.
+  var NS = 'http://www.w3.org/2000/svg';
+  var COLORES_LENGUA = ['#FF3EA5', '#FF7A1A', '#FFE14D', '#19C27A', '#3A5BFF'];
+  var serieLengua = 0;
+
+  function crearLengua(svg, antes) {
+    var id = 'lengua-viva-' + (++serieLengua);
+    var defs = document.createElementNS(NS, 'defs');
+    var clip = document.createElementNS(NS, 'clipPath');
+    clip.setAttribute('id', id);
+    var forma = document.createElementNS(NS, 'path');
+    clip.appendChild(forma); defs.appendChild(clip); svg.appendChild(defs);
+    var g = document.createElementNS(NS, 'g');
+    g.setAttribute('clip-path', 'url(#' + id + ')');
+    var bandas = COLORES_LENGUA.map(function (c) {
+      var p = document.createElementNS(NS, 'path'); p.setAttribute('fill', c); g.appendChild(p); return p;
+    });
+    var surco = document.createElementNS(NS, 'path');
+    surco.setAttribute('fill', 'none'); surco.setAttribute('stroke', '#1E1033');
+    surco.setAttribute('stroke-opacity', '0.22'); surco.setAttribute('stroke-linecap', 'round');
+    var brillo = document.createElementNS(NS, 'path');
+    brillo.setAttribute('fill', 'none'); brillo.setAttribute('stroke', '#fff');
+    brillo.setAttribute('stroke-opacity', '0.4'); brillo.setAttribute('stroke-linecap', 'round');
+    g.appendChild(surco); g.appendChild(brillo);
+    svg.insertBefore(g, antes || null);
+    return { g: g, forma: forma, bandas: bandas, surco: surco, brillo: brillo };
+  }
+
+  // p: x, y (raíz), L (largo), h (medio ancho), ang (grados, 90 = hacia abajo),
+  //    curva (grados extra en la punta), onda (grados de ondulación), fase
+  function dibujarLengua(l, p) {
+    var n = 18, paso = p.L / n, pts = [], i, t;
+    var x = p.x, y = p.y;
+    for (i = 0; i <= n; i++) {
+      t = i / n;
+      var a = (p.ang + p.curva * Math.pow(t, 1.6) + p.onda * Math.sin(p.fase + t * 3.2) * t) * Math.PI / 180;
+      var h = p.h * (1 - 0.12 * t);
+      pts.push({ x: x, y: y, a: a, h: h, nx: -Math.sin(a), ny: Math.cos(a) });
+      x += Math.cos(a) * paso; y += Math.sin(a) * paso;
+    }
+    function f(v) { return v.toFixed(1); }
+    function punto(q, k) { return f(q.x + q.nx * q.h * k) + ' ' + f(q.y + q.ny * q.h * k); }
+    var u = pts[n];
+    // Contorno: lado izquierdo, punta redonda, lado derecho
+    var d = 'M' + punto(pts[0], 1);
+    for (i = 1; i <= n; i++) d += 'L' + punto(pts[i], 1);
+    for (i = 1; i < 12; i++) {
+      var th = u.a + Math.PI / 2 - i * Math.PI / 12;
+      d += 'L' + f(u.x + Math.cos(th) * u.h) + ' ' + f(u.y + Math.sin(th) * u.h);
+    }
+    for (i = n; i >= 0; i--) d += 'L' + punto(pts[i], -1);
+    // La raíz se mete hacia dentro de la boca
+    var r = pts[0];
+    d += 'L' + f(r.x - Math.cos(r.a) * r.h * 0.35 - r.nx * r.h) + ' ' + f(r.y - Math.sin(r.a) * r.h * 0.35 - r.ny * r.h);
+    d += 'L' + f(r.x - Math.cos(r.a) * r.h * 0.35 + r.nx * r.h) + ' ' + f(r.y - Math.sin(r.a) * r.h * 0.35 + r.ny * r.h) + 'Z';
+    l.forma.setAttribute('d', d);
+    // Bandas de color a lo largo de la lengua (se doblan con ella)
+    var ext = { x: u.x + Math.cos(u.a) * u.h * 1.3, y: u.y + Math.sin(u.a) * u.h * 1.3, a: u.a, h: u.h * 1.4, nx: u.nx, ny: u.ny };
+    var raizAtras = { x: r.x - Math.cos(r.a) * r.h * 0.5, y: r.y - Math.sin(r.a) * r.h * 0.5, a: r.a, h: r.h * 1.3, nx: r.nx, ny: r.ny };
+    var todos = [raizAtras].concat(pts, [ext]);
+    l.bandas.forEach(function (b, j) {
+      var k0 = 1.4 - j * 2.8 / 5, k1 = 1.4 - (j + 1) * 2.8 / 5;
+      if (j === 0) k0 = 3; if (j === 4) k1 = -3;
+      var s = 'M' + punto(todos[0], k0), m;
+      for (m = 1; m < todos.length; m++) s += 'L' + punto(todos[m], k0);
+      for (m = todos.length - 1; m >= 0; m--) s += 'L' + punto(todos[m], k1);
+      b.setAttribute('d', s + 'Z');
+    });
+    var c = 'M' + punto(pts[3], 0);
+    for (i = 4; i < n; i++) c += 'L' + punto(pts[i], 0);
+    l.surco.setAttribute('d', c);
+    l.surco.setAttribute('stroke-width', f(p.h * 0.11));
+    var bl = 'M' + punto(pts[4], 0.62);
+    for (i = 5; i <= 10; i++) bl += 'L' + punto(pts[i], 0.62);
+    l.brillo.setAttribute('d', bl);
+    l.brillo.setAttribute('stroke-width', f(p.h * 0.13));
+  }
+
+  // Interpolación sencilla de un objeto de parámetros entre fotogramas clave
+  function suave(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function entra(t) { return t * t * t; }
+  function sale(t) { return 1 - Math.pow(1 - t, 3); }
+  function rebote(t) { var c = 1.7; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); }
+
+  function linea(estado, claves, alDibujar) {
+    // claves: [{ ms, ease, ...valores }]
+    var activo = true, inicio = null, i = 0, desde = Object.assign({}, estado), resuelve;
+    var total = claves.reduce(function (s, k) { return s + k.ms; }, 0);
+    var promesa = new Promise(function (r) { resuelve = r; });
+    function marco(ahora) {
+      if (!activo) return;
+      if (inicio === null) inicio = ahora;
+      var pasado = ahora - inicio, acum = 0;
+      for (i = 0; i < claves.length; i++) { if (pasado < acum + claves[i].ms) break; acum += claves[i].ms; }
+      if (i >= claves.length) { aplicar(claves.length - 1, 1); alDibujar(estado, ahora); resuelve(); return; }
+      aplicar(i, (pasado - acum) / claves[i].ms);
+      alDibujar(estado, ahora);
+      requestAnimationFrame(marco);
+    }
+    var base = [desde];
+    claves.forEach(function (k, n) {
+      var sig = Object.assign({}, base[n]);
+      Object.keys(k).forEach(function (c) { if (c !== 'ms' && c !== 'ease') sig[c] = k[c]; });
+      base.push(sig);
+    });
+    function aplicar(n, t) {
+      var e = (claves[n].ease || suave)(Math.min(Math.max(t, 0), 1));
+      var a = base[n], b = base[n + 1];
+      Object.keys(b).forEach(function (c) {
+        if (typeof b[c] === 'number' && typeof a[c] === 'number') estado[c] = a[c] + (b[c] - a[c]) * e;
+      });
+    }
+    requestAnimationFrame(marco);
+    promesa.parar = function () { activo = false; };
+    promesa.total = total;
+    return promesa;
+  }
+
+  // Ejecuta la intro dentro de "escenario" (pantalla completa o un marco de prueba).
+  // variante 'boca': se relame y la cámara entra en la boca.
+  // variante 'pantalla': se relame y una lengua gigante lame la pantalla de abajo arriba.
+  function animarIntroBoca(escenario, variante, alTerminar) {
+    var fondo = escenario.querySelector('.intro__fondo');
+    var lema = escenario.querySelector('.intro__lema');
+    var boca = escenario.querySelector('.intro__boca');
+    var barrido = escenario.querySelector('.intro__barrido');
+    var paradas = [], vivo = true;
+    function seguir(p) { paradas.push(p); return p; }
+    function parar() { vivo = false; paradas.forEach(function (p) { p.parar && p.parar(); }); }
+
+    var lengua = boca.__lengua || (boca.__lengua = crearLengua(boca, boca.querySelector('.boca__dientes')));
+    var p = { x: 200, y: 200, L: 20, h: 58, ang: 90, curva: 0, onda: 0, fase: 0 };
+    function dibujar(e, ahora) { e.fase = ahora / 140; dibujarLengua(lengua, e); }
+    dibujarLengua(lengua, p);
+
+    boca.style.transformOrigin = '49.5% 52%';
+    boca.animate([{ transform: 'scale(0.5)', opacity: 0 }, { transform: 'scale(1)', opacity: 1 }],
+      { duration: 360, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'both' });
+
+    // Sale la lengua y se relame: rodea el labio de abajo y enrosca la punta hacia arriba en cada lado
+    seguir(linea(p, [
+      { ms: 300, ease: sale, L: 70, onda: 4 },
+      { ms: 260, ease: rebote, L: 150, ang: 90, curva: -10, onda: 10 },
+      { ms: 330, ease: suave, L: 175, ang: 138, curva: 85, onda: 8 },
+      { ms: 480, ease: suave, L: 180, ang: 42, curva: -85, onda: 8 },
+      { ms: 300, ease: suave, L: 150, ang: 90, curva: 0, onda: 6 }
+    ], dibujar)).then(function () {
+      if (!vivo) return;
+      lema.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' });
+      if (variante === 'boca') finalBoca(); else finalPantalla();
+    });
+
+    function finalBoca() {
+      // Sorbe la lengua y la cámara entra en la boca
+      seguir(linea(p, [{ ms: 220, ease: entra, L: 0, h: 4, onda: 0 }], dibujar));
+      var r = escenario.getBoundingClientRect();
+      var grande = Math.max(r.width, r.height) / boca.clientWidth * 9;
+      var zoom = boca.animate([{ transform: 'scale(1)' }, { transform: 'scale(' + grande.toFixed(1) + ')' }],
+        { duration: 650, delay: 120, easing: 'cubic-bezier(0.7, 0, 0.84, 0)', fill: 'forwards' });
+      var funde = escenario.animate([{ opacity: 1 }, { opacity: 1, offset: 0.7 }, { opacity: 0 }],
+        { duration: 900, delay: 120, fill: 'forwards' });
+      paradas.push({ parar: function () { zoom.cancel(); funde.cancel(); } });
+      funde.onfinish = function () { if (vivo) alTerminar(); };
+    }
+
+    function finalPantalla() {
+      // La boca se aparta y una lengua enorme lame la pantalla de abajo arriba: lo que deja atrás ya es la web
+      boca.animate([{ transform: 'scale(1)', opacity: 1 }, { transform: 'translateY(30%) scale(0.8)', opacity: 0 }],
+        { duration: 260, easing: 'ease-in', fill: 'forwards' });
+      var r = escenario.getBoundingClientRect();
+      var W = r.width, H = r.height;
+      barrido.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      var gigante = barrido.__lengua || (barrido.__lengua = crearLengua(barrido));
+      var g = { x: W / 2, y: H + W * 0.9, L: 0, h: W * 0.6, ang: 270, curva: 0, onda: 0, fase: 0 };
+      var techo = H + W * 0.9; // largo necesario para que la punta pase el borde de arriba
+      seguir(linea(g, [
+        { ms: 120, ease: sale, L: W * 0.5 },
+        { ms: 560, ease: suave, L: techo + W * 1.1, curva: -18, onda: 6 }
+      ], function (e, ahora) {
+        e.fase = ahora / 160;
+        dibujarLengua(gigante, e);
+        // El rosa solo queda por encima de la punta: debajo está la lengua y, al irse, la web
+        var punta = e.y - e.L;
+        var queda = Math.max(0, Math.min(H, punta + e.h * 0.6));
+        fondo.style.clipPath = 'inset(0 0 ' + (H - queda).toFixed(0) + 'px 0)';
+      })).then(function () {
+        if (!vivo) return;
+        fondo.style.clipPath = 'inset(0 0 100% 0)';
+        var sube = barrido.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-' + (H + W * 1.1).toFixed(0) + 'px)' }],
+          { duration: 460, easing: 'cubic-bezier(0.5, 0, 0.75, 0)', fill: 'forwards' });
+        paradas.push({ parar: function () { sube.cancel(); } });
+        sube.onfinish = function () { if (vivo) alTerminar(); };
+      });
+    }
+
+    return parar;
+  }
+
   function marcarVista() {
     try { sessionStorage.setItem('gusto-intro', '1'); } catch (e) {}
   }
@@ -13,17 +212,15 @@
     var intro = document.getElementById('intro');
     if (!intro || !raiz.classList.contains('con-intro')) return;
 
-    var boca = intro.querySelector('.intro__boca');
-    var lema = intro.querySelector('.intro__lema');
-    var lengua = intro.querySelector('.intro__lengua');
     var saltar = document.getElementById('saltar-intro');
-    var animaciones = [];
+    var parar = null;
     var acabada = false;
 
     function terminar() {
       if (acabada) return;
       acabada = true;
-      animaciones.forEach(function (a) { a.cancel(); });
+      if (parar) parar();
+      intro.getAnimations({ subtree: true }).forEach(function (a) { a.cancel(); });
       raiz.classList.remove('con-intro');
       marcarVista();
       document.removeEventListener('keydown', alTeclear);
@@ -40,54 +237,14 @@
     if (!intro.animate) { setTimeout(terminar, 900); return; }
 
     if (movimientoReducido) {
-      var fundido = intro.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 900, fill: 'forwards' });
-      animaciones.push(fundido);
-      fundido.onfinish = terminar;
+      // Sin movimiento: la boca con la lengua fuera, quieta, y un fundido suave
+      var boca = intro.querySelector('.intro__boca');
+      dibujarLengua(crearLengua(boca, boca.querySelector('.boca__dientes')), { x: 200, y: 200, L: 150, h: 58, ang: 90, curva: 0, onda: 0, fase: 0 });
+      intro.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 900, fill: 'forwards' }).onfinish = terminar;
       return;
     }
 
-    function animar(el, pasos, opciones) {
-      opciones.fill = 'forwards';
-      var a = el.animate(pasos, opciones);
-      animaciones.push(a);
-      return a;
-    }
-
-    // 1. La boca aparece ya abierta, con la lengua fuera
-    animar(boca, [
-      { transform: 'scale(0.5)', opacity: 0 },
-      { transform: 'scale(1)', opacity: 1 }
-    ], { duration: 320, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
-
-    // 2. La lengua coge impulso, se estira, lame a los lados y la boca se acerca
-    //    a la pantalla como si lamiera el cristal; cuando la lengua lo tapa todo, aparece la portada
-    var px = (boca.clientWidth || boca.getBoundingClientRect().width) / 372; // píxeles por unidad del dibujo (sin la escala de la entrada)
-    var cerca = Math.max(window.innerWidth * 1.15 / (144 * 1.4 * px), window.innerHeight * 1.05 / (190 * px));
-    var dura = 1700, espera = 320;
-    var suave = 'cubic-bezier(0.45, 0, 0.55, 1)';
-    animar(lengua, [
-      { transform: 'rotate(0deg) scale(1, 1)', easing: suave },
-      { transform: 'rotate(0deg) scale(1.06, 0.72)', offset: 0.1, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1.3)' },
-      { transform: 'rotate(-4deg) scale(0.9, 1.45)', offset: 0.26, easing: suave },
-      { transform: 'rotate(-17deg) scale(0.94, 1.36)', offset: 0.39, easing: suave },
-      { transform: 'rotate(15deg) scale(0.94, 1.4)', offset: 0.53, easing: suave },
-      { transform: 'rotate(0deg) scale(1, 1.3)', offset: 0.63, easing: 'ease-in' },
-      { transform: 'rotate(0deg) scale(1.35, 1.05)', offset: 0.86, easing: 'ease-out' },
-      { transform: 'rotate(0deg) scale(1.4, 1)' }
-    ], { duration: dura, delay: espera });
-    animar(boca, [
-      { transform: 'scale(1)', opacity: 1 },
-      { transform: 'scale(1)', opacity: 1, offset: 0.6, easing: 'cubic-bezier(0.6, 0, 0.9, 0.4)' },
-      { transform: 'scale(' + cerca.toFixed(1) + ')', opacity: 1, offset: 0.88 },
-      { transform: 'scale(' + (cerca * 1.08).toFixed(1) + ')', opacity: 1 }
-    ], { duration: dura, delay: espera });
-    animar(lema, [
-      { opacity: 1 }, { opacity: 1, offset: 0.55 }, { opacity: 0, offset: 0.68 }, { opacity: 0 }
-    ], { duration: dura, delay: espera });
-    animar(intro, [
-      { opacity: 1 }, { opacity: 1, offset: 0.86 }, { opacity: 0 }
-    ], { duration: dura + 200, delay: espera }).onfinish = terminar;
-
+    parar = animarIntroBoca(intro, 'pantalla', terminar);
     setTimeout(terminar, 4000);
   }
 
