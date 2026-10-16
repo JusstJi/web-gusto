@@ -35,7 +35,7 @@ Cada edición es un sabor con su color, su música y su chupito. «Mezclando pal
 - Nombre visual «Viernes de Gusto» en tipografía cursiva y ancha.
 - Color de la fiesta: rosa #F7A8D8.
 - Lema del borrador: «Para gustos, los colores». Descriptor: «Un sabor por noche».
-- Estética muy joven y muy colorida; intro con la boca abierta y la lengua fuera: da un lametón, se amplía y aparece la portada (petición de Ji).
+- Estética muy joven y muy colorida; intro con la boca abierta y la lengua fuera: da un lametón, la lengua crece hasta tapar la pantalla y aparece la portada (petición de Ji).
 
 ## Evidence on Hand
 

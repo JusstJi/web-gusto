@@ -4,7 +4,7 @@
   var raiz = document.documentElement;
   var movimientoReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Intro: la boca abierta da un lametón, se amplía y se abre la web ---------- */
+  /* ---------- Intro: la boca abierta da un lametón, la lengua crece y se abre la web ---------- */
   function marcarVista() {
     try { sessionStorage.setItem('gusto-intro', '1'); } catch (e) {}
   }
@@ -16,6 +16,7 @@
     var boca = intro.querySelector('.intro__boca');
     var lema = intro.querySelector('.intro__lema');
     var lengua = intro.querySelector('.intro__lengua');
+    var lenguaCrece = intro.querySelector('.intro__lengua-crece');
     var saltar = document.getElementById('saltar-intro');
     var animaciones = [];
     var acabada = false;
@@ -59,21 +60,26 @@
       { transform: 'scale(1)', opacity: 1 }
     ], { duration: 320, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
 
-    // 2. Lametón
+    // 2. Lametón: la lengua barre de lado a lado y, al volver, crece hasta tapar la pantalla
     var lameton = animar(lengua, [
-      { transform: 'rotate(0deg) scaleY(1)' },
-      { transform: 'rotate(-14deg) scaleY(0.88)', offset: 0.3 },
-      { transform: 'rotate(14deg) scaleY(1.18)', offset: 0.65 },
-      { transform: 'rotate(0deg) scaleY(1)' }
-    ], { duration: 760, delay: 300, easing: 'cubic-bezier(0.45, 0, 0.55, 1)' });
+      { transform: 'rotate(0deg) scale(1)' },
+      { transform: 'rotate(-14deg) scale(1, 0.9)', offset: 0.35 },
+      { transform: 'rotate(12deg) scale(1.05, 1.2)', offset: 0.75 },
+      { transform: 'rotate(0deg) scale(1)' }
+    ], { duration: 620, delay: 300, easing: 'cubic-bezier(0.45, 0, 0.55, 1)' });
 
-    // 3. Zoom hacia la lengua hasta llenar la pantalla y aparece la portada
+    // 3. La lengua se amplía hasta llenar la pantalla y aparece la portada
     lameton.onfinish = function () {
       if (acabada) return;
-      var zoom = Math.max(window.innerWidth, window.innerHeight) / Math.max(boca.getBoundingClientRect().width, 1) * 6;
-      animar(lema, [{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease-in' });
-      animar(boca, [{ transform: 'scale(1)' }, { transform: 'scale(' + zoom.toFixed(1) + ')' }], { duration: 700, easing: 'cubic-bezier(0.7, 0, 0.84, 0)' });
-      animar(intro, [{ opacity: 1 }, { opacity: 1, offset: 0.55 }, { opacity: 0 }], { duration: 700, easing: 'linear' }).onfinish = terminar;
+      var px = boca.getBoundingClientRect().width / 372; // píxeles por unidad del dibujo
+      var crece = Math.max(window.innerWidth / (144 * px), window.innerHeight / (180 * px)) * 1.8;
+      animar(lema, [{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: 'ease-in' });
+      animar(lenguaCrece, [
+        { transform: 'rotate(0deg) scale(1)' },
+        { transform: 'rotate(-8deg) scale(' + (crece * 0.35).toFixed(1) + ')', offset: 0.5 },
+        { transform: 'rotate(-4deg) scale(' + crece.toFixed(1) + ')' }
+      ], { duration: 680, easing: 'cubic-bezier(0.55, 0, 0.75, 0.2)' });
+      animar(intro, [{ opacity: 1 }, { opacity: 1, offset: 0.62 }, { opacity: 0 }], { duration: 900, easing: 'linear' }).onfinish = terminar;
     };
 
     setTimeout(terminar, 4000);
