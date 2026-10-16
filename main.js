@@ -353,7 +353,7 @@
   /* ---------- «Pruébalo»: enlaces a las playlists de Spotify ---------- */
   // Pega aquí el enlace de cada playlist cuando exista; mientras esté vacío, el botón sale como «pronto».
   var PLAYLISTS = {
-    umami: '',
+    umami: 'https://open.spotify.com/playlist/1diwoHYeV590P5D9R8vARR',
     proximo: '',
     siguiente: ''
   };
