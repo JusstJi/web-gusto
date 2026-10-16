@@ -609,6 +609,42 @@
   var PRIMER_MES = [2026, 9];  // octubre 2026 (los meses empiezan en 0)
   var NUM_MESES = 9;           // hasta junio 2027
 
+
+  // Cuenta atrás y lista de las próximas fiestas (Menú del mes)
+  function iniciarProximas() {
+    var lista = document.querySelector('[data-proximas]');
+    if (!lista) return;
+    var meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+    var mesesLargos = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    var hoy = new Date(); hoy.setHours(12, 0, 0, 0);
+    var fecha = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00');
+    while (fecha < hoy) fecha.setDate(fecha.getDate() + 14);
+    var colores = ['amarillo', 'verde', 'azul', 'naranja', 'rosa'];
+    var html = '';
+    var primera = null;
+    for (var i = 0; i < 5; i++) {
+      var c = fecha.getFullYear() + '-' + String(fecha.getMonth() + 1).padStart(2, '0') + '-' + String(fecha.getDate()).padStart(2, '0');
+      var f = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
+      if (!primera) primera = { fecha: new Date(fecha), sabor: f && f.sabor };
+      var clase = f && f.sabor ? 'proxima--sabor' : 'proxima--' + colores[i % colores.length];
+      var etiqueta = fecha.getDate() + ' de ' + mesesLargos[fecha.getMonth()] + ': ' + (f && f.sabor ? f.sabor : 'sabor por desvelar');
+      html += '<li class="proxima ' + clase + '"><a href="' + (f ? f.enlace : 'la-carta.html') + '" aria-label="' + etiqueta + '">' +
+        '<span class="proxima__dia">' + fecha.getDate() + '</span><span class="proxima__mes">' + meses[fecha.getMonth()] + '</span>' +
+        '<span class="proxima__sabor">' + (f && f.sabor ? f.sabor : 'Por desvelar') + '</span></a></li>';
+      fecha.setDate(fecha.getDate() + 14);
+    }
+    lista.innerHTML = html;
+
+    var cuenta = document.querySelector('[data-cuenta]');
+    if (!cuenta || !primera) return;
+    var dias = Math.round((primera.fecha - hoy) / 86400000);
+    cuenta.querySelector('[data-cuenta-numero]').innerHTML = dias === 0 ? '¡Es esta noche!' :
+      (dias === 1 ? '¡Mañana!' : 'Faltan <strong>' + dias + '</strong> días');
+    cuenta.querySelector('[data-cuenta-fecha]').textContent = 'Viernes ' + primera.fecha.getDate() + ' de ' + mesesLargos[primera.fecha.getMonth()] +
+      ' · ' + (primera.sabor ? primera.sabor : 'sabor por desvelar') + ' · 00:00';
+    cuenta.hidden = false;
+  }
+
   function iniciarCalendario() {
     var caja = document.querySelector('[data-calendario]');
     if (!caja) return;
@@ -696,6 +732,6 @@
   iniciarDecoracion();
   iniciarPlaylists(); iniciarBaraja();
   iniciarLuces();
-  iniciarCalendario();
+  iniciarCalendario(); iniciarProximas();
   iniciarParallax();
 })();

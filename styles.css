@@ -744,14 +744,19 @@ dd.por-desvelar { justify-self: start; }
 .calendario {
   margin: 0;
   width: min(100%, 28rem);
-  padding: 1.5rem;
+  padding: 0 1.5rem 1.5rem;
   background: var(--papel);
-  border-radius: 1rem;
-  box-shadow: 0 18px 40px rgb(30 16 51 / 0.25);
+  border: 4px solid var(--tinta);
+  border-radius: 1.3rem;
+  box-shadow: 9px 9px 0 var(--tinta);
+  rotate: 1.2deg;
+  overflow: hidden;
 }
 .calendario__cabeza {
   display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  margin: 0 -1.5rem 0.9rem; padding: 1rem 1.2rem;
+  background: var(--amarillo);
+  border-bottom: 4px solid var(--tinta);
 }
 .calendario figcaption {
   flex: 1;
@@ -769,8 +774,9 @@ dd.por-desvelar { justify-self: start; }
   cursor: pointer;
   transition: background-color 160ms var(--sale), color 160ms var(--sale);
 }
+.calendario__flecha { border-width: 3px; background: var(--papel); }
 .calendario__flecha:hover { background: var(--tinta); color: var(--papel); }
-.calendario__flecha:disabled { opacity: 0.3; cursor: not-allowed; background: transparent; color: var(--tinta); }
+.calendario__flecha:disabled { opacity: 0.35; cursor: not-allowed; background: var(--papel); color: var(--tinta); }
 .calendario__flecha[hidden] { display: none; }
 .calendario td.dia-pasado { opacity: 0.55; }
 .calendario td.dia-hoy:not(.dia-gusto) { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.3em; text-decoration-color: var(--fucsia); }
@@ -818,43 +824,105 @@ dd.por-desvelar { justify-self: start; }
 @media (min-width: 900px) {
   .menu-mes {
     grid-template-columns: minmax(0, 1fr) minmax(0, 28rem);
-    align-items: start;
+    align-items: center;
     column-gap: 4rem;
   }
 }
 
+.cuenta {
+  display: inline-block;
+  margin: 0.6rem 0 2rem; padding: 1rem 1.4rem 1.1rem;
+  background: var(--tinta); color: var(--papel);
+  border-radius: 1.1rem;
+  box-shadow: 7px 7px 0 var(--amarillo);
+  rotate: -1.5deg;
+}
+.menu-mes__texto .cuenta p { margin: 0; max-width: none; font-size: 1rem; }
+.menu-mes__texto .cuenta .cuenta__antes { font-size: 0.85rem; }
+.cuenta__antes { font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amarillo); }
+.menu-mes__texto .cuenta .cuenta__numero { font-size: clamp(2rem, 5vw, 2.8rem); }
+.cuenta__numero { font-family: var(--display); font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; }
+.cuenta__numero strong { font-weight: 400; color: var(--amarillo); }
+.cuenta__fecha { font-weight: 600; color: var(--rosa); }
+.proximas__titulo { font-family: var(--display); font-weight: 400; font-size: 1.5rem; margin: 0 0 0.8rem; }
+.proximas { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.proxima a {
+  display: grid; justify-items: center; align-content: center;
+  width: 6.2rem; min-height: 7rem; padding: 0.6rem 0.4rem;
+  border: 3px solid var(--tinta); border-radius: 1rem;
+  box-shadow: 4px 4px 0 var(--tinta);
+  background: var(--c, var(--papel)); color: var(--tinta);
+  text-decoration: none; text-align: center;
+  rotate: var(--giro, -2deg);
+  transition: rotate 200ms var(--sale), translate 200ms var(--sale);
+}
+.proxima:nth-child(even) a { --giro: 2deg; }
+.proxima a:hover { rotate: 0deg; translate: 0 -3px; }
+.proxima__dia { font-family: var(--display); font-size: 2.1rem; line-height: 1; }
+.proxima__mes { font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; }
+.proxima__sabor { margin-top: 0.3rem; font-weight: 700; font-size: 0.85rem; line-height: 1.1; }
+.proxima--sabor a { --c: var(--sabor); color: var(--sabor-tinta); }
+.proxima--amarillo a { --c: var(--amarillo); }
+.proxima--verde a { --c: var(--verde); }
+.proxima--azul a { --c: #A9C8FF; }
+.proxima--naranja a { --c: var(--naranja); }
+.proxima--rosa a { --c: var(--rosa); }
+@media (prefers-reduced-motion: reduce) { .proxima a { transition: none; } }
+
 /* ---------- Dónde se sirve ---------- */
 .donde {
-  background: var(--tinta);
+  background: var(--confeti), var(--tinta);
   color: var(--rosa);
   padding: var(--seccion) var(--borde);
 }
 .donde .titulo { color: var(--amarillo); }
-.donde__rejilla { display: grid; gap: 2rem; }
-.donde__direccion {
-  font-style: normal;
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
-  line-height: 1.3;
+.donde .titulo span { color: var(--fucsia); }
+.donde__rejilla { display: grid; gap: 2.5rem; margin-top: clamp(1.5rem, 4vw, 2.5rem); align-items: start; }
+@media (min-width: 900px) { .donde__rejilla { grid-template-columns: 1.15fr 1fr; column-gap: 3.5rem; } }
+.mapa { margin: 0; }
+.mapa__svg {
+  display: block; width: 100%; height: auto;
+  border: 4px solid var(--papel); border-radius: 1.5rem;
+  box-shadow: 10px 10px 0 var(--fucsia);
+  rotate: -1.2deg;
 }
-.donde__direccion strong {
-  display: block;
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: 1.4em;
-  color: var(--papel);
+.mapa__pin { animation: salta 1.6s ease-in-out infinite; }
+@keyframes salta { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+@media (prefers-reduced-motion: reduce) { .mapa__pin { animation: none; } }
+.mapa figcaption { margin-top: 1.1rem; font-size: 0.95rem; font-weight: 600; }
+.mapa figcaption a { color: var(--papel); }
+.donde__fichas { display: grid; gap: 1rem; }
+.ficha {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1.1rem 1.2rem;
+  border: 3px solid var(--tinta); border-radius: 1.1rem;
+  box-shadow: 6px 6px 0 var(--papel);
+  color: var(--tinta);
+  font-style: normal; text-decoration: none;
+  rotate: var(--giro, 0deg);
 }
-.donde__datos { margin: 0; display: grid; gap: 1rem; }
-.donde__datos dt { font-weight: 700; color: var(--papel); }
-.donde__datos dd { margin: 0; }
-.donde__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+.ficha--amarillo { background: var(--amarillo); --giro: -1deg; }
+.ficha--fucsia { background: var(--rosa); --giro: 0.8deg; }
+.ficha--verde { background: var(--verde); --giro: -0.6deg; transition: translate 200ms var(--sale); }
+.ficha--verde:hover { translate: 0 -3px; }
+.ficha__icono {
+  display: grid; place-items: center; flex: none;
+  width: 2.8rem; height: 2.8rem; border-radius: 50%;
+  background: var(--tinta); color: var(--papel);
+}
+.ficha__icono .icono { width: 1.4rem; height: 1.4rem; }
+.ficha__texto { display: block; font-size: 1.05rem; line-height: 1.4; margin: 0; }
+.ficha__texto strong { display: block; font-family: var(--display); font-weight: 400; font-size: 1.5rem; line-height: 1.15; }
+.ficha__horario { display: grid; gap: 0.5rem; }
+.ficha__horario dt { font-weight: 700; }
+.ficha__horario dd { margin: 0; font-family: var(--display); font-size: 1.25rem; }
+.donde__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.4rem; margin-top: 0.6rem; }
+.donde__acciones .boton { background: var(--amarillo); border-color: var(--amarillo); color: var(--tinta); }
+.donde__acciones .boton .icono { width: 1.2rem; height: 1.2rem; }
 .enlace-ig {
   display: inline-flex; align-items: center; gap: 0.45rem;
   min-height: 2.75rem;
   font-weight: 600;
-}
-@media (min-width: 900px) {
-  .donde__rejilla { grid-template-columns: 1.2fr 1fr; column-gap: 4rem; }
-  .donde__acciones { grid-column: 1 / -1; }
 }
 
 /* ---------- Haz tu pedido ---------- */
