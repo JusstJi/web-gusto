@@ -199,10 +199,9 @@ html.con-intro .intro { align-content: center; gap: clamp(1.5rem, 5vh, 3rem); }
   height: auto;
   overflow: visible;
 }
-/* Boca abierta con la lengua fuera: lametón y la lengua crece hasta tapar la pantalla */
-.intro__boca { transform-origin: 50% 72%; }
+/* Boca abierta con la lengua fuera: lame y se acerca a la pantalla */
+.intro__boca { transform-origin: 50% 80%; }
 .intro__lengua { transform-box: view-box; transform-origin: 200px 186px; }
-.intro__lengua-crece { transform-box: view-box; transform-origin: 200px 280px; }
 .intro__saltar {
   position: absolute;
   top: max(1rem, env(safe-area-inset-top));

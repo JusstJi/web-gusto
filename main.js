@@ -4,7 +4,7 @@
   var raiz = document.documentElement;
   var movimientoReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Intro: la boca abierta da un lametón, la lengua crece y se abre la web ---------- */
+  /* ---------- Intro: la boca abierta lame y se acerca a la pantalla hasta abrir la web ---------- */
   function marcarVista() {
     try { sessionStorage.setItem('gusto-intro', '1'); } catch (e) {}
   }
@@ -16,7 +16,6 @@
     var boca = intro.querySelector('.intro__boca');
     var lema = intro.querySelector('.intro__lema');
     var lengua = intro.querySelector('.intro__lengua');
-    var lenguaCrece = intro.querySelector('.intro__lengua-crece');
     var saltar = document.getElementById('saltar-intro');
     var animaciones = [];
     var acabada = false;
@@ -60,27 +59,34 @@
       { transform: 'scale(1)', opacity: 1 }
     ], { duration: 320, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
 
-    // 2. Lametón: la lengua barre de lado a lado y, al volver, crece hasta tapar la pantalla
-    var lameton = animar(lengua, [
-      { transform: 'rotate(0deg) scale(1)' },
-      { transform: 'rotate(-14deg) scale(1, 0.9)', offset: 0.35 },
-      { transform: 'rotate(12deg) scale(1.05, 1.2)', offset: 0.75 },
-      { transform: 'rotate(0deg) scale(1)' }
-    ], { duration: 620, delay: 300, easing: 'cubic-bezier(0.45, 0, 0.55, 1)' });
-
-    // 3. La lengua se amplía hasta llenar la pantalla y aparece la portada
-    lameton.onfinish = function () {
-      if (acabada) return;
-      var px = boca.getBoundingClientRect().width / 372; // píxeles por unidad del dibujo
-      var crece = Math.max(window.innerWidth / (144 * px), window.innerHeight / (180 * px)) * 1.8;
-      animar(lema, [{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: 'ease-in' });
-      animar(lenguaCrece, [
-        { transform: 'rotate(0deg) scale(1)' },
-        { transform: 'rotate(-8deg) scale(' + (crece * 0.35).toFixed(1) + ')', offset: 0.5 },
-        { transform: 'rotate(-4deg) scale(' + crece.toFixed(1) + ')' }
-      ], { duration: 680, easing: 'cubic-bezier(0.55, 0, 0.75, 0.2)' });
-      animar(intro, [{ opacity: 1 }, { opacity: 1, offset: 0.62 }, { opacity: 0 }], { duration: 900, easing: 'linear' }).onfinish = terminar;
-    };
+    // 2. La lengua coge impulso, se estira, lame a los lados y la boca se acerca
+    //    a la pantalla como si lamiera el cristal; cuando la lengua lo tapa todo, aparece la portada
+    var px = (boca.clientWidth || boca.getBoundingClientRect().width) / 372; // píxeles por unidad del dibujo (sin la escala de la entrada)
+    var cerca = Math.max(window.innerWidth * 1.15 / (144 * 1.4 * px), window.innerHeight * 1.05 / (190 * px));
+    var dura = 1700, espera = 320;
+    var suave = 'cubic-bezier(0.45, 0, 0.55, 1)';
+    animar(lengua, [
+      { transform: 'rotate(0deg) scale(1, 1)', easing: suave },
+      { transform: 'rotate(0deg) scale(1.06, 0.72)', offset: 0.1, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1.3)' },
+      { transform: 'rotate(-4deg) scale(0.9, 1.45)', offset: 0.26, easing: suave },
+      { transform: 'rotate(-17deg) scale(0.94, 1.36)', offset: 0.39, easing: suave },
+      { transform: 'rotate(15deg) scale(0.94, 1.4)', offset: 0.53, easing: suave },
+      { transform: 'rotate(0deg) scale(1, 1.3)', offset: 0.63, easing: 'ease-in' },
+      { transform: 'rotate(0deg) scale(1.35, 1.05)', offset: 0.86, easing: 'ease-out' },
+      { transform: 'rotate(0deg) scale(1.4, 1)' }
+    ], { duration: dura, delay: espera });
+    animar(boca, [
+      { transform: 'scale(1)', opacity: 1 },
+      { transform: 'scale(1)', opacity: 1, offset: 0.6, easing: 'cubic-bezier(0.6, 0, 0.9, 0.4)' },
+      { transform: 'scale(' + cerca.toFixed(1) + ')', opacity: 1, offset: 0.88 },
+      { transform: 'scale(' + (cerca * 1.08).toFixed(1) + ')', opacity: 1 }
+    ], { duration: dura, delay: espera });
+    animar(lema, [
+      { opacity: 1 }, { opacity: 1, offset: 0.55 }, { opacity: 0, offset: 0.68 }, { opacity: 0 }
+    ], { duration: dura, delay: espera });
+    animar(intro, [
+      { opacity: 1 }, { opacity: 1, offset: 0.86 }, { opacity: 0 }
+    ], { duration: dura + 200, delay: espera }).onfinish = terminar;
 
     setTimeout(terminar, 4000);
   }
