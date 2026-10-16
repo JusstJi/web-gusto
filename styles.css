@@ -363,8 +363,9 @@ html.con-intro .intro { align-content: center; gap: clamp(1.5rem, 5vh, 3rem); }
   display: grid;
   justify-items: center;
   margin-inline: calc(50% - 50vw);
-  padding-bottom: clamp(5rem, 13vw, 9rem);
+  padding-bottom: clamp(3rem, 8vw, 5rem);
 }
+.ola { display: none !important; }
 .ola {
   --alto: clamp(6.5rem, 14vw, 10.5rem);
   position: absolute;
