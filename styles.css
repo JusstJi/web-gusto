@@ -1507,3 +1507,24 @@ dd.chefs .chefs-lista { margin-top: 0.3rem; }
 .cabecera__marca { border-radius: 0.4rem; transition: rotate 200ms var(--sale); rotate: -2deg; }
 .cabecera__marca:hover { rotate: 0deg; }
 .cabecera__marca img { height: clamp(2.3rem, 2.9vw, 2.75rem); width: auto; }
+
+/* ---------- Cabecera que acompaña al bajar ---------- */
+html { scroll-padding-top: 8rem; }
+.interior .cabecera { position: sticky; top: 0; z-index: 20; transition: box-shadow 200ms var(--sale); }
+.cabecera--fija { box-shadow: 0 3px 0 var(--tinta); }
+.inicio .cabecera.cabecera--fija {
+  position: fixed;
+  z-index: 20;
+  padding-bottom: 0.75rem;
+  background: var(--rosa);
+  animation: cabecera-baja 260ms var(--sale);
+}
+@keyframes cabecera-baja { from { translate: 0 -100%; } }
+@media (max-width: 899px) {
+  /* En móvil, fija y más baja: sin las explicaciones pequeñas del menú */
+  .cabecera.cabecera--fija { padding-top: 0.6rem; padding-bottom: 0.4rem; }
+  .cabecera--fija .cabecera__nav a span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .inicio .cabecera.cabecera--fija { animation: none; }
+}
