@@ -199,13 +199,9 @@ html.con-intro .intro { align-content: center; gap: clamp(1.5rem, 5vh, 3rem); }
   height: auto;
   overflow: visible;
 }
-/* Boca cerrada al empezar: los labios se mueven y luego sale la lengua */
-.intro__labios,
-.intro__abertura,
-.intro__lengua { transform-box: view-box; }
-.intro__labios { transform-origin: 200px 190px; }
-.intro__abertura { transform-origin: 200px 172px; transform: scaleY(0.08); }
-.intro__lengua { transform-origin: 200px 186px; transform: scaleY(0); }
+/* Boca abierta con la lengua fuera: lametón y zoom hacia la lengua */
+.intro__boca { transform-origin: 50% 72%; }
+.intro__lengua { transform-box: view-box; transform-origin: 200px 186px; }
 .intro__saltar {
   position: absolute;
   top: max(1rem, env(safe-area-inset-top));

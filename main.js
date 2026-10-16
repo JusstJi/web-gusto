@@ -4,7 +4,7 @@
   var raiz = document.documentElement;
   var movimientoReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Intro: la boca mueve los labios, saca la lengua y se abre la web ---------- */
+  /* ---------- Intro: la boca abierta da un lametón, se amplía y se abre la web ---------- */
   function marcarVista() {
     try { sessionStorage.setItem('gusto-intro', '1'); } catch (e) {}
   }
@@ -14,8 +14,7 @@
     if (!intro || !raiz.classList.contains('con-intro')) return;
 
     var boca = intro.querySelector('.intro__boca');
-    var labios = intro.querySelector('.intro__labios');
-    var abertura = intro.querySelector('.intro__abertura');
+    var lema = intro.querySelector('.intro__lema');
     var lengua = intro.querySelector('.intro__lengua');
     var saltar = document.getElementById('saltar-intro');
     var animaciones = [];
@@ -41,8 +40,6 @@
     if (!intro.animate) { setTimeout(terminar, 900); return; }
 
     if (movimientoReducido) {
-      abertura.style.transform = 'none';
-      lengua.style.transform = 'none';
       var fundido = intro.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 900, fill: 'forwards' });
       animaciones.push(fundido);
       fundido.onfinish = terminar;
@@ -56,45 +53,27 @@
       return a;
     }
 
-    // 1. La boca aparece de golpe
+    // 1. La boca aparece ya abierta, con la lengua fuera
     animar(boca, [
-      { transform: 'scale(0.4)', opacity: 0 },
-      { transform: 'scale(1.06)', opacity: 1, offset: 0.7 },
+      { transform: 'scale(0.5)', opacity: 0 },
       { transform: 'scale(1)', opacity: 1 }
-    ], { duration: 380, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+    ], { duration: 320, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
 
-    // 2. Los labios se mueven: se abren y cierran como saboreando
-    animar(abertura, [
-      { transform: 'scaleY(0.08)' },
-      { transform: 'scaleY(0.7)', offset: 0.2 },
-      { transform: 'scaleY(0.1)', offset: 0.4 },
-      { transform: 'scaleY(0.6)', offset: 0.6 },
-      { transform: 'scaleY(0.08)', offset: 0.78 },
-      { transform: 'scaleY(1)' }
-    ], { duration: 900, delay: 380, easing: 'ease-in-out' });
-    animar(labios, [
-      { transform: 'scale(1, 1)' },
-      { transform: 'scale(0.94, 1.08)', offset: 0.2 },
-      { transform: 'scale(1.06, 0.92)', offset: 0.4 },
-      { transform: 'scale(0.95, 1.06)', offset: 0.6 },
-      { transform: 'scale(1.08, 0.9)', offset: 0.78 },
-      { transform: 'scale(1, 1)' }
-    ], { duration: 900, delay: 380, easing: 'ease-in-out' });
-
-    // 3. Sale la lengua y da un lametón
+    // 2. Lametón
     var lameton = animar(lengua, [
-      { transform: 'rotate(0deg) scaleY(0)' },
-      { transform: 'rotate(0deg) scaleY(1.15)', offset: 0.3 },
-      { transform: 'rotate(-7deg) scaleY(1)', offset: 0.5 },
-      { transform: 'rotate(7deg) scaleY(1.05)', offset: 0.72 },
+      { transform: 'rotate(0deg) scaleY(1)' },
+      { transform: 'rotate(-14deg) scaleY(0.88)', offset: 0.3 },
+      { transform: 'rotate(14deg) scaleY(1.18)', offset: 0.65 },
       { transform: 'rotate(0deg) scaleY(1)' }
-    ], { duration: 850, delay: 1280, easing: 'cubic-bezier(0.45, 0, 0.55, 1)' });
+    ], { duration: 760, delay: 300, easing: 'cubic-bezier(0.45, 0, 0.55, 1)' });
 
-    // 4. La boca se acerca y la intro se funde con la web
+    // 3. Zoom hacia la lengua hasta llenar la pantalla y aparece la portada
     lameton.onfinish = function () {
       if (acabada) return;
-      animar(boca, [{ transform: 'scale(1)' }, { transform: 'scale(1.25)' }], { duration: 420, easing: 'ease-in' });
-      animar(intro, [{ opacity: 1 }, { opacity: 0 }], { duration: 420, easing: 'ease-in' }).onfinish = terminar;
+      var zoom = Math.max(window.innerWidth, window.innerHeight) / Math.max(boca.getBoundingClientRect().width, 1) * 6;
+      animar(lema, [{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease-in' });
+      animar(boca, [{ transform: 'scale(1)' }, { transform: 'scale(' + zoom.toFixed(1) + ')' }], { duration: 700, easing: 'cubic-bezier(0.7, 0, 0.84, 0)' });
+      animar(intro, [{ opacity: 1 }, { opacity: 1, offset: 0.55 }, { opacity: 0 }], { duration: 700, easing: 'linear' }).onfinish = terminar;
     };
 
     setTimeout(terminar, 4000);
