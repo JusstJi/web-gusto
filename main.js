@@ -36,12 +36,16 @@
 
   // p: x, y (raíz), L (largo), h (medio ancho), ang (grados, 90 = hacia abajo),
   //    curva (grados extra en la punta), onda (grados de ondulación), fase
+  function rampa(v) { v = Math.min(Math.max(v, 0), 1); return v * v * (3 - 2 * v); }
+
   function dibujarLengua(l, p) {
     var n = 18, paso = p.L / n, pts = [], i, t;
     var x = p.x, y = p.y;
     for (i = 0; i <= n; i++) {
       t = i / n;
-      var a = (p.ang + p.curva * Math.pow(t, 1.6) + p.onda * Math.sin(p.fase + t * 3.2) * t) * Math.PI / 180;
+      // Con "raiz", el arranque de la lengua se queda fijo bajo los dientes y solo se dobla el resto
+      var giro = p.raiz === undefined ? p.ang : p.raiz + (p.ang - p.raiz) * rampa(t / 0.45);
+      var a = (giro + p.curva * Math.pow(t, 1.6) + p.onda * Math.sin(p.fase + t * 3.2) * t * t) * Math.PI / 180;
       var h = p.h * (1 - 0.12 * t);
       pts.push({ x: x, y: y, a: a, h: h, nx: -Math.sin(a), ny: Math.cos(a) });
       x += Math.cos(a) * paso; y += Math.sin(a) * paso;
@@ -59,15 +63,15 @@
     for (i = n; i >= 0; i--) d += 'L' + punto(pts[i], -1);
     // La raíz se mete hacia dentro de la boca
     var r = pts[0];
-    d += 'L' + f(r.x - Math.cos(r.a) * r.h * 0.35 - r.nx * r.h) + ' ' + f(r.y - Math.sin(r.a) * r.h * 0.35 - r.ny * r.h);
-    d += 'L' + f(r.x - Math.cos(r.a) * r.h * 0.35 + r.nx * r.h) + ' ' + f(r.y - Math.sin(r.a) * r.h * 0.35 + r.ny * r.h) + 'Z';
+    d += 'L' + f(r.x - Math.cos(r.a) * r.h * 0.25 - r.nx * r.h) + ' ' + f(r.y - Math.sin(r.a) * r.h * 0.25 - r.ny * r.h);
+    d += 'L' + f(r.x - Math.cos(r.a) * r.h * 0.25 + r.nx * r.h) + ' ' + f(r.y - Math.sin(r.a) * r.h * 0.25 + r.ny * r.h) + 'Z';
     l.forma.setAttribute('d', d);
     // Bandas de color a lo largo de la lengua (se doblan con ella)
     var ext = { x: u.x + Math.cos(u.a) * u.h * 1.3, y: u.y + Math.sin(u.a) * u.h * 1.3, a: u.a, h: u.h * 1.4, nx: u.nx, ny: u.ny };
     var raizAtras = { x: r.x - Math.cos(r.a) * r.h * 0.5, y: r.y - Math.sin(r.a) * r.h * 0.5, a: r.a, h: r.h * 1.3, nx: r.nx, ny: r.ny };
     var todos = [raizAtras].concat(pts, [ext]);
     l.bandas.forEach(function (b, j) {
-      var k0 = 1.4 - j * 2.8 / 5, k1 = 1.4 - (j + 1) * 2.8 / 5;
+      var k0 = 1 - j * 0.4, k1 = 1 - (j + 1) * 0.4;
       if (j === 0) k0 = 3; if (j === 4) k1 = -3;
       var s = 'M' + punto(todos[0], k0), m;
       for (m = 1; m < todos.length; m++) s += 'L' + punto(todos[m], k0);
@@ -137,7 +141,7 @@
     function parar() { vivo = false; paradas.forEach(function (p) { p.parar && p.parar(); }); }
 
     var lengua = boca.__lengua || (boca.__lengua = crearLengua(boca, boca.querySelector('.boca__dientes')));
-    var p = { x: 200, y: 200, L: 20, h: 58, ang: 90, curva: 0, onda: 0, fase: 0 };
+    var p = { x: 200, y: 180, raiz: 90, L: 20, h: 58, ang: 90, curva: 0, onda: 0, fase: 0 };
     function dibujar(e, ahora) { e.fase = ahora / 140; dibujarLengua(lengua, e); }
     dibujarLengua(lengua, p);
 
@@ -147,11 +151,11 @@
 
     // Sale la lengua y se relame: rodea el labio de abajo y enrosca la punta hacia arriba en cada lado
     seguir(linea(p, [
-      { ms: 300, ease: sale, L: 70, onda: 4 },
-      { ms: 260, ease: rebote, L: 150, ang: 90, curva: -10, onda: 10 },
-      { ms: 330, ease: suave, L: 175, ang: 138, curva: 85, onda: 8 },
-      { ms: 480, ease: suave, L: 180, ang: 42, curva: -85, onda: 8 },
-      { ms: 300, ease: suave, L: 150, ang: 90, curva: 0, onda: 6 }
+      { ms: 300, ease: sale, L: 90, onda: 4 },
+      { ms: 260, ease: rebote, L: 170, ang: 90, curva: -10, onda: 10 },
+      { ms: 330, ease: suave, L: 195, ang: 145, curva: 80, onda: 8 },
+      { ms: 480, ease: suave, L: 200, ang: 35, curva: -80, onda: 8 },
+      { ms: 300, ease: suave, L: 170, ang: 90, curva: 0, onda: 6 }
     ], dibujar)).then(function () {
       if (!vivo) return;
       lema.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' });
@@ -239,7 +243,7 @@
     if (movimientoReducido) {
       // Sin movimiento: la boca con la lengua fuera, quieta, y un fundido suave
       var boca = intro.querySelector('.intro__boca');
-      dibujarLengua(crearLengua(boca, boca.querySelector('.boca__dientes')), { x: 200, y: 200, L: 150, h: 58, ang: 90, curva: 0, onda: 0, fase: 0 });
+      dibujarLengua(crearLengua(boca, boca.querySelector('.boca__dientes')), { x: 200, y: 180, raiz: 90, L: 150, h: 58, ang: 90, curva: 0, onda: 0, fase: 0 });
       intro.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 900, fill: 'forwards' }).onfinish = terminar;
       return;
     }
