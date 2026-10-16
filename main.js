@@ -215,6 +215,7 @@
   function iniciarIntro() {
     var intro = document.getElementById('intro');
     if (!intro || !raiz.classList.contains('con-intro')) return;
+    decorarIntro();
 
     var saltar = document.getElementById('saltar-intro');
     var parar = null;
@@ -302,6 +303,32 @@
       if (!sec.classList.contains('portada')) sec.classList.add('con-deco');
       sec.insertBefore(capa, sec.firstChild.nextSibling);
     });
+  }
+
+  // La intro también lleva pegatinas: por toda la pantalla menos el centro, donde están el lema y la boca
+  function decorarIntro() {
+    var fondo = document.querySelector('.intro__fondo');
+    if (!fondo) return;
+    var nombres = Object.keys(PEGATINAS);
+    var tintas = ['fucsia', 'naranja', 'amarillo', 'verde', 'azul', 'papel'];
+    var semilla = 3;
+    function azar() { semilla = (semilla * 9301 + 49297) % 233280; return semilla / 233280; }
+    var html = '';
+    for (var i = 0; i < 30; i++) {
+      var x, y, intentos = 0;
+      do { x = azar() * 104 - 4; y = azar() * 100 - 2; intentos++; }
+      while (((x > 18 && x < 76 && y > 10 && y < 84) || (x > 80 && y < 11)) && intentos < 40);
+      var forma = nombres[i % nombres.length];
+      var tinta = TINTAS[tintas[Math.floor(azar() * tintas.length)]];
+      var trazo = forma === 'garabato' || forma === 'aro' || forma === 'espiral';
+      html += '<svg class="deco__pieza deco__pieza--entra" viewBox="0 0 100 100" style="left:' + x.toFixed(1) + '%;top:' + y.toFixed(1) + '%;width:' + (2 + azar() * 3.2).toFixed(2) + 'rem;--giro:' + Math.round(azar() * 60 - 30) + 'deg;--dura:' + (4 + azar() * 4).toFixed(1) + 's;--retraso:-' + (azar() * 6).toFixed(1) + 's;--entra:' + Math.round(i * 25) + 'ms"' +
+        (trazo ? ' stroke="' + tinta + '" fill="none"' : ' fill="' + tinta + '"') + '>' +
+        '<g class="deco__sombra" transform="translate(5 5)">' + PEGATINAS[forma] + '</g>' + PEGATINAS[forma] + '</svg>';
+    }
+    var capa = document.createElement('div');
+    capa.className = 'deco';
+    capa.innerHTML = html;
+    fondo.appendChild(capa);
   }
 
   /* ---------- Estado de la edición según la fecha ---------- */
