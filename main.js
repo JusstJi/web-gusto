@@ -536,6 +536,9 @@
   var FIESTAS = [
     { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' }
   ];
+  // Viernes de Gusto se celebra cada dos viernes en New La Miel (Ji, 16/10/2026).
+  // Las fechas que no están en FIESTAS salen con el sabor por desvelar.
+  var CADA_DOS_VIERNES_DESDE = '2026-10-16';
   var PRIMER_MES = [2026, 9];  // octubre 2026 (los meses empiezan en 0)
   var NUM_MESES = 9;           // hasta junio 2027
 
@@ -553,6 +556,11 @@
     var claveHoy = clave(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
     var indice = 0;
 
+    var inicioCiclo = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00');
+    function toca(a, m, d) {
+      var dias = Math.round((new Date(a, m, d, 12) - inicioCiclo) / 86400000);
+      return dias >= 0 && dias % 14 === 0;
+    }
     function clave(a, m, d) { return a + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0'); }
     function mesDe(i) { var m = PRIMER_MES[1] + i; return [PRIMER_MES[0] + Math.floor(m / 12), m % 12]; }
 
@@ -575,13 +583,15 @@
       for (var d = 1; d <= total; d++) {
         var c = clave(a, m, d);
         var fiesta = FIESTAS.filter(function (f) { return f.fecha === c; })[0];
+        if (!fiesta && toca(a, m, d)) fiesta = { fecha: c, sabor: '', enlace: 'la-carta.html' };
         var clases = [];
         if (c < claveHoy) clases.push('dia-pasado');
         if (c === claveHoy) clases.push('dia-hoy');
         if (fiesta) {
           hayFiesta = true;
           clases.push('dia-gusto');
-          html += '<td class="' + clases.join(' ') + '"><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + fiesta.sabor + '">' + d + '<span>' + fiesta.sabor + '</span></a></td>';
+          if (!fiesta.sabor) clases.push('dia-sorpresa');
+          html += '<td class="' + clases.join(' ') + '"><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + (fiesta.sabor || 'sabor por desvelar') + '">' + d + '<span aria-hidden="true">' + (fiesta.sabor || '¿?') + '</span></a></td>';
         } else {
           html += '<td' + (clases.length ? ' class="' + clases.join(' ') + '"' : '') + (c === claveHoy ? ' aria-current="date"' : '') + '>' + d + '</td>';
         }
