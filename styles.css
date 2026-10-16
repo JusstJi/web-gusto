@@ -702,6 +702,21 @@ dd.por-desvelar { justify-self: start; }
 .pedido a:not(.boton) { color: var(--papel); }
 .pedido .titulo { color: var(--papel); font-size: clamp(3rem, 12vw, 7rem); }
 .pedido__texto { max-width: 34ch; margin: 0 auto 2rem; font-size: 1.2rem; font-weight: 600; }
+.precios {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem;
+  margin: 0 0 0.6rem; padding: 0; list-style: none;
+}
+.precios li {
+  display: grid; place-items: center;
+  width: 5.5rem; height: 5.5rem;
+  border-radius: 50%;
+  border: 3px solid var(--sabor-tinta);
+  font-family: var(--display);
+  font-size: 1.9rem;
+  color: var(--papel);
+}
+.pedido__nota { margin-bottom: 2rem; font-weight: 600; }
+.chefs { font-weight: 700; }
 .pedido__pasada { max-width: 40ch; margin: 0 auto; font-size: 1.15rem; font-weight: 600; }
 
 /* ---------- Preguntas ---------- */
@@ -780,3 +795,5 @@ dd.por-desvelar { justify-self: start; }
   [data-parallax] { transform: none !important; }
   .barra-pedido { transition-property: opacity; }
 }
+.evento-pasado .precios,
+.evento-pasado .pedido__nota { display: none; }

@@ -84,7 +84,7 @@
 
   /* ---------- Estado de la edición según la fecha ---------- */
   var EDICION = {
-    inicio: new Date('2026-10-16T23:00:00+02:00'),
+    inicio: new Date('2026-10-17T00:00:00+02:00'),
     fin: new Date('2026-10-17T04:30:00+02:00')
   };
 
