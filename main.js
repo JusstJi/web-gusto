@@ -155,7 +155,8 @@
       { ms: 260, ease: rebote, L: 170, ang: 90, curva: -10, onda: 10 },
       { ms: 330, ease: suave, L: 195, ang: 145, curva: 80, onda: 8 },
       { ms: 480, ease: suave, L: 200, ang: 35, curva: -80, onda: 8 },
-      { ms: 300, ease: suave, L: 170, ang: 90, curva: 0, onda: 6 }
+      { ms: 300, ease: suave, L: 170, ang: 90, curva: 0, onda: 6 },
+      { ms: 450, ease: suave, L: 175, onda: 14 }
     ], dibujar)).then(function () {
       if (!vivo) return;
       lema.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' });
@@ -216,6 +217,7 @@
     var intro = document.getElementById('intro');
     if (!intro || !raiz.classList.contains('con-intro')) return;
     decorarIntro();
+    letrasLema();
 
     var saltar = document.getElementById('saltar-intro');
     var parar = null;
@@ -250,7 +252,7 @@
     }
 
     parar = animarIntroBoca(intro, 'pantalla', terminar);
-    setTimeout(terminar, 4000);
+    setTimeout(terminar, 4500);
   }
 
   /* ---------- Decoración de fondo: pegatinas de colores que flotan ---------- */
@@ -302,6 +304,23 @@
       capa.innerHTML = html;
       if (!sec.classList.contains('portada')) sec.classList.add('con-deco');
       sec.insertBefore(capa, sec.firstChild.nextSibling);
+    });
+  }
+
+  // El lema de la intro: cada letra cae por separado y «colores» lleva una tinta por letra
+  function letrasLema() {
+    var colores = ['#FF3EA5', '#FF7A1A', '#FFE14D', '#19C27A', '#3A5BFF'];
+    var n = 0;
+    document.querySelectorAll('.intro__linea').forEach(function (linea) {
+      var esColores = linea.classList.contains('intro__linea--colores');
+      var html = '';
+      Array.prototype.forEach.call(linea.textContent, function (ch, i) {
+        if (ch === ' ') { html += ' '; return; }
+        var estilo = '--d:' + (esColores ? 260 + i * 70 : n++ * 30) + 'ms;--r:' + (i % 2 ? 25 : -25) + 'deg;--r2:' + (i % 2 ? -5 : 5) + 'deg';
+        if (esColores) estilo += ';--c:' + colores[i % colores.length];
+        html += '<span class="intro__letra" style="' + estilo + '">' + ch + '</span>';
+      });
+      linea.innerHTML = html;
     });
   }
 

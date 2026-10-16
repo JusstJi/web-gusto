@@ -187,11 +187,38 @@ html.con-intro .intro {
 }
 .intro__lema {
   font-family: var(--display);
-  font-size: clamp(2.6rem, 10vw, 5.5rem);
-  line-height: 1;
+  line-height: 0.95;
   text-align: center;
   color: var(--azul-tinta);
   text-shadow: 0.04em 0.035em 0 var(--fucsia);
+}
+.intro__linea { display: block; font-size: clamp(2.1rem, 8.5vw, 4.2rem); }
+/* «colores» en grande, cada letra de un color, con sombra de tinta como una pegatina */
+.intro__linea--colores {
+  font-size: clamp(4.6rem, 21vw, 10.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-shadow: 0.045em 0.045em 0 var(--tinta);
+}
+.intro__letra {
+  display: inline-block;
+  animation: cae 640ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--d) backwards;
+}
+.intro__linea--colores .intro__letra {
+  color: var(--c);
+  animation: cae 700ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--d) backwards,
+             baila 1.1s ease-in-out calc(var(--d) + 700ms) infinite;
+}
+@keyframes cae {
+  from { transform: translateY(-70vh) rotate(var(--r, -25deg)) scale(1.4); opacity: 0; }
+  40% { opacity: 1; }
+}
+@keyframes baila {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50% { translate: 0 -0.1em; rotate: var(--r2, 4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro__letra { animation: none !important; }
 }
 html.con-intro .intro { align-content: center; gap: clamp(1.5rem, 5vh, 3rem); }
 .intro__boca {
