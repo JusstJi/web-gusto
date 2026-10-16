@@ -263,6 +263,13 @@
     mover();
   }
 
+  /* En móvil, el menú deja a la vista la página actual */
+  var actual = document.querySelector('.cabecera__nav [aria-current="page"]');
+  if (actual) {
+    var menu = actual.closest('.cabecera__nav');
+    menu.scrollLeft = actual.offsetLeft - (menu.clientWidth - actual.offsetWidth) / 2;
+  }
+
   iniciarIntro();
   actualizarEdicion();
   vigilar();
