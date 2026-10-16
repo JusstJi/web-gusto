@@ -1528,3 +1528,14 @@ html { scroll-padding-top: 8rem; }
 @media (prefers-reduced-motion: reduce) {
   .inicio .cabecera.cabecera--fija { animation: none; }
 }
+
+/* iPhone: Safari deja ver la página por encima de la barra fija (bajo la hora). La cabecera tapa ese hueco con su rosa */
+.cabecera--fija::before,
+.interior .cabecera::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 100%;
+  height: 50vh;
+  background: var(--rosa);
+  pointer-events: none;
+}
