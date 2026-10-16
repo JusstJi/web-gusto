@@ -84,12 +84,15 @@ body {
   line-height: 1.5;
   caret-color: var(--fucsia);
   overflow-x: clip;
+  position: relative;
 }
 
-/* Grano de risografía sobre todo */
+/* Grano de risografía sobre todo. Va pegado al documento y no fijo a la pantalla:
+   Safari en iPhone colorea la zona de la hora con el elemento fijo de arriba, y si fuera
+   este velo transparente dejaría ver la página por detrás en vez del rosa de la cabecera */
 body::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 90;
   pointer-events: none;
