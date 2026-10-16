@@ -1502,3 +1502,12 @@ dd.chefs .chefs-lista { margin-top: 0.3rem; }
   white-space: nowrap;
 }
 .precios { margin-bottom: 1.6rem; }
+
+/* Logo de Gusto (el oficial) como pegatina */
+.cabecera__marca { border-radius: 0.7rem; rotate: -2deg; transition: rotate 200ms var(--sale); }
+.cabecera__marca:hover { rotate: 0deg; }
+.cabecera__marca img {
+  height: clamp(2.75rem, 3.4vw, 3.2rem); width: auto;
+  border: 2.5px solid var(--tinta); border-radius: 0.7rem;
+  box-shadow: 3px 3px 0 var(--tinta);
+}
