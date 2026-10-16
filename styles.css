@@ -1099,7 +1099,7 @@ a.probar[href]:hover { background: #1ED760; color: var(--tinta); transform: scal
 }
 .chef__foto {
   flex: none; display: grid; place-items: center; overflow: hidden;
-  width: 2.9rem; height: 2.9rem; border-radius: 50%;
+  width: 3.4rem; height: 3.4rem; border-radius: 50%;
   border: 3px solid var(--tinta); box-shadow: 3px 3px 0 var(--tinta);
   font-family: var(--display); font-size: 1rem; line-height: 1; color: var(--tinta);
   transition: transform 160ms var(--sale);
