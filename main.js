@@ -729,6 +729,23 @@
     pintar();
   }
 
+
+  /* La cabecera acompaña al bajar: en la portada se fija al pasar el primer bloque; en el resto ya va pegada arriba */
+  function iniciarCabeceraFija() {
+    var cab = document.querySelector('.cabecera');
+    if (!cab) return;
+    var umbral = function () { return cab.offsetHeight + 40; };
+    var ticking = false;
+    var revisar = function () {
+      ticking = false;
+      cab.classList.toggle('cabecera--fija', (window.scrollY || 0) > umbral());
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(revisar); }
+    }, { passive: true });
+    revisar();
+  }
+
   /* En móvil, el menú deja a la vista la página actual */
   var menu = document.querySelector('.cabecera__nav');
   var actual = document.querySelector('.cabecera__nav [aria-current="page"]');
@@ -748,4 +765,5 @@
   iniciarLuces();
   iniciarCalendario(); iniciarProximas();
   iniciarParallax();
+  iniciarCabeceraFija();
 })();
