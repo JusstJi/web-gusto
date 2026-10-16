@@ -187,23 +187,25 @@ html.con-intro .intro {
 }
 .intro__lema {
   font-family: var(--display);
-  font-size: clamp(2.8rem, 11vw, 6rem);
+  font-size: clamp(2.6rem, 10vw, 5.5rem);
   line-height: 1;
   text-align: center;
   color: var(--azul-tinta);
   text-shadow: 0.04em 0.035em 0 var(--fucsia);
-  padding-bottom: 22vh;
 }
-.intro__lengua {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: min(46vw, 15rem);
+html.con-intro .intro { align-content: center; gap: clamp(1.5rem, 5vh, 3rem); }
+.intro__boca {
+  width: min(72vw, 30rem);
   height: auto;
-  transform: translate(-50%, 100%);
-  transform-origin: 50% 100%;
-  will-change: transform;
+  overflow: visible;
 }
+/* Boca cerrada al empezar: los labios se mueven y luego sale la lengua */
+.intro__labios,
+.intro__abertura,
+.intro__lengua { transform-box: view-box; }
+.intro__labios { transform-origin: 200px 190px; }
+.intro__abertura { transform-origin: 200px 172px; transform: scaleY(0.08); }
+.intro__lengua { transform-origin: 200px 186px; transform: scaleY(0); }
 .intro__saltar {
   position: absolute;
   top: max(1rem, env(safe-area-inset-top));

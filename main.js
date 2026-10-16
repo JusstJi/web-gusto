@@ -4,7 +4,7 @@
   var raiz = document.documentElement;
   var movimientoReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Intro: la lengua da un lametón y se abre la web ---------- */
+  /* ---------- Intro: la boca mueve los labios, saca la lengua y se abre la web ---------- */
   function marcarVista() {
     try { sessionStorage.setItem('gusto-intro', '1'); } catch (e) {}
   }
@@ -13,8 +13,10 @@
     var intro = document.getElementById('intro');
     if (!intro || !raiz.classList.contains('con-intro')) return;
 
+    var boca = intro.querySelector('.intro__boca');
+    var labios = intro.querySelector('.intro__labios');
+    var abertura = intro.querySelector('.intro__abertura');
     var lengua = intro.querySelector('.intro__lengua');
-    var lema = intro.querySelector('.intro__lema');
     var saltar = document.getElementById('saltar-intro');
     var animaciones = [];
     var acabada = false;
@@ -39,44 +41,60 @@
     if (!intro.animate) { setTimeout(terminar, 900); return; }
 
     if (movimientoReducido) {
-      lengua.style.display = 'none';
+      abertura.style.transform = 'none';
+      lengua.style.transform = 'none';
       var fundido = intro.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 900, fill: 'forwards' });
       animaciones.push(fundido);
       fundido.onfinish = terminar;
       return;
     }
 
-    // Escala para que la lengua tape toda la pantalla al pasar
-    var caja = lengua.getBoundingClientRect();
-    var ancho = caja.width || 200;
-    var alto = ancho * 1.3;
-    var tapa = Math.max(window.innerWidth / ancho, window.innerHeight / alto) * 1.7;
+    function animar(el, pasos, opciones) {
+      opciones.fill = 'forwards';
+      var a = el.animate(pasos, opciones);
+      animaciones.push(a);
+      return a;
+    }
 
-    var asoma = lengua.animate([
-      { transform: 'translate(-50%, 100%)' },
-      { transform: 'translate(-50%, 38%)' }
-    ], { duration: 420, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' });
-    animaciones.push(asoma);
+    // 1. La boca aparece de golpe
+    animar(boca, [
+      { transform: 'scale(0.4)', opacity: 0 },
+      { transform: 'scale(1.06)', opacity: 1, offset: 0.7 },
+      { transform: 'scale(1)', opacity: 1 }
+    ], { duration: 380, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
 
-    asoma.onfinish = function () {
+    // 2. Los labios se mueven: se abren y cierran como saboreando
+    animar(abertura, [
+      { transform: 'scaleY(0.08)' },
+      { transform: 'scaleY(0.7)', offset: 0.2 },
+      { transform: 'scaleY(0.1)', offset: 0.4 },
+      { transform: 'scaleY(0.6)', offset: 0.6 },
+      { transform: 'scaleY(0.08)', offset: 0.78 },
+      { transform: 'scaleY(1)' }
+    ], { duration: 900, delay: 380, easing: 'ease-in-out' });
+    animar(labios, [
+      { transform: 'scale(1, 1)' },
+      { transform: 'scale(0.94, 1.08)', offset: 0.2 },
+      { transform: 'scale(1.06, 0.92)', offset: 0.4 },
+      { transform: 'scale(0.95, 1.06)', offset: 0.6 },
+      { transform: 'scale(1.08, 0.9)', offset: 0.78 },
+      { transform: 'scale(1, 1)' }
+    ], { duration: 900, delay: 380, easing: 'ease-in-out' });
+
+    // 3. Sale la lengua y da un lametón
+    var lameton = animar(lengua, [
+      { transform: 'rotate(0deg) scaleY(0)' },
+      { transform: 'rotate(0deg) scaleY(1.15)', offset: 0.3 },
+      { transform: 'rotate(-7deg) scaleY(1)', offset: 0.5 },
+      { transform: 'rotate(7deg) scaleY(1.05)', offset: 0.72 },
+      { transform: 'rotate(0deg) scaleY(1)' }
+    ], { duration: 850, delay: 1280, easing: 'cubic-bezier(0.45, 0, 0.55, 1)' });
+
+    // 4. La boca se acerca y la intro se funde con la web
+    lameton.onfinish = function () {
       if (acabada) return;
-      var lameton = lengua.animate([
-        { transform: 'translate(-50%, 38%) rotate(0deg) scale(1)' },
-        { transform: 'translate(-50%, 46%) rotate(4deg) scale(1.08)', offset: 0.14 },
-        { transform: 'translate(-50%, 0%) rotate(-6deg) scale(' + tapa + ')', offset: 0.55 },
-        { transform: 'translate(-50%, -' + Math.round(window.innerHeight * 1.2 + 40) + 'px) rotate(-10deg) scale(' + tapa + ')' }
-      ], { duration: 1050, easing: 'cubic-bezier(0.55, 0, 0.35, 1)', fill: 'forwards' });
-      animaciones.push(lameton);
-
-      // Cuando la lengua tapa la pantalla, el fondo rosa y el lema se van: al salir deja ver la web
-      var fondo = intro.animate([
-        { backgroundColor: getComputedStyle(intro).backgroundColor },
-        { backgroundColor: 'rgba(247, 168, 216, 0)' }
-      ], { duration: 60, delay: 560, fill: 'forwards' });
-      var lemaFuera = lema.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 60, delay: 560, fill: 'forwards' });
-      animaciones.push(fondo, lemaFuera);
-
-      lameton.onfinish = terminar;
+      animar(boca, [{ transform: 'scale(1)' }, { transform: 'scale(1.25)' }], { duration: 420, easing: 'ease-in' });
+      animar(intro, [{ opacity: 1 }, { opacity: 0 }], { duration: 420, easing: 'ease-in' }).onfinish = terminar;
     };
 
     setTimeout(terminar, 4000);

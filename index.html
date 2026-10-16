@@ -98,20 +98,34 @@
 <body class="inicio">
   <div class="intro" id="intro" aria-hidden="true">
     <p class="intro__lema">Para gustos,<br>los colores</p>
-    <svg class="intro__lengua" viewBox="0 0 200 260" focusable="false">
+    <svg class="intro__boca" viewBox="16 58 372 324" focusable="false">
       <defs>
-        <clipPath id="forma-lengua">
-          <path d="M20 260V108C20 48 56 6 100 6s80 42 80 102v152Z"/>
+        <clipPath id="forma-lengua-intro">
+          <path d="M128 196c0-20 144-20 144 0v104c0 44-32 76-72 76s-72-32-72-76Z"/>
         </clipPath>
       </defs>
-      <g clip-path="url(#forma-lengua)">
-        <rect x="0" y="0" width="52" height="260" fill="#FF3EA5"/>
-        <rect x="52" y="0" width="32" height="260" fill="#FF7A1A"/>
-        <rect x="84" y="0" width="32" height="260" fill="#FFE14D"/>
-        <rect x="116" y="0" width="32" height="260" fill="#19C27A"/>
-        <rect x="148" y="0" width="52" height="260" fill="#3A5BFF"/>
-        <path d="M100 64v170" stroke="#1E1033" stroke-opacity=".22" stroke-width="7" stroke-linecap="round" fill="none"/>
-        <ellipse cx="62" cy="118" rx="11" ry="32" fill="#fff" fill-opacity=".38" transform="rotate(-12 62 118)"/>
+      <g class="intro__labios">
+        <path class="boca__sombra" d="M30 170C70 92 150 66 200 104c50-38 130-12 170 66-30 92-100 140-170 140S60 262 30 170Z" transform="translate(9 8)"/>
+        <path class="boca__labios" d="M30 170C70 92 150 66 200 104c50-38 130-12 170 66-30 92-100 140-170 140S60 262 30 170Z"/>
+        <g class="intro__abertura">
+          <path class="boca__dentro" d="M74 170c44-30 208-30 252 0-26 58-70 88-126 88S100 228 74 170Z"/>
+          <path class="boca__dientes" d="M98 162c40-18 164-18 204 0l-6 22c-40-10-152-10-192 0Z"/>
+          <path class="boca__raya" d="M150 156v24M200 152v28M250 156v24"/>
+        </g>
+        <ellipse class="boca__brillo" cx="118" cy="122" rx="30" ry="9" transform="rotate(-20 118 122)"/>
+        <ellipse class="boca__brillo" cx="284" cy="122" rx="30" ry="9" transform="rotate(20 284 122)"/>
+        <ellipse class="boca__brillo" cx="200" cy="286" rx="46" ry="8"/>
+      </g>
+      <g class="intro__lengua">
+        <g clip-path="url(#forma-lengua-intro)">
+          <rect x="120" y="180" width="36" height="210" fill="#FF3EA5"/>
+          <rect x="156" y="180" width="30" height="210" fill="#FF7A1A"/>
+          <rect x="186" y="180" width="28" height="210" fill="#FFE14D"/>
+          <rect x="214" y="180" width="30" height="210" fill="#19C27A"/>
+          <rect x="244" y="180" width="36" height="210" fill="#3A5BFF"/>
+          <path d="M200 214v120" stroke="#1E1033" stroke-opacity=".25" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <ellipse cx="160" cy="262" rx="9" ry="26" fill="#fff" fill-opacity=".4" transform="rotate(-10 160 262)"/>
+        </g>
       </g>
     </svg>
     <button class="intro__saltar" type="button" id="saltar-intro">Saltar</button>
