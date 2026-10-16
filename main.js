@@ -115,7 +115,7 @@
     }
   }
 
-  /* ---------- Barra de pedido y plato giratorio ---------- */
+  /* ---------- Barra de pedido y boca animada ---------- */
   function vigilar() {
     if (!('IntersectionObserver' in window)) return;
 
@@ -133,7 +133,7 @@
     if (barra && ticket) obs.observe(ticket);
     if (barra && pedido) obs.observe(pedido);
 
-    var plato = document.querySelector('.plato');
+    var plato = document.querySelector('.boca');
     if (plato) {
       new IntersectionObserver(function (entradas) {
         plato.classList.toggle('quieto', !entradas[0].isIntersecting);
@@ -263,6 +263,77 @@
     mover();
   }
 
+  /* ---------- Calendario de varios meses ----------
+     Para añadir una fiesta, añade una línea a FIESTAS. */
+  var FIESTAS = [
+    { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' }
+  ];
+  var PRIMER_MES = [2026, 9];  // octubre 2026 (los meses empiezan en 0)
+  var NUM_MESES = 9;           // hasta junio 2027
+
+  function iniciarCalendario() {
+    var caja = document.querySelector('[data-calendario]');
+    if (!caja) return;
+    var titulo = caja.querySelector('figcaption');
+    var tabla = caja.querySelector('[data-mes-tabla]');
+    var nota = caja.querySelector('[data-mes-nota]');
+    var anterior = caja.querySelector('[data-mes-anterior]');
+    var siguiente = caja.querySelector('[data-mes-siguiente]');
+    var nombres = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    var dias = [['L', 'lunes'], ['M', 'martes'], ['X', 'miércoles'], ['J', 'jueves'], ['V', 'viernes'], ['S', 'sábado'], ['D', 'domingo']];
+    var hoy = new Date();
+    var claveHoy = clave(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+    var indice = 0;
+
+    function clave(a, m, d) { return a + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0'); }
+    function mesDe(i) { var m = PRIMER_MES[1] + i; return [PRIMER_MES[0] + Math.floor(m / 12), m % 12]; }
+
+    // Empieza en el mes actual si está dentro del calendario
+    for (var k = 0; k < NUM_MESES; k++) {
+      var mk = mesDe(k);
+      if (mk[0] === hoy.getFullYear() && mk[1] === hoy.getMonth()) indice = k;
+    }
+
+    function pintar() {
+      var am = mesDe(indice), a = am[0], m = am[1];
+      titulo.textContent = nombres[m] + ' ' + a;
+      var hueco = (new Date(a, m, 1).getDay() + 6) % 7;
+      var total = new Date(a, m + 1, 0).getDate();
+      var html = '<table><thead><tr>' + dias.map(function (d) {
+        return '<th scope="col" abbr="' + d[1] + '">' + d[0] + '</th>';
+      }).join('') + '</tr></thead><tbody><tr>';
+      var celdas = 0, hayFiesta = false;
+      for (var h = 0; h < hueco; h++) { html += '<td></td>'; celdas++; }
+      for (var d = 1; d <= total; d++) {
+        var c = clave(a, m, d);
+        var fiesta = FIESTAS.filter(function (f) { return f.fecha === c; })[0];
+        var clases = [];
+        if (c < claveHoy) clases.push('dia-pasado');
+        if (c === claveHoy) clases.push('dia-hoy');
+        if (fiesta) {
+          hayFiesta = true;
+          clases.push('dia-gusto');
+          html += '<td class="' + clases.join(' ') + '"><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + fiesta.sabor + '">' + d + '<span>' + fiesta.sabor + '</span></a></td>';
+        } else {
+          html += '<td' + (clases.length ? ' class="' + clases.join(' ') + '"' : '') + (c === claveHoy ? ' aria-current="date"' : '') + '>' + d + '</td>';
+        }
+        celdas++;
+        if (celdas % 7 === 0 && d < total) html += '</tr><tr>';
+      }
+      while (celdas % 7 !== 0) { html += '<td></td>'; celdas++; }
+      tabla.innerHTML = html + '</tr></tbody></table>';
+      nota.hidden = hayFiesta;
+      anterior.disabled = indice === 0;
+      siguiente.disabled = indice === NUM_MESES - 1;
+    }
+
+    anterior.hidden = false;
+    siguiente.hidden = false;
+    anterior.addEventListener('click', function () { if (indice > 0) { indice--; pintar(); } });
+    siguiente.addEventListener('click', function () { if (indice < NUM_MESES - 1) { indice++; pintar(); } });
+    pintar();
+  }
+
   /* En móvil, el menú deja a la vista la página actual */
   var actual = document.querySelector('.cabecera__nav [aria-current="page"]');
   if (actual) {
@@ -274,5 +345,6 @@
   actualizarEdicion();
   vigilar();
   iniciarLuces();
+  iniciarCalendario();
   iniciarParallax();
 })();

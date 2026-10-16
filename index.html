@@ -14,7 +14,7 @@
   <meta property="og:image" content="og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Viernes de Gusto: el plato de colores con el DJ en el centro y una lengua multicolor">
+  <meta property="og:image:alt" content="Viernes de Gusto: una boca que saca una lengua multicolor">
   <meta property="og:locale" content="es_ES">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Viernes de Gusto · New La Miel, Burgos">
@@ -143,25 +143,33 @@
       </h1>
       <p class="portada__lema">Un sabor por noche · el DJ en el centro y todos alrededor</p>
 
-      <figure class="plato" data-parallax="0.16" aria-label="La pista vista desde arriba: la cabina del DJ en el centro y la gente bailando alrededor">
-        <svg class="plato__svg" viewBox="0 0 400 400" focusable="false" aria-hidden="true">
-          <circle class="plato__aro plato__aro--1" cx="200" cy="200" r="196"/>
-          <circle class="plato__aro plato__aro--2" cx="206" cy="194" r="150"/>
-          <circle class="plato__aro plato__aro--3" cx="196" cy="204" r="104"/>
-          <circle class="plato__aro plato__aro--4" cx="200" cy="200" r="58"/>
-          <g class="plato__gente plato__gente--fuera">
-            <circle cx="200" cy="34" r="9"/><circle cx="317" cy="83" r="8"/><circle cx="366" cy="200" r="9"/>
-            <circle cx="317" cy="317" r="8"/><circle cx="200" cy="366" r="9"/><circle cx="83" cy="317" r="8"/>
-            <circle cx="34" cy="200" r="9"/><circle cx="83" cy="83" r="8"/><circle cx="262" cy="45" r="7"/>
-            <circle cx="355" cy="262" r="7"/><circle cx="138" cy="355" r="7"/><circle cx="45" cy="138" r="7"/>
-          </g>
-          <g class="plato__gente plato__gente--dentro">
-            <circle cx="200" cy="77" r="8"/><circle cx="323" cy="200" r="8"/><circle cx="200" cy="323" r="8"/>
-            <circle cx="77" cy="200" r="8"/><circle cx="287" cy="113" r="7"/><circle cx="287" cy="287" r="7"/>
-            <circle cx="113" cy="287" r="7"/><circle cx="113" cy="113" r="7"/>
+      <figure class="boca" data-parallax="0.16" aria-label="Una boca que saca una lengua de colores: un sabor por noche">
+        <svg class="boca__svg" viewBox="16 58 372 324" focusable="false" aria-hidden="true">
+          <defs>
+            <clipPath id="forma-lengua-hero">
+              <path d="M128 196c0-20 144-20 144 0v104c0 44-32 76-72 76s-72-32-72-76Z"/>
+            </clipPath>
+          </defs>
+          <path class="boca__sombra" d="M30 170C70 92 150 66 200 104c50-38 130-12 170 66-30 92-100 140-170 140S60 262 30 170Z" transform="translate(9 8)"/>
+          <path class="boca__labios" d="M30 170C70 92 150 66 200 104c50-38 130-12 170 66-30 92-100 140-170 140S60 262 30 170Z"/>
+          <path class="boca__dentro" d="M74 170c44-30 208-30 252 0-26 58-70 88-126 88S100 228 74 170Z"/>
+          <path class="boca__dientes" d="M98 162c40-18 164-18 204 0l-6 22c-40-10-152-10-192 0Z"/>
+          <path class="boca__raya" d="M150 156v24M200 152v28M250 156v24"/>
+          <ellipse class="boca__brillo" cx="118" cy="122" rx="30" ry="9" transform="rotate(-20 118 122)"/>
+          <ellipse class="boca__brillo" cx="284" cy="122" rx="30" ry="9" transform="rotate(20 284 122)"/>
+          <ellipse class="boca__brillo" cx="200" cy="286" rx="46" ry="8"/>
+          <g class="boca__lengua">
+            <g clip-path="url(#forma-lengua-hero)">
+              <rect x="120" y="180" width="36" height="210" fill="#FF3EA5"/>
+              <rect x="156" y="180" width="30" height="210" fill="#FF7A1A"/>
+              <rect x="186" y="180" width="28" height="210" fill="#FFE14D"/>
+              <rect x="214" y="180" width="30" height="210" fill="#19C27A"/>
+              <rect x="244" y="180" width="36" height="210" fill="#3A5BFF"/>
+              <path d="M200 214v120" stroke="#1E1033" stroke-opacity=".25" stroke-width="8" stroke-linecap="round" fill="none"/>
+              <ellipse cx="160" cy="262" rx="9" ry="26" fill="#fff" fill-opacity=".4" transform="rotate(-10 160 262)"/>
+            </g>
           </g>
         </svg>
-        <figcaption class="plato__cabina"><span>DJ</span></figcaption>
       </figure>
 
       <article class="ticket" aria-labelledby="ticket-sabor">

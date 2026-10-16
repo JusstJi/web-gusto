@@ -50,8 +50,17 @@
         <h2 class="titulo" id="titulo-mes">Menú del mes</h2>
         <p>Uno de cada dos viernes. Las próximas fechas se publican en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a> y <a href="https://www.instagram.com/newlamielpub/" target="_blank" rel="noopener">@newlamielpub</a>.</p>
       </div>
-      <figure class="calendario">
-        <figcaption>Octubre 2026</figcaption>
+      <figure class="calendario" data-calendario aria-labelledby="calendario-mes">
+        <div class="calendario__cabeza">
+          <button class="calendario__flecha" type="button" data-mes-anterior aria-label="Mes anterior" hidden>
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <figcaption id="calendario-mes" aria-live="polite">Octubre 2026</figcaption>
+          <button class="calendario__flecha" type="button" data-mes-siguiente aria-label="Mes siguiente" hidden>
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+        <div data-mes-tabla>
         <table>
           <thead>
             <tr><th scope="col" abbr="lunes">L</th><th scope="col" abbr="martes">M</th><th scope="col" abbr="miércoles">X</th><th scope="col" abbr="jueves">J</th><th scope="col" abbr="viernes">V</th><th scope="col" abbr="sábado">S</th><th scope="col" abbr="domingo">D</th></tr>
@@ -64,6 +73,8 @@
             <tr><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td></tr>
           </tbody>
         </table>
+        </div>
+        <p class="calendario__nota" data-mes-nota hidden>Las fechas de este mes se anuncian en Instagram.</p>
         <p class="calendario__leyenda"><span class="punto punto--gusto"></span> Viernes de Gusto</p>
       </figure>
     </section>

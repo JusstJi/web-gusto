@@ -1,6 +1,6 @@
 # Design · Viernes de Gusto
 
-Mundo: carta de restaurante impresa en risografía sobre el rosa de la fiesta. El plato visto desde arriba es también la pista: el DJ en el centro y todos alrededor.
+Mundo: carta de restaurante impresa en risografía sobre el rosa de la fiesta. En portada, una boca que saca una lengua con los colores de los sabores: un sabor por noche.
 
 ## Color
 | Token | Valor | Uso |
@@ -10,7 +10,7 @@ Mundo: carta de restaurante impresa en risografía sobre el rosa de la fiesta. E
 | `--fucsia` | #FF3EA5 | Menú del mes, sombra de los títulos |
 | `--amarillo` | #FFE14D | Hoja de La Carta, texto de botones |
 | `--verde` | #19C27A | Cómo se sirve |
-| `--azul` | #3A5BFF | Fondo de La Carta, aro del plato |
+| `--azul` | #3A5BFF | Fondo de La Carta, sombra de la boca |
 | `--azul-tinta` | #2A22C9 | Títulos de marca (5.3:1 sobre rosa) |
 | `--sabor` / `--sabor-oscuro` / `--sabor-tinta` | #410107 / #6A0A14 / #F7B6BA | Umami (granate del cartel) y su texto rosa. Cambiar por edición |
 
@@ -29,4 +29,4 @@ Ambas autoalojadas en `fonts/` (OFL).
 
 ## Movimiento
 - Intro (solo primera visita por sesión, «Saltar» y Escape): la lengua asoma, da el lametón y sale dejando ver la web. ~2 s. Con «reducir movimiento», solo fundido del lema.
-- La gente del plato gira despacio alrededor del DJ; se para fuera de pantalla y con «reducir movimiento».
+- La lengua de la portada se mueve en bucle; se para fuera de pantalla y con «reducir movimiento».
