@@ -6,9 +6,73 @@
   <title>Viernes de Gusto · New La Miel, Burgos</title>
   <meta name="description" content="Un sabor por noche: el DJ en el centro y todos alrededor. Viernes de Gusto, uno de cada dos viernes en New La Miel (Burgos). Primera edición: Umami, viernes 16 de octubre.">
   <meta name="theme-color" content="#F7A8D8">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Viernes de Gusto">
   <meta property="og:title" content="Viernes de Gusto · Un sabor por noche">
-  <meta property="og:description" content="El DJ en el centro y todos alrededor. Uno de cada dos viernes en New La Miel, Burgos.">
+  <meta property="og:description" content="El DJ en el centro y todos alrededor. Uno de cada dos viernes en New La Miel, Burgos. Primera edición: Umami, 16 de octubre.">
+  <meta property="og:image" content="og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Viernes de Gusto: el plato de colores con el DJ en el centro y una lengua multicolor">
   <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Viernes de Gusto · Un sabor por noche">
+  <meta name="twitter:description" content="El DJ en el centro y todos alrededor. Uno de cada dos viernes en New La Miel, Burgos.">
+  <meta name="twitter:image" content="og-image.png">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "NightClub",
+        "@id": "#new-la-miel",
+        "name": "New La Miel",
+        "description": "Pub y discoteca del casco histórico de Burgos.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Calle Cardenal Segura, 25",
+          "postalCode": "09003",
+          "addressLocality": "Burgos",
+          "addressCountry": "ES"
+        },
+        "telephone": "+34 637 58 08 54",
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["https://schema.org/Thursday", "https://schema.org/Friday", "https://schema.org/Saturday"],
+          "opens": "23:00",
+          "closes": "04:30"
+        },
+        "sameAs": ["https://www.instagram.com/newlamielpub/", "https://www.facebook.com/newlamiel"]
+      },
+      {
+        "@type": "Organization",
+        "@id": "#gusto",
+        "name": "Gusto",
+        "sameAs": ["https://www.instagram.com/gustoexperiencee/"]
+      },
+      {
+        "@type": "Event",
+        "name": "Viernes de Gusto: Umami",
+        "description": "La primera edición de Viernes de Gusto, ambientada en el sabor umami: su color, su música y su chupito especial. El DJ en el centro de la sala y todos alrededor, 2 o 3 DJs y decoración a punta pala.",
+        "startDate": "2026-10-16T23:00:00+02:00",
+        "endDate": "2026-10-17T04:30:00+02:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "image": "og-image.png",
+        "location": { "@id": "#new-la-miel" },
+        "organizer": [{ "@id": "#gusto" }, { "@id": "#new-la-miel" }],
+        "offers": {
+          "@type": "Offer",
+          "url": "https://site.fourvenues.com/es/new-la-miel1/events/viernes-de-gusto-umami-16-10-2026-EDAB"
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="preload" href="fonts/shrikhand-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/familjen-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
@@ -48,7 +112,7 @@
   <a class="saltar-contenido" href="#contenido">Ir al contenido</a>
 
   <header class="cabecera">
-    <a class="cabecera__marca" href="#inicio" aria-label="Viernes de Gusto, inicio">Gusto</a>
+    <a class="cabecera__marca" href="#inicio"><img src="logo.svg" alt="Gusto, inicio" width="465" height="130"></a>
     <nav class="cabecera__nav" aria-label="Secciones">
       <ul>
         <li><a href="#carta">La Carta<span>Fiestas</span></a></li>
@@ -60,8 +124,9 @@
     <a class="boton boton--pequeno" data-entradas href="https://site.fourvenues.com/es/new-la-miel1/events/viernes-de-gusto-umami-16-10-2026-EDAB" target="_blank" rel="noopener">Haz tu pedido</a>
   </header>
 
-  <main id="contenido">
+  <main id="contenido" tabindex="-1">
     <section class="portada" id="inicio" aria-labelledby="titulo-portada">
+      <canvas class="portada__luces" data-parallax="0.45" aria-hidden="true"></canvas>
       <h1 class="marca" id="titulo-portada">
         <span class="marca__linea">Viernes</span>
         <span class="marca__linea marca__linea--de">de</span>
@@ -69,7 +134,7 @@
       </h1>
       <p class="portada__lema">Un sabor por noche · el DJ en el centro y todos alrededor</p>
 
-      <figure class="plato" aria-label="La pista vista desde arriba: la cabina del DJ en el centro y la gente bailando alrededor">
+      <figure class="plato" data-parallax="0.16" aria-label="La pista vista desde arriba: la cabina del DJ en el centro y la gente bailando alrededor">
         <svg class="plato__svg" viewBox="0 0 400 400" focusable="false" aria-hidden="true">
           <circle class="plato__aro plato__aro--1" cx="200" cy="200" r="196"/>
           <circle class="plato__aro plato__aro--2" cx="206" cy="194" r="150"/>
@@ -118,21 +183,19 @@
 
           <h4 class="plato-carta__seccion">Ingredientes</h4>
           <dl class="ingredientes">
-            <div><dt>Música</dt><dd class="por-desvelar">Por desvelar</dd></div>
             <div><dt>Decoración</dt><dd>A punta pala</dd></div>
             <div><dt>Baile</dt><dd>Alrededor del DJ, a un paso de la cabina</dd></div>
             <div><dt>Flow</dt><dd>2 o 3 chefs se pasan la cabina: la noche cambia de ritmo sin dejar de sonar</dd></div>
-            <div><dt>Chupito</dt><dd>Gratis, el especial de umami. La receta, <span class="por-desvelar">por desvelar</span></dd></div>
-            <div><dt>Chefs</dt><dd class="por-desvelar">Por anunciar</dd></div>
+            <div><dt>Chupito</dt><dd>Gratis, el especial de umami</dd></div>
+            <div><dt>Música y chefs</dt><dd><span class="por-desvelar">Se desvelan pronto</span> en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a></dd></div>
           </dl>
 
           <div class="plato-carta__acciones">
             <a class="boton" data-entradas href="https://site.fourvenues.com/es/new-la-miel1/events/viernes-de-gusto-umami-16-10-2026-EDAB" target="_blank" rel="noopener">Haz tu pedido</a>
-            <button class="boton boton--hueco" type="button" disabled aria-describedby="playlist-nota">
+            <p class="pronto-chip">
               <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M7.5 9.5c3-1 6.5-.7 9 .8M8 12.8c2.4-.7 5.2-.4 7.2.8M8.6 15.8c1.9-.5 4-.3 5.6.6"/></svg>
-              Pruébalo
-            </button>
-            <p class="plato-carta__nota" id="playlist-nota">La playlist de umami se sirve pronto.</p>
+              <span><strong>Pruébalo</strong> · la playlist de umami se sirve pronto</span>
+            </p>
           </div>
         </article>
 
@@ -141,7 +204,6 @@
           <ul class="bloqueados">
             <li><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span class="tachon" aria-hidden="true">Especial de temporada</span><span class="sr">Plato secreto</span><em>Pronto</em></li>
             <li><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span class="tachon" aria-hidden="true">Noche de disfraces</span><span class="sr">Plato secreto</span><em>Pronto</em></li>
-            <li><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span class="tachon" aria-hidden="true">Sabor sorpresa</span><span class="sr">Plato secreto</span><em>Pronto</em></li>
           </ul>
           <p class="fuera-carta__pista">Se desbloquean en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
         </section>
@@ -149,6 +211,7 @@
     </section>
 
     <section class="como" id="como" aria-labelledby="titulo-como">
+      <div class="decor decor--aros" data-parallax="-0.22" aria-hidden="true"></div>
       <h2 class="titulo" id="titulo-como">Cómo se sirve</h2>
       <p class="como__intro">Formato boiler room. Aquí no hay escenario al fondo: la cabina va en el centro de la sala y la gente baila alrededor, a un paso del DJ.</p>
       <ol class="pasos">
@@ -166,12 +229,13 @@
         </li>
         <li class="paso paso--deco">
           <h3>Decoración a punta pala</h3>
-          <p>La sala se decora para cada edición, del color de su sabor.</p>
+          <p>La sala se decora de arriba abajo para cada edición.</p>
         </li>
       </ol>
     </section>
 
     <section class="menu-mes" id="menu-mes" aria-labelledby="titulo-mes">
+      <div class="decor decor--confeti" data-parallax="-0.3" aria-hidden="true"></div>
       <div class="menu-mes__texto">
         <h2 class="titulo" id="titulo-mes">Menú del mes</h2>
         <p>Uno de cada dos viernes. Las próximas fechas se publican en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a> y <a href="https://www.instagram.com/newlamielpub/" target="_blank" rel="noopener">@newlamielpub</a>.</p>
@@ -205,7 +269,7 @@
         <dl class="donde__datos">
           <div><dt>Viernes de Gusto</dt><dd>De 23:00 a 04:30</dd></div>
           <div><dt>El pub abre</dt><dd>De jueves a sábado, de 23:00 a 04:30</dd></div>
-          <div><dt>Teléfono</dt><dd><a href="tel:+34637580854">637 58 08 54</a></dd></div>
+          <div><dt>Teléfono</dt><dd><a class="enlace-ig" href="tel:+34637580854">637 58 08 54</a></dd></div>
         </dl>
         <div class="donde__acciones">
           <a class="boton boton--claro" href="https://www.google.com/maps/search/?api=1&amp;query=New+La+Miel+Calle+Cardenal+Segura+25+09003+Burgos" target="_blank" rel="noopener">
@@ -227,7 +291,7 @@
     <section class="pedido" id="pedido" aria-labelledby="titulo-pedido">
       <h2 class="titulo" id="titulo-pedido">Haz tu pedido</h2>
       <p class="pedido__texto">Entradas anticipadas para Umami, el viernes 16 de octubre, en Fourvenues.</p>
-      <a class="boton boton--grande" data-entradas href="https://site.fourvenues.com/es/new-la-miel1/events/viernes-de-gusto-umami-16-10-2026-EDAB" target="_blank" rel="noopener">Sacar entrada</a>
+      <a class="boton boton--grande" data-entradas href="https://site.fourvenues.com/es/new-la-miel1/events/viernes-de-gusto-umami-16-10-2026-EDAB" target="_blank" rel="noopener">Haz tu pedido <small>Entradas anticipadas</small></a>
       <p class="pedido__pasada" data-pasada hidden>Umami ya se sirvió. El próximo pedido abre cuando se anuncie el nuevo sabor en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
     </section>
 
