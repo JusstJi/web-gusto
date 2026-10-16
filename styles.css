@@ -35,7 +35,7 @@
 }
 
 :root {
-  --confeti: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill-opacity='.35'%3E%3Ccircle cx='20' cy='30' r='3' fill='%23FF3EA5'/%3E%3Ccircle cx='130' cy='20' r='2.5' fill='%233A5BFF'/%3E%3Crect x='80' y='90' width='9' height='4' rx='2' transform='rotate(35 84 92)' fill='%23FFE14D'/%3E%3Ccircle cx='40' cy='140' r='2.5' fill='%2319C27A'/%3E%3Crect x='150' y='130' width='9' height='4' rx='2' transform='rotate(-25 154 132)' fill='%23FF7A1A'/%3E%3Cpath d='M100 40l2 5 5 2-5 2-2 5-2-5-5-2 5-2Z' fill='%231E1033'/%3E%3C/g%3E%3C/svg%3E");
+  --confeti: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill-opacity='.18'%3E%3Ccircle cx='20' cy='30' r='3' fill='%23FF3EA5'/%3E%3Ccircle cx='130' cy='20' r='2.5' fill='%233A5BFF'/%3E%3Crect x='80' y='90' width='9' height='4' rx='2' transform='rotate(35 84 92)' fill='%23FFE14D'/%3E%3Ccircle cx='40' cy='140' r='2.5' fill='%2319C27A'/%3E%3Crect x='150' y='130' width='9' height='4' rx='2' transform='rotate(-25 154 132)' fill='%23FF7A1A'/%3E%3Cpath d='M100 40l2 5 5 2-5 2-2 5-2-5-5-2 5-2Z' fill='%231E1033'/%3E%3C/g%3E%3C/svg%3E");
   /* Tintas de risografía sobre el rosa de la fiesta */
   --rosa: #F7A8D8;
   --tinta: #1E1033;
@@ -197,8 +197,12 @@ html.con-intro .intro {
 .intro__linea--colores {
   font-size: clamp(4.6rem, 21vw, 10.5rem);
   line-height: 0.9;
-  letter-spacing: -0.01em;
-  text-shadow: 0.045em 0.045em 0 var(--tinta);
+  letter-spacing: 0.01em;
+  /* Contorno de tinta para que el amarillo y el naranja se lean sobre el rosa */
+  text-shadow:
+    0.022em 0 0 var(--tinta), -0.022em 0 0 var(--tinta), 0 0.022em 0 var(--tinta), 0 -0.022em 0 var(--tinta),
+    0.016em 0.016em 0 var(--tinta), -0.016em 0.016em 0 var(--tinta), 0.016em -0.016em 0 var(--tinta), -0.016em -0.016em 0 var(--tinta),
+    0.06em 0.06em 0 var(--tinta);
 }
 .intro__letra {
   display: inline-block;
@@ -286,6 +290,7 @@ html.con-intro .intro { align-content: center; gap: clamp(1.5rem, 5vh, 3rem); }
     margin-inline: calc(var(--hueco) * -1);
     overflow-x: auto; scrollbar-width: none;
   }
+  .cabecera__nav.al-final { -webkit-mask: none; mask: none; }
   .cabecera__nav::-webkit-scrollbar { display: none; }
   .cabecera__nav ul { justify-content: flex-start; padding-inline: calc(var(--hueco) - 0.8rem); }
 }
@@ -694,7 +699,7 @@ dd.por-desvelar { justify-self: start; }
 .calendario__flecha:hover { background: var(--tinta); color: var(--papel); }
 .calendario__flecha:disabled { opacity: 0.3; cursor: not-allowed; background: transparent; color: var(--tinta); }
 .calendario__flecha[hidden] { display: none; }
-.calendario td.dia-pasado { opacity: 0.35; }
+.calendario td.dia-pasado { opacity: 0.55; }
 .calendario td.dia-hoy:not(.dia-gusto) { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.3em; text-decoration-color: var(--fucsia); }
 .calendario td.dia-gusto.dia-pasado { opacity: 1; }
 .calendario__nota { margin-top: 0.75rem; font-weight: 600; font-size: 0.95rem; }
@@ -978,6 +983,7 @@ dd.por-desvelar { justify-self: start; }
 }
 .portada.quieto .deco__pieza { animation-play-state: paused; }
 @media (max-width: 699px) {
+  .con-deco > .deco { display: none; }
   .deco__pieza { scale: 0.6; translate: -25% 0; }
   .deco__pieza:nth-child(4n) { display: none; }
 }

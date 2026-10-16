@@ -286,7 +286,7 @@
       var capa = document.createElement('div');
       capa.className = 'deco';
       capa.setAttribute('aria-hidden', 'true');
-      var cuantas = sec.classList.contains('portada') ? 24 : 14;
+      var cuantas = sec.classList.contains('portada') ? 12 : 6;
       var html = '';
       for (var i = 0; i < cuantas; i++) {
         var forma = nombres[(i + s * 3) % nombres.length];
@@ -333,10 +333,10 @@
     var semilla = 3;
     function azar() { semilla = (semilla * 9301 + 49297) % 233280; return semilla / 233280; }
     var html = '';
-    for (var i = 0; i < 30; i++) {
+    for (var i = 0; i < 18; i++) {
       var x, y, intentos = 0;
       do { x = azar() * 104 - 4; y = azar() * 100 - 2; intentos++; }
-      while (((x > 18 && x < 76 && y > 10 && y < 84) || (x > 80 && y < 11)) && intentos < 40);
+      while (((x > 18 && x < 76 && y > 10 && y < 84) || (x > 66 && y < 13)) && intentos < 40);
       var forma = nombres[i % nombres.length];
       var tinta = TINTAS[tintas[Math.floor(azar() * tintas.length)]];
       var trazo = forma === 'garabato' || forma === 'aro' || forma === 'espiral';
@@ -613,10 +613,14 @@
   }
 
   /* En móvil, el menú deja a la vista la página actual */
+  var menu = document.querySelector('.cabecera__nav');
   var actual = document.querySelector('.cabecera__nav [aria-current="page"]');
-  if (actual) {
-    var menu = actual.closest('.cabecera__nav');
-    menu.scrollLeft = actual.offsetLeft - (menu.clientWidth - actual.offsetWidth) / 2;
+  if (menu) {
+    if (actual) menu.scrollLeft = actual.offsetLeft - (menu.clientWidth - actual.offsetWidth) / 2;
+    // El difuminado del borde solo cuando queda menú por ver, para no apagar el último enlace
+    var alFinal = function () { menu.classList.toggle('al-final', menu.scrollLeft + menu.clientWidth >= menu.scrollWidth - 4); };
+    menu.addEventListener('scroll', alFinal, { passive: true });
+    alFinal();
   }
 
   iniciarIntro();
