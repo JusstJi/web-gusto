@@ -35,17 +35,18 @@
 }
 
 :root {
-  --confeti: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill-opacity='.18'%3E%3Ccircle cx='20' cy='30' r='3' fill='%23FF3EA5'/%3E%3Ccircle cx='130' cy='20' r='2.5' fill='%233A5BFF'/%3E%3Crect x='80' y='90' width='9' height='4' rx='2' transform='rotate(35 84 92)' fill='%23FFE14D'/%3E%3Ccircle cx='40' cy='140' r='2.5' fill='%2319C27A'/%3E%3Crect x='150' y='130' width='9' height='4' rx='2' transform='rotate(-25 154 132)' fill='%23FF7A1A'/%3E%3Cpath d='M100 40l2 5 5 2-5 2-2 5-2-5-5-2 5-2Z' fill='%231E1033'/%3E%3C/g%3E%3C/svg%3E");
+  --confeti: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill-opacity='.18'%3E%3Ccircle cx='20' cy='30' r='3' fill='%23C8102E'/%3E%3Ccircle cx='130' cy='20' r='2.5' fill='%234E8A3A'/%3E%3Crect x='80' y='90' width='9' height='4' rx='2' transform='rotate(35 84 92)' fill='%23F5C518'/%3E%3Ccircle cx='40' cy='140' r='2.5' fill='%234E8A3A'/%3E%3Crect x='150' y='130' width='9' height='4' rx='2' transform='rotate(-25 154 132)' fill='%23D0743A'/%3E%3Cpath d='M100 40l2 5 5 2-5 2-2 5-2-5-5-2 5-2Z' fill='%231E1033'/%3E%3C/g%3E%3C/svg%3E");
   /* Tintas de risografía sobre el rosa de la fiesta */
   --rosa: #F7A8D8;
   --tinta: #1E1033;
   --fucsia: #FF3EA5;
-  --naranja: #FF7A1A;
-  --amarillo: #FFE14D;
-  --verde: #19C27A;
-  --azul: #3A5BFF;
-  --azul-tinta: #2A22C9;
-  --papel: #FFF4FA;
+  /* Los colores del logo de Gusto: G verde, U rojo, S crema, T amarillo, O naranja */
+  --verde: #4E8A3A;
+  --rojo: #C8102E;
+  --papel: #F3EEE4;
+  --amarillo: #F5C518;
+  --naranja: #D0743A;
+  --rojo-tinta: #A10C25;
   /* Color del sabor de la edición: umami, granate del cartel */
   --sabor: #410107;
   --sabor-oscuro: #6A0A14;
@@ -206,7 +207,7 @@ html.con-intro .intro {
   -webkit-text-stroke: 0.1em var(--tinta);
   paint-order: stroke fill;
   text-shadow:
-    0.02em 0.02em 0 var(--fucsia), 0.04em 0.04em 0 var(--fucsia), 0.06em 0.06em 0 var(--fucsia),
+    0.02em 0.02em 0 var(--rojo), 0.04em 0.04em 0 var(--rojo), 0.06em 0.06em 0 var(--rojo),
     0.08em 0.08em 0 var(--tinta), 0.09em 0.09em 0 var(--tinta);
   letter-spacing: 0.01em;
   margin-bottom: 0.1em;
@@ -372,8 +373,8 @@ html.con-intro .intro {
   font-size: clamp(4rem, 19vw, 7.5rem);
   line-height: 0.86;
   letter-spacing: -0.015em;
-  color: var(--azul-tinta);
-  text-shadow: 0.035em 0.03em 0 var(--fucsia);
+  color: var(--rojo-tinta);
+  text-shadow: 0.035em 0.03em 0 var(--tinta);
 }
 .marca__linea { display: block; }
 .marca__linea--de {
@@ -426,10 +427,10 @@ html.con-intro .intro {
   box-shadow: 0.22rem 0.22rem 0 var(--tinta);
   rotate: -2deg;
 }
-.reloj__caja:nth-child(1) { background: var(--fucsia); color: var(--papel); }
+.reloj__caja:nth-child(1) { background: var(--rojo); color: var(--papel); }
 .reloj__caja:nth-child(2) { background: var(--amarillo); rotate: 2deg; }
-.reloj__caja:nth-child(3) { background: var(--verde); }
-.reloj__caja:nth-child(4) { background: var(--azul); color: var(--papel); rotate: 3deg; }
+.reloj__caja:nth-child(3) { background: var(--verde); color: var(--papel); }
+.reloj__caja:nth-child(4) { background: var(--naranja); rotate: 3deg; }
 .reloj__caja b {
   font-family: var(--display); font-weight: 400;
   font-size: clamp(1.9rem, 7vw, 2.5rem); line-height: 1;
@@ -493,7 +494,7 @@ html.con-intro .intro {
   50% { transform: scale(1.03); opacity: 1; }
 }
 .boca__svg { width: 100%; height: 100%; overflow: visible; }
-.boca__sombra { fill: var(--azul); }
+.boca__sombra { fill: var(--rojo); }
 .boca__labios { fill: var(--fucsia); }
 .boca__dentro { fill: var(--sabor); }
 .boca__dientes { fill: var(--papel); }
@@ -543,7 +544,7 @@ html.con-intro .intro {
 
 /* ---------- La Carta ---------- */
 .carta {
-  background: var(--confeti), var(--azul);
+  background: var(--confeti), var(--rojo);
   padding: var(--seccion) var(--borde);
 }
 .carta__libro {
@@ -564,18 +565,18 @@ html.con-intro .intro {
 }
 .carta__hoja::before {
   content: ""; position: absolute; inset: 0.75rem; pointer-events: none;
-  border: 3px solid var(--fucsia);
-  outline: 1.5px solid var(--fucsia); outline-offset: -8px;
+  border: 3px solid var(--rojo);
+  outline: 1.5px solid var(--rojo); outline-offset: -8px;
   border-radius: 0.5rem;
 }
 .carta__cabeza { text-align: center; margin-bottom: clamp(2rem, 4vw, 2.8rem); }
-.carta__casa { margin: 0; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fucsia); }
-.carta__cabeza .titulo { color: var(--azul-tinta); text-shadow: 0.035em 0.03em 0 var(--fucsia); margin: 0.1em 0 0; }
+.carta__casa { margin: 0; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rojo); }
+.carta__cabeza .titulo { color: var(--rojo-tinta); text-shadow: 0.035em 0.03em 0 var(--amarillo); margin: 0.1em 0 0; }
 .carta__sub { max-width: 36ch; margin: 0 auto; font-style: italic; }
 .carta__ornamento {
   display: flex; align-items: center; justify-content: center; gap: 0.7rem;
   margin: 0.8rem auto 1rem; max-width: 16rem;
-  color: var(--fucsia); font-size: 1.1rem;
+  color: var(--rojo); font-size: 1.1rem;
 }
 .carta__ornamento span { flex: 1; height: 0; border-top: 3px dotted currentColor; }
 .carta__seccion {
@@ -584,7 +585,7 @@ html.con-intro .intro {
 }
 .carta__seccion--grande {
   font-family: var(--display); font-weight: 400; letter-spacing: 0; text-transform: none;
-  font-size: clamp(1.9rem, 4vw, 2.4rem); line-height: 1.05; color: var(--azul-tinta);
+  font-size: clamp(1.9rem, 4vw, 2.4rem); line-height: 1.05; color: var(--rojo-tinta);
 }
 
 .plato-carta { position: relative; }
@@ -619,7 +620,7 @@ html.con-intro .intro {
   font-weight: 400;
   font-size: 1.5rem;
   margin-bottom: 0.4rem;
-  color: var(--azul-tinta);
+  color: var(--rojo-tinta);
 }
 .ingredientes { margin: 0 0 1.6rem; }
 .ingredientes div {
@@ -642,7 +643,7 @@ html.con-intro .intro {
   display: flex; align-items: baseline; gap: 0.75rem;
   margin: 0; font-weight: 700; font-size: 1.15rem;
 }
-.plato-carta__precio strong { font-family: var(--display); font-weight: 400; font-size: 1.9rem; color: var(--fucsia); white-space: nowrap; }
+.plato-carta__precio strong { font-family: var(--display); font-weight: 400; font-size: 1.9rem; color: var(--rojo); white-space: nowrap; }
 .plato-carta__incluye { margin: 0.1rem 0 1.6rem; font-style: italic; text-align: right; }
 
 .por-desvelar {
@@ -699,7 +700,7 @@ dd.por-desvelar { justify-self: start; }
 .fuera-carta__pista { font-size: 0.98rem; }
 .carta__pie {
   margin: clamp(2rem, 5vw, 3rem) 0 0; text-align: center;
-  font-family: var(--display); font-size: 1.5rem; color: var(--fucsia);
+  font-family: var(--display); font-size: 1.5rem; color: var(--rojo);
 }
 
 /* ---------- Cómo se sirve ---------- */
@@ -771,7 +772,7 @@ dd.por-desvelar { justify-self: start; }
 }
 .paso__dibujo svg { width: 88%; height: auto; }
 .paso--centro { --c1: var(--rosa); }
-.paso--chefs { --c1: #A9C8FF; }
+.paso--chefs { --c1: #F2C9A8; }
 .paso--chupito { --c1: var(--sabor-tinta); }
 .paso--deco { --c1: var(--amarillo); }
 .paso h3 {
@@ -863,14 +864,14 @@ dd.por-desvelar { justify-self: start; }
 }
 .dia-sorpresa a {
   background: linear-gradient(var(--papel), var(--papel)) padding-box,
-              conic-gradient(var(--fucsia), var(--naranja), var(--amarillo), var(--verde), var(--azul), var(--fucsia)) border-box;
+              conic-gradient(var(--verde), var(--rojo), var(--papel), var(--amarillo), var(--naranja), var(--verde)) border-box;
   border: 4px solid transparent;
   color: var(--tinta);
 }
 .dia-sorpresa span { color: var(--tinta); }
 .calendario__leyenda { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 1.25rem; margin-top: 1rem; font-size: 0.95rem; }
 .calendario__leyenda > span { display: inline-flex; align-items: center; gap: 0.45rem; }
-.punto.punto--sorpresa { background: conic-gradient(var(--fucsia), var(--naranja), var(--amarillo), var(--verde), var(--azul), var(--fucsia)); }
+.punto.punto--sorpresa { background: conic-gradient(var(--verde), var(--rojo), var(--papel), var(--amarillo), var(--naranja), var(--verde)); }
 .punto { width: 0.85rem; height: 0.85rem; border-radius: 50%; background: var(--sabor); }
 @media (min-width: 900px) {
   .menu-mes {
@@ -915,7 +916,7 @@ dd.por-desvelar { justify-self: start; }
 .proxima--sabor a { --c: var(--sabor); color: var(--sabor-tinta); }
 .proxima--amarillo a { --c: var(--amarillo); }
 .proxima--verde a { --c: var(--verde); }
-.proxima--azul a { --c: #A9C8FF; }
+.proxima--rojo a { --c: #F4B4BE; }
 .proxima--naranja a { --c: var(--naranja); }
 .proxima--rosa a { --c: var(--rosa); }
 @media (prefers-reduced-motion: reduce) { .proxima a { transition: none; } }
@@ -927,14 +928,14 @@ dd.por-desvelar { justify-self: start; }
   padding: var(--seccion) var(--borde);
 }
 .donde .titulo { color: var(--amarillo); }
-.donde .titulo span { color: var(--fucsia); }
+.donde .titulo span { color: var(--verde); }
 .donde__rejilla { display: grid; gap: 2.5rem; margin-top: clamp(1.5rem, 4vw, 2.5rem); align-items: start; }
 @media (min-width: 900px) { .donde__rejilla { grid-template-columns: 1.15fr 1fr; column-gap: 3.5rem; } }
 .mapa { margin: 0; }
 .mapa__svg {
   display: block; width: 100%; height: auto;
   border: 4px solid var(--papel); border-radius: 1.5rem;
-  box-shadow: 10px 10px 0 var(--fucsia);
+  box-shadow: 10px 10px 0 var(--verde);
   rotate: -1.2deg;
 }
 .mapa__pin { animation: salta 1.6s ease-in-out infinite; }
@@ -1026,7 +1027,7 @@ dd.por-desvelar { justify-self: start; }
   justify-self: center;
   width: min(100%, 25rem);
   rotate: 2.5deg;
-  filter: drop-shadow(10px 12px 0 var(--fucsia));
+  filter: drop-shadow(10px 12px 0 var(--rojo));
 }
 .comanda__papel {
   position: relative;
@@ -1059,7 +1060,7 @@ dd.por-desvelar { justify-self: start; }
   border-top: 3px dashed var(--tinta);
   font-weight: 700; font-size: 1.1rem;
 }
-.comanda__total strong { font-family: var(--display); font-weight: 400; font-size: 2.4rem; line-height: 1; color: var(--fucsia); }
+.comanda__total strong { font-family: var(--display); font-weight: 400; font-size: 2.4rem; line-height: 1; color: var(--rojo); }
 .comanda__sello {
   position: absolute; left: 50%; bottom: 2.2rem;
   margin: 0; padding: 0.35rem 0.9rem;
@@ -1177,7 +1178,7 @@ dd.por-desvelar { justify-self: start; }
 }
 .indice__cabeza { max-width: 72rem; margin: 0 auto clamp(2rem, 5vw, 3.5rem); }
 .indice .titulo { color: var(--amarillo); max-width: 14ch; margin: 0; }
-.indice .titulo span { color: var(--fucsia); }
+.indice .titulo span { color: var(--naranja); }
 .indice .chip-titulo { background: var(--amarillo); color: var(--tinta); box-shadow: 3px 3px 0 var(--fucsia); margin: 0 0 0.9rem; }
 .indice__lista {
   list-style: none; margin: 0 auto; padding: 0; max-width: 72rem;
@@ -1237,11 +1238,11 @@ dd.por-desvelar { justify-self: start; }
 }
 .indice__flecha svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
 .indice__item a:hover .indice__flecha { rotate: -35deg; }
-.indice__item--carta { --c: var(--amarillo); --sombra: var(--fucsia); }
+.indice__item--carta { --c: var(--amarillo); --sombra: var(--rojo); }
 .indice__item--como { --c: var(--verde); --sombra: var(--amarillo); }
-.indice__item--menu-mes { --c: var(--fucsia); --sombra: #8FA3FF; }
+.indice__item--menu-mes { --c: var(--fucsia); --sombra: var(--rojo); }
 .indice__item--donde { --c: var(--rosa); --sombra: var(--verde); }
-.indice__item--preguntas { --c: #A9B8FF; --sombra: var(--naranja); }
+.indice__item--preguntas { --c: #F4B4BE; --sombra: var(--naranja); }
 .indice__item--pedido { --c: var(--naranja); --sombra: var(--rosa); }
 @media (prefers-reduced-motion: reduce) {
   .indice__item a, .indice__icono, .indice__flecha { transition: none; }
@@ -1263,7 +1264,7 @@ dd.por-desvelar { justify-self: start; }
   line-height: 1.05;
 }
 
-.siguiente:hover strong { color: var(--azul-tinta); }
+.siguiente:hover strong { color: var(--rojo-tinta); }
 
 .pie__nav ul {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 0.25rem 1.25rem;
@@ -1319,14 +1320,14 @@ dd.por-desvelar { justify-self: start; }
   padding: 0.3rem 0.85rem;
   border: 3px solid var(--tinta);
   border-radius: 0.6rem;
-  background: #A9C8FF;
+  background: #FAE29A;
   box-shadow: 3px 3px 0 var(--tinta);
   font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
   transform: rotate(-2deg);
   margin-bottom: 1rem;
 }
 .degustacion .titulo { margin-bottom: 0.3em; }
-.degustacion .titulo span { color: var(--fucsia); text-shadow: 0.045em 0.045em 0 var(--tinta); }
+.degustacion .titulo span { color: var(--rojo); text-shadow: 0.045em 0.045em 0 var(--tinta); }
 .degustacion__lema { max-width: 40ch; font-size: 1.1rem; }
 .degustacion__lista {
   list-style: none; margin: 2.5rem calc(var(--borde) * -1) 0; padding: 0.5rem var(--borde) 1.5rem;
@@ -1368,7 +1369,7 @@ dd.por-desvelar { justify-self: start; }
   font-weight: 700; font-size: 0.82rem; text-transform: uppercase;
 }
 .plato--amarillo .etiqueta { background: var(--amarillo); }
-.plato--verde .etiqueta { background: #9BE3C4; }
+.plato--verde .etiqueta { background: #B9D7A6; }
 .plato > p { margin: 0; font-size: 0.98rem; line-height: 1.45; }
 .plato__chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 .plato__chips span {
@@ -1421,7 +1422,7 @@ a.probar[href]:hover { background: #1ED760; color: var(--tinta); transform: scal
 .chef__nombre { display: flex; flex-direction: column; font-weight: 700; font-size: 0.95rem; line-height: 1.15; }
 .chef__nombre small { font-weight: 600; font-size: 0.82rem; text-decoration: underline; text-underline-offset: 2px; }
 .chef:hover .chef__foto, .chef:focus-visible .chef__foto { transform: rotate(-6deg) scale(1.06); }
-.chef:focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; border-radius: 999px; }
+.chef:focus-visible { outline: 3px solid var(--rojo); outline-offset: 3px; border-radius: 999px; }
 dd.chefs .chefs-lista { margin-top: 0.3rem; }
 
 @media (max-width: 640px) {

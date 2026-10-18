@@ -88,7 +88,7 @@
     garabato: '<path d="M6 60c10-30 22-30 26 0s16 30 22 0 18-30 22 0 12 26 18 6" fill="none" stroke-width="10" stroke-linecap="round"/>',
     aro: '<circle cx="50" cy="50" r="34" fill="none" stroke-width="14"/>'
   };
-  var TINTAS = { fucsia: '#FF3EA5', naranja: '#FF7A1A', amarillo: '#FFE14D', verde: '#19C27A', azul: '#3A5BFF', rosa: '#F7A8D8', papel: '#FFF4FA' };
+  var TINTAS = { verde: '#4E8A3A', rojo: '#C8102E', amarillo: '#F5C518', naranja: '#D0743A', fucsia: '#FF3EA5', rosa: '#F7A8D8', papel: '#F3EEE4' };
 
   function iniciarDecoracion() {
     var secciones = document.querySelectorAll('main > section');
@@ -127,7 +127,7 @@
 
   // El lema de la intro: cada letra cae por separado y «colores» lleva una tinta por letra
   function letrasLema() {
-    var colores = ['#FF3EA5', '#FF7A1A', '#FFE14D', '#19C27A', '#3A5BFF'];
+    var colores = ARCOIRIS;
     var giros = [-7, 4, -3, 6, -5, 3, -4];
     var n = 0;
     document.querySelectorAll('.intro__linea').forEach(function (linea) {
@@ -148,7 +148,7 @@
     var fondo = document.querySelector('.intro__fondo');
     if (!fondo) return;
     var nombres = Object.keys(PEGATINAS);
-    var tintas = ['fucsia', 'naranja', 'amarillo', 'verde', 'azul', 'papel'];
+    var tintas = ['verde', 'rojo', 'amarillo', 'naranja', 'fucsia', 'papel'];
     var semilla = 3;
     function azar() { semilla = (semilla * 9301 + 49297) % 233280; return semilla / 233280; }
     var html = '';
@@ -437,7 +437,7 @@
     var hoy = new Date(); hoy.setHours(12, 0, 0, 0);
     var fecha = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00');
     while (fecha < hoy) fecha.setDate(fecha.getDate() + 14);
-    var colores = ['amarillo', 'verde', 'azul', 'naranja', 'rosa'];
+    var colores = ['amarillo', 'verde', 'rojo', 'naranja', 'rosa'];
     var html = '';
     var primera = null;
     for (var i = 0; i < 5; i++) {
