@@ -101,17 +101,7 @@
   <div class="intro" id="intro" aria-hidden="true">
     <div class="intro__fondo"></div>
     <p class="intro__lema"><span class="intro__linea">Para gustos,</span> <span class="intro__linea intro__linea--colores">colores</span></p>
-    <svg class="intro__boca" viewBox="16 58 372 324" focusable="false">
-      <path class="boca__sombra" d="M30 170C70 92 150 66 200 104c50-38 130-12 170 66-30 92-100 140-170 140S60 262 30 170Z" transform="translate(9 8)"/>
-      <path class="boca__labios" d="M30 170C70 92 150 66 200 104c50-38 130-12 170 66-30 92-100 140-170 140S60 262 30 170Z"/>
-      <path class="boca__dentro" d="M74 170c44-30 208-30 252 0-26 58-70 88-126 88S100 228 74 170Z"/>
-      <ellipse class="boca__brillo" cx="200" cy="286" rx="46" ry="8"/>
-      <path class="boca__dientes" d="M98 162c40-18 164-18 204 0l-6 22c-40-10-152-10-192 0Z"/>
-      <path class="boca__raya" d="M150 156v24M200 152v28M250 156v24"/>
-      <ellipse class="boca__brillo" cx="118" cy="122" rx="30" ry="9" transform="rotate(-20 118 122)"/>
-      <ellipse class="boca__brillo" cx="284" cy="122" rx="30" ry="9" transform="rotate(20 284 122)"/>
-    </svg>
-    <svg class="intro__barrido" focusable="false"></svg>
+    <div class="intro__arcoiris"></div>
     <button class="intro__saltar" type="button" id="saltar-intro">Saltar</button>
   </div>
 
@@ -142,6 +132,16 @@
       </h1>
       <p class="portada__lema">Un sabor por noche</p>
       <p class="portada__que">Fiesta con DJs · cada dos viernes<span class="portada__sep"> · </span><span class="portada__donde">New La Miel, Burgos</span></p>
+      <div class="reloj" data-reloj hidden>
+        <p class="reloj__antes"><span class="reloj__etiqueta">Próxima fiesta</span> <span data-reloj-fecha></span></p>
+        <p class="reloj__cifras" data-reloj-cifras>
+          <span class="reloj__caja"><b data-reloj-dias>0</b><small>días</small></span>
+          <span class="reloj__caja"><b data-reloj-horas>00</b><small>horas</small></span>
+          <span class="reloj__caja"><b data-reloj-min>00</b><small>min</small></span>
+          <span class="reloj__caja"><b data-reloj-seg>00</b><small>seg</small></span>
+        </p>
+        <p class="reloj__ahora" data-reloj-ahora hidden>¡Está pasando ahora! Hasta las 04:30</p>
+      </div>
 
       <div class="escena">
         <div class="ola" data-parallax="0.06" aria-hidden="true">
