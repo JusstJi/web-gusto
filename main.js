@@ -7,7 +7,8 @@
   /* ---------- Intro: el lema y un barrido de arcoíris ---------- */
   // Las letras caen, se quedan un momento y cinco bandas de color suben por la
   // pantalla; cuando se van, detrás ya está la web.
-  var ARCOIRIS = ['#FF3EA5', '#FF7A1A', '#FFE14D', '#19C27A', '#3A5BFF'];
+  // Los colores del logo, en el orden de G U S T O
+  var ARCOIRIS = ['#4E8A3A', '#C8102E', '#F3EEE4', '#F5C518', '#D0743A'];
 
   function barrerArcoiris(intro, alTapar, alTerminar) {
     // Cinco bandas anidadas: suben juntas y por arriba y por abajo asoma el arcoíris entero
