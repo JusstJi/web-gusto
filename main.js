@@ -177,63 +177,6 @@
   };
 
 
-  // Baraja de tickets: al tocar el ticket de delante pasa al fondo y asoma la siguiente fiesta
-  function iniciarBaraja() {
-    var baraja = document.querySelector('[data-baraja]');
-    if (!baraja) return;
-    var cartas = Array.prototype.slice.call(baraja.querySelectorAll('.ticket'));
-    var boton = baraja.querySelector('[data-baraja-pasar]');
-    var reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var ocupado = false;
-    var contador = baraja.querySelector('[data-baraja-contador]');
-    function colocar() {
-      if (contador) contador.textContent = (cartas.findIndex(function (c) { return c.dataset.pos === '0'; }) + 1) + '/' + cartas.length;
-      cartas.forEach(function (c) {
-        var delante = c.dataset.pos === '0';
-        c.inert = !delante;
-        if (delante) c.removeAttribute('aria-hidden'); else c.setAttribute('aria-hidden', 'true');
-      });
-    }
-    function pasar() {
-      if (ocupado) return;
-      var frente = cartas.filter(function (c) { return c.dataset.pos === '0'; })[0];
-      var mover = function () {
-        cartas.forEach(function (c) {
-          var p = +c.dataset.pos;
-          c.dataset.pos = String(p === 0 ? cartas.length - 1 : p - 1);
-        });
-        colocar();
-      };
-      if (reducido || !frente.animate) { mover(); return; }
-      ocupado = true;
-      var anim = frente.animate([
-        { transform: 'translate(0,0) rotate(0deg)' },
-        { transform: 'translate(-70%, 0.5rem) rotate(-16deg)', offset: 0.5 },
-        { transform: window.matchMedia('(max-width: 899px)').matches ? 'translate(1.4rem, -1.2rem) rotate(7.5deg)' : 'translate(2.4rem, -2rem) rotate(12deg)' }
-      ], { duration: 560, easing: 'cubic-bezier(.3,.7,.2,1)' });
-      setTimeout(function () { frente.style.zIndex = '0'; mover(); }, 280);
-      anim.onfinish = function () { frente.style.zIndex = ''; ocupado = false; };
-    }
-    baraja.querySelector('.baraja__mazo').addEventListener('click', function (e) {
-      if (e.target.closest('a, button')) return;
-      pasar();
-    });
-    if (boton) boton.addEventListener('click', pasar);
-    colocar();
-    // La primera vez que se ve, la baraja se abre un momento para enseñar que hay más tickets detrás
-    if (!reducido && 'IntersectionObserver' in window) {
-      var visto = new IntersectionObserver(function (entradas) {
-        if (!entradas[0].isIntersecting) return;
-        visto.disconnect();
-        setTimeout(function () {
-          baraja.classList.add('baraja--asoma');
-          setTimeout(function () { baraja.classList.remove('baraja--asoma'); }, 900);
-        }, document.documentElement.classList.contains('con-intro') ? 3200 : 700);
-      }, { threshold: 0.6 });
-      visto.observe(baraja);
-    }
-  }
-
   function iniciarPlaylists() {
     document.querySelectorAll('[data-playlist]').forEach(function (a) {
       var url = PLAYLISTS[a.getAttribute('data-playlist')];
@@ -621,7 +564,7 @@
   actualizarEdicion();
   vigilar();
   iniciarDecoracion();
-  iniciarPlaylists(); iniciarBaraja();
+  iniciarPlaylists();
   iniciarLuces();
   iniciarCalendario(); iniciarProximas(); iniciarReloj();
   iniciarParallax();
