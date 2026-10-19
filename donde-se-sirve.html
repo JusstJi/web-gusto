@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>¿Dónde se sirve? · Viernes de Gusto</title>
   <meta name="description" content="New La Miel, Calle Cardenal Segura 25, Burgos. Horario, teléfono y cómo llegar.">
-  <meta name="theme-color" content="#F3EEE4">
+  <meta name="theme-color" content="#16130F">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.gustoexperience.es/donde-se-sirve.html">
   <meta property="og:url" content="https://www.gustoexperience.es/donde-se-sirve.html">
@@ -25,7 +25,7 @@
   <link rel="icon" href="favicon-32.png?v=6" sizes="32x32" type="image/png">
   <link rel="icon" href="icon-192.png?v=6" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=5">
-  <link rel="preload" href="fonts/shrikhand-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/familjen-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -40,7 +40,7 @@
         <li><a href="como-se-sirve.html">Cómo se sirve<span>Formato</span></a></li>
         <li><a href="menu-del-mes.html">Menú del mes<span>Calendario</span></a></li>
         <li><a href="donde-se-sirve.html" aria-current="page">¿Dónde se sirve?<span>Ubicación</span></a></li>
-        <li><a href="index.html#galeria">Galería<span>Fotos</span></a></li>
+        <li><a href="galeria.html">Galería<span>Fotos</span></a></li>
       </ul>
     </nav>
     <a class="boton boton--pequeno" href="haz-tu-pedido.html">Haz tu pedido <small>Entradas</small></a>
@@ -51,6 +51,17 @@
       <h1 class="titulo" id="titulo-donde">¿Dónde se <span>sirve?</span></h1>
       <div class="donde__rejilla">
         <figure class="mapa">
+          <div class="dron" data-dron hidden>
+            <canvas class="dron__lienzo" data-dron-lienzo role="img" aria-label="Vuelo de dron sobre el casco histórico de Burgos que termina en la puerta de New La Miel, en la calle Cardenal Segura"></canvas>
+            <div class="dron__hud" aria-hidden="true">
+              <span class="dron__esquina dron__esquina--1"></span><span class="dron__esquina dron__esquina--2"></span><span class="dron__esquina dron__esquina--3"></span><span class="dron__esquina dron__esquina--4"></span>
+              <p class="dron__rec"><i></i>REC</p>
+              <p class="dron__datos">ALT <b data-dron-alt>000</b> m · DIST <b data-dron-dist>000</b> m</p>
+              <span class="dron__mira"></span>
+            </div>
+            <div class="dron__llegada"><img class="dron__fachada" src="fotos/fachada.jpg" alt="Fachada de New La Miel en la calle Cardenal Segura" width="340" height="180" loading="lazy" onerror="this.remove()"><p><strong>New La Miel</strong> Calle Cardenal Segura, 25</p></div>
+            <button class="dron__otra" type="button" data-dron-otra>Volver a volar</button>
+          </div>
           <svg class="mapa__svg" viewBox="0 0 420 320" role="img" aria-labelledby="mapa-titulo">
             <title id="mapa-titulo">Plano ilustrado: New La Miel, en la calle Cardenal Segura 25</title>
             <rect width="420" height="320" rx="22" fill="var(--papel)"/>
@@ -69,11 +80,11 @@
             </g>
             <g>
               <rect x="300" y="182" width="104" height="46" rx="23" fill="var(--amarillo)" stroke="var(--tinta)" stroke-width="3.5"/>
-              <text x="352" y="211" text-anchor="middle" font-family="Shrikhand, serif" font-size="17" fill="var(--tinta)">La Miel</text>
+              <text x="352" y="211" text-anchor="middle" font-family="Big Shoulders Display, sans-serif" font-weight="900" font-size="17" fill="var(--tinta)">La Miel</text>
               <path d="M300 196 L 276 176" stroke="var(--tinta)" stroke-width="3.5" stroke-linecap="round"/>
             </g>
           </svg>
-          <figcaption>Plano orientativo, no a escala. <a href="https://www.google.com/maps/search/?api=1&amp;query=New+La+Miel+Calle+Cardenal+Segura+25+09003+Burgos" target="_blank" rel="noopener">Ábrelo en Google Maps</a>.</figcaption>
+          <figcaption>Vuelo y plano orientativos, no a escala. <a href="https://www.google.com/maps/search/?api=1&amp;query=New+La+Miel+Calle+Cardenal+Segura+25+09003+Burgos" target="_blank" rel="noopener">Ábrelo en Google Maps</a>.</figcaption>
         </figure>
 
         <div class="donde__fichas">
@@ -113,7 +124,7 @@
   </main>
 
   <footer class="pie">
-    <nav class="pie__nav" aria-label="Todas las páginas"><ul><li><a href="index.html">Inicio</a></li><li><a href="la-carta.html">La Carta <small>· Fiestas</small></a></li><li><a href="como-se-sirve.html">Cómo se sirve <small>· Formato</small></a></li><li><a href="menu-del-mes.html">Menú del mes <small>· Calendario</small></a></li><li><a href="donde-se-sirve.html">¿Dónde se sirve? <small>· Ubicación</small></a></li><li><a href="preguntas.html">Preguntas <small>· Dudas</small></a></li><li><a href="haz-tu-pedido.html">Haz tu pedido <small>· Entradas</small></a></li></ul></nav>
+    <nav class="pie__nav" aria-label="Todas las páginas"><ul><li><a href="index.html">Inicio</a></li><li><a href="la-carta.html">La Carta <small>· Fiestas</small></a></li><li><a href="como-se-sirve.html">Cómo se sirve <small>· Formato</small></a></li><li><a href="menu-del-mes.html">Menú del mes <small>· Calendario</small></a></li><li><a href="donde-se-sirve.html">¿Dónde se sirve? <small>· Ubicación</small></a></li><li><a href="galeria.html">Galería <small>· Fotos</small></a></li><li><a href="preguntas.html">Preguntas <small>· Dudas</small></a></li><li><a href="haz-tu-pedido.html">Haz tu pedido <small>· Entradas</small></a></li></ul></nav>
     <p class="pie__marca">Para gustos, colores.</p>
     <p>Viernes de Gusto es cosa de <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">Gusto</a> y <a href="https://www.instagram.com/newlamielpub/" target="_blank" rel="noopener">New La Miel</a>.</p>
   </footer>
@@ -124,5 +135,6 @@
   </div>
 
   <script src="main.js" defer></script>
+  <script type="module" src="mapa-real.js"></script>
 </body>
 </html>

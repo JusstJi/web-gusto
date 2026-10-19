@@ -1,32 +1,29 @@
 # Design · Viernes de Gusto
 
-Mundo: carta de restaurante impresa en risografía sobre el rosa de la fiesta. En portada, composición centrada tipo cartel: la marca, una boca que saca una lengua con los colores de los sabores y una ola con esos colores que cruza la pantalla; la entrada se apoya en la ola. En ordenador, la marca y la entrada van a la izquierda y la boca a la derecha, sin ola (preferencia de Ji).
+Mundo: **cocina en servicio** (Ji, 19/10/2026: la web anterior «parecía una fiesta para menores de 18»). La noche es un servicio de cocina: acero oscuro, luz naranja de lámpara de pase, comandas de papel térmico colgadas de un riel y fotos reales de la sala. Se mantiene el juego del restaurante (La Carta, Menú del mes, Haz tu pedido, chefs = DJs). Fuera: boca de dibujo, intro de la lengua, pegatinas, confeti y manchas de color.
 
 ## Color
 | Token | Valor | Uso |
 |---|---|---|
-| `--rosa` | #F7A8D8 | Color de la fiesta, fondo base |
-| `--tinta` | #1E1033 | Texto, botones, sección ¿Dónde? y pie |
-| `--fucsia` | #FF3EA5 | Menú del mes, sombra de los títulos |
-| `--amarillo` | #FFE14D | Hoja de La Carta, texto de botones |
-| `--verde` | #19C27A | Cómo se sirve |
-| `--azul` | #3A5BFF | Fondo de La Carta, sombra de la boca |
-| `--azul-tinta` | #2A22C9 | Títulos de marca (5.3:1 sobre rosa) |
-| `--sabor` / `--sabor-oscuro` / `--sabor-tinta` | #410107 / #6A0A14 / #F7B6BA | Umami (granate del cartel) y su texto rosa. Cambiar por edición |
+| `--acero` / `--acero-2` / `--acero-3` | #16130F / #1F1A15 / #2B241D | Fondo y paneles |
+| `--crema` / `--crema-2` | #F3EEE4 / #CDBFA8 | Texto y texto secundario |
+| `--lampara` | #FF7A1A | Acción (botones), segunda línea de títulos |
+| `--papel` / `--tinta` | #F4EFE3 / #16130F | Comandas, carta y planos impresos |
+| Logo: `--verde` `--rojo` `--amarillo` `--naranja` | | Solo para marcar sabores y sellos |
+| `--sabor` / `--sabor-tinta` | #410107 / #F7B6BA | Umami (álbum, plato, calendario) |
+| `--limon` | #FDEF50 | Color anunciado de la fiesta del 30 oct |
 
-Cada sección es un campo de color entero. El texto siempre en `--tinta` (o rosa/papel sobre tinta).
-
-## Tipografía
-- Shrikhand (cursiva ancha): marca, títulos, nombres de plato.
-- Familjen Grotesk 400/600/700: todo lo demás.
-Ambas autoalojadas en `fonts/` (OFL).
+## Tipografía (autoalojadas en `fonts/`, OFL)
+- Big Shoulders Display 800/900, mayúsculas: marca, títulos, nombres de plato, botones.
+- Courier Prime 400/700: todo lo que va impreso en papel (comandas, fechas, horarios, etiquetas).
+- Familjen Grotesk: texto corrido y navegación.
 
 ## Componentes
-- Botón píldora: tinta + amarillo; hover fucsia; `--hueco` con borde; desactivado con borde discontinuo.
-- Ticket: muescas laterales con máscara, girado -2°, en color del sabor.
-- Línea de carta: nombre · puntos · fecha. Ingredientes en lista con separadores discontinuos.
-- «Por desvelar»: chip tinta sobre amarillo para lo que aún no se sabe.
+- `.papel`: papel térmico con borde inferior de sierra; `.riel`: barra metálica de la que cuelga.
+- Comanda de portada: próxima fiesta, horario, sitio, cuenta atrás y «Haz tu pedido». Se balancea al cargar (sin movimiento si «reducir movimiento»).
+- Botón: naranja lámpara, letra de cartel, esquinas de 4px. `--hueco` con borde fino.
+- Líneas de carta: nombre · puntos · dato.
+- Sello rojo de goma («Primera edición», «¡Marchando!»).
 
-## Movimiento
-- Intro (solo primera visita por sesión, «Saltar» y Escape): la lengua asoma, da el lametón y sale dejando ver la web. ~2 s. Con «reducir movimiento», solo fundido del lema.
-- La lengua de la portada se mueve en bucle; se para fuera de pantalla y con «reducir movimiento».
+## Fotos
+- Portada: `fotos/portada.jpg` (foto 02 de Umami, barra roja). Galería con fotos reales.

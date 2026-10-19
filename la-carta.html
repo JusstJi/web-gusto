@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>La Carta · Viernes de Gusto</title>
   <meta name="description" content="Umami, el primer plato de Viernes de Gusto: ingredientes, chefs y lo que está fuera de carta.">
-  <meta name="theme-color" content="#F3EEE4">
+  <meta name="theme-color" content="#16130F">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.gustoexperience.es/la-carta.html">
   <meta property="og:url" content="https://www.gustoexperience.es/la-carta.html">
@@ -25,7 +25,7 @@
   <link rel="icon" href="favicon-32.png?v=6" sizes="32x32" type="image/png">
   <link rel="icon" href="icon-192.png?v=6" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=5">
-  <link rel="preload" href="fonts/shrikhand-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/familjen-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -40,7 +40,7 @@
         <li><a href="como-se-sirve.html">Cómo se sirve<span>Formato</span></a></li>
         <li><a href="menu-del-mes.html">Menú del mes<span>Calendario</span></a></li>
         <li><a href="donde-se-sirve.html">¿Dónde se sirve?<span>Ubicación</span></a></li>
-        <li><a href="index.html#galeria">Galería<span>Fotos</span></a></li>
+        <li><a href="galeria.html">Galería<span>Fotos</span></a></li>
       </ul>
     </nav>
     <a class="boton boton--pequeno" href="haz-tu-pedido.html">Haz tu pedido <small>Entradas</small></a>
@@ -48,23 +48,21 @@
 
   <main id="contenido" tabindex="-1">
     <section class="carta" id="carta" aria-labelledby="titulo-carta">
-      <div class="carta__libro">
-        <div class="carta__hoja carta__hoja--izq">
-          <header class="carta__cabeza">
-            <p class="carta__casa">Viernes de Gusto</p>
-            <h1 class="titulo" id="titulo-carta">La Carta</h1>
-            <p class="carta__ornamento" aria-hidden="true"><span></span>✦<span></span></p>
-            <p class="carta__sub">Cada viernes, un plato. Cada plato, un sabor con su color, su música y su chupito. Mezclando paladar y música.</p>
-          </header>
+      <header class="carta__cabeza">
+        <p class="carta__casa">Viernes de Gusto</p>
+        <h1 class="titulo" id="titulo-carta">La <span>Carta</span></h1>
+        <p class="carta__sub">Cada fiesta llega en su comanda, con su sabor, su color, su música y su chupito. Ábrelas para ver qué lleva cada una.</p>
+      </header>
 
-          <article class="plato-carta" aria-labelledby="plato-umami">
-            <p class="carta__seccion">Plato de la noche</p>
-            <p class="plato-carta__sello" aria-hidden="true">Primera<br>edición</p>
-            <div class="plato-carta__linea">
-              <h2 class="plato-carta__nombre" id="plato-umami">Umami</h2>
-              <span class="plato-carta__puntos" aria-hidden="true"></span>
-              <p class="plato-carta__fecha"><time datetime="2026-10-16">16 · 10</time></p>
-            </div>
+      <div class="riel" aria-hidden="true"></div>
+      <div class="comandas" data-comandas>
+        <details class="comanda-fiesta papel" data-fecha="2026-10-16" style="--color: #410107; --color-texto: #F7B6BA">
+            <summary class="comanda-fiesta__cab">
+              <span class="comanda-fiesta__banda" aria-hidden="true"></span>
+              <span class="comanda-fiesta__meta"><span>Comanda nº 01</span><time datetime="2026-10-16">Vie 16 · 10</time></span>
+              <span class="comanda-fiesta__linea"><h2 class="comanda-fiesta__nombre" id="plato-umami">Umami</h2><span class="comanda-fiesta__estado">Servido</span><svg class="comanda-fiesta__mas" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+            </summary>
+            <div class="comanda-fiesta__cuerpo plato-carta">
             <p class="plato-carta__desc">El quinto sabor: ni dulce, ni salado, ni ácido, ni amargo. Ese gusto profundo que te hace repetir. Su color, su música y su chupito especial, en la primera edición.</p>
 
             <h3 class="plato-carta__seccion">Ingredientes</h3>
@@ -87,34 +85,71 @@
               <span>Pruébalo</span><small data-playlist-pronto>pronto</small>
             </a>
           </div>
-          </article>
-        </div>
+            </div>
+        </details>
 
-        <div class="carta__hoja carta__hoja--der">
-          <section class="proximos" aria-labelledby="titulo-proximos">
-            <h2 class="carta__seccion carta__seccion--grande" id="titulo-proximos">Próximos platos</h2>
-            <p class="carta__ornamento" aria-hidden="true"><span></span>✦<span></span></p>
-            <ul class="proximos__lista">
-              <li><span class="proximos__nombre"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg> Por descubrir <span class="proximos__color" title="Color de la fiesta: amarillo limón" role="img" aria-label="Color: amarillo limón"></span></span><span class="proximos__puntos" aria-hidden="true"></span><time datetime="2026-10-30">30 · 10</time></li>
-              <li><span class="proximos__nombre"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg> Por descubrir</span><span class="proximos__puntos" aria-hidden="true"></span><time datetime="2026-11-13">13 · 11</time></li>
-              <li><span class="proximos__nombre"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg> Por descubrir</span><span class="proximos__puntos" aria-hidden="true"></span><time datetime="2026-11-27">27 · 11</time></li>
-            </ul>
-            <p class="proximos__nota">Uno de cada dos viernes. Cada sabor se desvela en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
-          </section>
+        <details class="comanda-fiesta papel" data-fecha="2026-10-30" open style="--color: #FDEF50; --color-texto: #16130F">
+            <summary class="comanda-fiesta__cab">
+              <span class="comanda-fiesta__banda" aria-hidden="true"></span>
+              <span class="comanda-fiesta__meta"><span>Comanda nº 02</span><time datetime="2026-10-30">Vie 30 · 10</time></span>
+              <span class="comanda-fiesta__linea"><h2 class="comanda-fiesta__nombre" id="plato-30-10">Por desvelar</h2><span class="comanda-fiesta__estado">Por servir</span><svg class="comanda-fiesta__mas" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+            </summary>
+            <div class="comanda-fiesta__cuerpo">
+              <p class="comanda-fiesta__texto">El color de la noche es el amarillo limón. El sabor, su música y su chupito se desvelan en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
+              <dl class="comanda-fiesta__datos">
+                <div><dt>Servicio</dt><dd>00:00 a 04:30</dd></div>
+                <div><dt>Mesa</dt><dd>New La Miel, Burgos</dd></div>
+              </dl>
+            </div>
+        </details>
 
-          <section class="fuera-carta" aria-labelledby="titulo-fuera">
-            <h2 class="carta__seccion carta__seccion--grande" id="titulo-fuera">Fuera de carta</h2>
-            <p class="fuera-carta__sub">Platos por desbloquear</p>
+        <details class="comanda-fiesta comanda-fiesta--sin-color papel" data-fecha="2026-11-13">
+            <summary class="comanda-fiesta__cab">
+              <span class="comanda-fiesta__banda" aria-hidden="true"></span>
+              <span class="comanda-fiesta__meta"><span>Comanda nº 03</span><time datetime="2026-11-13">Vie 13 · 11</time></span>
+              <span class="comanda-fiesta__linea"><h2 class="comanda-fiesta__nombre" id="plato-13-11">Por desvelar</h2><span class="comanda-fiesta__estado">Por servir</span><svg class="comanda-fiesta__mas" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+            </summary>
+            <div class="comanda-fiesta__cuerpo">
+              <p class="comanda-fiesta__texto">Sabor y color por desvelar. Se anuncian en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
+              <dl class="comanda-fiesta__datos">
+                <div><dt>Servicio</dt><dd>00:00 a 04:30</dd></div>
+                <div><dt>Mesa</dt><dd>New La Miel, Burgos</dd></div>
+              </dl>
+            </div>
+        </details>
+
+        <details class="comanda-fiesta comanda-fiesta--sin-color papel" data-fecha="2026-11-27">
+            <summary class="comanda-fiesta__cab">
+              <span class="comanda-fiesta__banda" aria-hidden="true"></span>
+              <span class="comanda-fiesta__meta"><span>Comanda nº 04</span><time datetime="2026-11-27">Vie 27 · 11</time></span>
+              <span class="comanda-fiesta__linea"><h2 class="comanda-fiesta__nombre" id="plato-27-11">Por desvelar</h2><span class="comanda-fiesta__estado">Por servir</span><svg class="comanda-fiesta__mas" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+            </summary>
+            <div class="comanda-fiesta__cuerpo">
+              <p class="comanda-fiesta__texto">Sabor y color por desvelar. Se anuncian en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
+              <dl class="comanda-fiesta__datos">
+                <div><dt>Servicio</dt><dd>00:00 a 04:30</dd></div>
+                <div><dt>Mesa</dt><dd>New La Miel, Burgos</dd></div>
+              </dl>
+            </div>
+        </details>
+
+        <details class="comanda-fiesta comanda-fiesta--fuera papel">
+            <summary class="comanda-fiesta__cab">
+              <span class="comanda-fiesta__banda" aria-hidden="true"></span>
+              <span class="comanda-fiesta__meta"><span>Fuera de carta</span><span>Platos por desbloquear</span></span>
+              <span class="comanda-fiesta__linea"><h2 class="comanda-fiesta__nombre" id="titulo-fuera">Fuera de carta</h2><span class="comanda-fiesta__estado">Pronto</span><svg class="comanda-fiesta__mas" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+            </summary>
+            <div class="comanda-fiesta__cuerpo fuera-carta">
             <ul class="bloqueados">
             <li><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span class="tachon" aria-hidden="true">Especial de temporada</span><span class="sr">Plato secreto</span><em>Pronto</em></li>
             <li><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span class="tachon" aria-hidden="true">Noche de disfraces</span><span class="sr">Plato secreto</span><em>Pronto</em></li>
           </ul>
-            <p class="fuera-carta__pista">Se desbloquean en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
-          </section>
-
-          <p class="carta__pie">Para gustos, colores.</p>
-        </div>
+              <p class="fuera-carta__pista">Se desbloquean en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
+            </div>
+        </details>
       </div>
+      <p class="carta__nota">Uno de cada dos viernes. Cada sabor se desvela en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
+      <p class="carta__pie">Para gustos, colores.</p>
     </section>
     <a class="siguiente" href="como-se-sirve.html">
       <span>Siguiente plato</span>
@@ -123,7 +158,7 @@
   </main>
 
   <footer class="pie">
-    <nav class="pie__nav" aria-label="Todas las páginas"><ul><li><a href="index.html">Inicio</a></li><li><a href="la-carta.html">La Carta <small>· Fiestas</small></a></li><li><a href="como-se-sirve.html">Cómo se sirve <small>· Formato</small></a></li><li><a href="menu-del-mes.html">Menú del mes <small>· Calendario</small></a></li><li><a href="donde-se-sirve.html">¿Dónde se sirve? <small>· Ubicación</small></a></li><li><a href="preguntas.html">Preguntas <small>· Dudas</small></a></li><li><a href="haz-tu-pedido.html">Haz tu pedido <small>· Entradas</small></a></li></ul></nav>
+    <nav class="pie__nav" aria-label="Todas las páginas"><ul><li><a href="index.html">Inicio</a></li><li><a href="la-carta.html">La Carta <small>· Fiestas</small></a></li><li><a href="como-se-sirve.html">Cómo se sirve <small>· Formato</small></a></li><li><a href="menu-del-mes.html">Menú del mes <small>· Calendario</small></a></li><li><a href="donde-se-sirve.html">¿Dónde se sirve? <small>· Ubicación</small></a></li><li><a href="galeria.html">Galería <small>· Fotos</small></a></li><li><a href="preguntas.html">Preguntas <small>· Dudas</small></a></li><li><a href="haz-tu-pedido.html">Haz tu pedido <small>· Entradas</small></a></li></ul></nav>
     <p class="pie__marca">Para gustos, colores.</p>
     <p>Viernes de Gusto es cosa de <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">Gusto</a> y <a href="https://www.instagram.com/newlamielpub/" target="_blank" rel="noopener">New La Miel</a>.</p>
   </footer>
