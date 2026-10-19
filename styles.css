@@ -379,15 +379,19 @@ html.con-intro .intro {
   text-shadow: 0.04em 0.04em 0 var(--tinta);
 }
 .marca__linea { display: block; }
-/* «de» como una pegatina inclinada sobre la esquina de «Viernes»; «Gusto» sube debajo */
+/* «de» pequeño a la izquierda de «Gusto»: la segunda línea ocupa lo mismo que «Viernes» */
+.marca {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.08em;
+}
+.marca__linea:first-child { grid-column: 1 / -1; }
 .marca__linea--de {
-  position: absolute;
-  z-index: 1;
-  right: 0;
-  top: 1.3em;
   font-size: 0.5em;
   line-height: 1;
-  rotate: -14deg;
+  justify-self: end;
 }
 .portada__que {
   justify-self: center;
@@ -548,7 +552,7 @@ html.con-intro .intro {
   }
   .portada__antes,
   .ola { display: none; }
-  .marca { grid-column: 1; grid-row: 1; justify-self: start; text-align: left; font-size: clamp(5.5rem, 9.5vw, 8.5rem); }
+  .marca { grid-column: 1; grid-row: 1; justify-self: start; justify-content: start; text-align: left; font-size: clamp(5.5rem, 9.5vw, 8.5rem); }
   .portada__lema { grid-column: 1; grid-row: 2; justify-self: start; text-align: left; }
   .portada__que { grid-column: 1; grid-row: 3; justify-self: start; }
   .reloj, .reloj__antes { justify-items: start; }
