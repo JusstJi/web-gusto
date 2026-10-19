@@ -28,6 +28,10 @@
   <link rel="preload" href="fonts/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/familjen-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Si hay WebGL, el visor del dron sale desde el primer momento y el plano dibujado no llega a verse
+    try { var c = document.createElement('canvas'); if (c.getContext('webgl2') || c.getContext('webgl')) document.documentElement.classList.add('con-webgl'); } catch (e) {}
+  </script>
 </head>
 <body class="interior">
   <a class="saltar-contenido" href="#contenido">Ir al contenido</a>
@@ -51,7 +55,7 @@
       <h1 class="titulo" id="titulo-donde">¿Dónde se <span>sirve?</span></h1>
       <div class="donde__rejilla">
         <figure class="mapa">
-          <div class="dron" data-dron hidden>
+          <div class="dron" data-dron>
             <canvas class="dron__lienzo" data-dron-lienzo role="img" aria-label="Vuelo de dron sobre el casco histórico de Burgos que termina en la puerta de New La Miel, en la calle Cardenal Segura"></canvas>
             <div class="dron__hud" aria-hidden="true">
               <span class="dron__esquina dron__esquina--1"></span><span class="dron__esquina dron__esquina--2"></span><span class="dron__esquina dron__esquina--3"></span><span class="dron__esquina dron__esquina--4"></span>

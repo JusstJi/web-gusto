@@ -867,6 +867,9 @@ a.ficha:hover { background: var(--acero-3); }
 @media (min-width: 900px) { .donde__rejilla { grid-template-columns: 1.2fr 0.8fr; gap: 3rem; } }
 
 /* Vuelo de dron (dron.js): visor de cámara sobre la escena 3D */
+.dron { display: none; }
+.con-webgl .dron { display: block; }
+.con-webgl .mapa__svg { display: none; }
 .dron {
   position: relative;
   aspect-ratio: 4 / 3;
