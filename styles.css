@@ -365,23 +365,29 @@ html.con-intro .intro {
   text-align: center;
 }
 .marca {
+  position: relative;
   justify-self: center;
+  margin-block: 0;
   text-align: center;
   font-family: var(--display);
   font-weight: 400;
   font-size: clamp(4rem, 19vw, 7.5rem);
-  line-height: 0.86;
+  line-height: 0.9;
   letter-spacing: -0.015em;
-  color: var(--rojo);
-  text-shadow: 0.035em 0.03em 0 var(--tinta);
+  color: var(--papel);
+  -webkit-text-stroke: 0.02em var(--tinta);
+  text-shadow: 0.04em 0.04em 0 var(--tinta);
 }
 .marca__linea { display: block; }
-.marca__linea:first-child { color: var(--verde); }
+/* «de» como una pegatina inclinada sobre la esquina de «Viernes»; «Gusto» sube debajo */
 .marca__linea--de {
-  font-size: 0.42em;
-  line-height: 1.1;
-  color: var(--tinta);
-  text-shadow: 0.06em 0.05em 0 var(--amarillo);
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  top: 1.3em;
+  font-size: 0.5em;
+  line-height: 1;
+  rotate: -14deg;
 }
 .portada__que {
   justify-self: center;
@@ -543,7 +549,6 @@ html.con-intro .intro {
   .portada__antes,
   .ola { display: none; }
   .marca { grid-column: 1; grid-row: 1; justify-self: start; text-align: left; font-size: clamp(5.5rem, 9.5vw, 8.5rem); }
-  .marca__linea--de { margin-left: 0.6em; }
   .portada__lema { grid-column: 1; grid-row: 2; justify-self: start; text-align: left; }
   .portada__que { grid-column: 1; grid-row: 3; justify-self: start; }
   .reloj, .reloj__antes { justify-items: start; }
