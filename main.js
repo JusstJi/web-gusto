@@ -187,6 +187,17 @@
 
   // Cuenta atrás de la portada: la fiesta empieza a las 00:00 de la noche del viernes y acaba a las 04:30
   function iniciarReloj() {
+    // Vídeo de la portada: quieto si se pide menos movimiento, y en pausa cuando no se ve
+    var video = document.querySelector('[data-portada-video]');
+    if (video) {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { video.removeAttribute('autoplay'); video.pause(); }
+      else if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (e) {
+          if (e[0].isIntersecting) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+          else video.pause();
+        }).observe(video);
+      }
+    }
     var reloj = document.querySelector('[data-reloj]');
     var hoy = document.querySelector('.hoy');
     if (hoy && 'IntersectionObserver' in window) {
