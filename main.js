@@ -101,6 +101,21 @@
 
 
   // Galería: al tocar una foto se abre el visor con todas las de esa fiesta
+  // La Carta: se abre sola la comanda de la próxima fiesta (o la de esta noche)
+  function iniciarCarta() {
+    var comandas = document.querySelectorAll('[data-comandas] details[data-fecha]');
+    if (!comandas.length) return;
+    var ahora = new Date();
+    var proxima = null;
+    comandas.forEach(function (d) {
+      var fin = new Date(d.dataset.fecha + 'T04:30:00+02:00');
+      fin.setDate(fin.getDate() + 1);
+      if (!proxima && fin > ahora) proxima = d;
+    });
+    if (!proxima) return;
+    comandas.forEach(function (d) { d.open = d === proxima; });
+  }
+
   function iniciarGaleria() {
     var visor = document.querySelector('[data-visor]');
     if (!visor || !visor.showModal) return;
@@ -342,5 +357,6 @@
   vigilar();
   iniciarPlaylists();
   iniciarCalendario(); iniciarProximas(); iniciarReloj(); iniciarGaleria();
+  iniciarCarta();
   iniciarCabeceraFija();
 })();

@@ -569,26 +569,59 @@ a.probar[href]:hover { background: #1ED760; border-color: #1ED760; color: #08140
 .siguiente:hover strong { color: var(--lampara); }
 .siguiente:hover strong .icono { transform: translateX(6px); }
 
-/* ---------- La Carta: una carta de papel sobre el acero ---------- */
-.carta__libro {
-  display: grid;
-  max-width: 68rem; margin-inline: auto;
-  background: var(--papel); color: var(--tinta);
-  border-radius: 4px;
-  box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.8);
-}
-.carta__hoja { padding: clamp(1.6rem, 5vw, 3.2rem); }
-.carta__hoja--der { border-top: 1.5px dashed rgb(22 19 15 / 0.35); }
-@media (min-width: 900px) {
-  .carta__libro { grid-template-columns: 1.1fr 0.9fr; }
-  .carta__hoja--der { border-top: 0; border-left: 1.5px dashed rgb(22 19 15 / 0.35); }
-}
-.carta__cabeza { display: grid; gap: 0.6rem; padding-bottom: 1.6rem; margin-bottom: 1.6rem; border-bottom: 3px double var(--tinta); }
-.carta__casa { font: 700 0.85rem var(--ticket); text-transform: uppercase; letter-spacing: 0.12em; }
-.carta .titulo { color: var(--tinta); font-size: clamp(3.4rem, 10vw, 5.5rem); }
-.carta__sub { color: var(--tinta-2); max-width: 44ch; }
+/* ---------- La Carta: una comanda desplegable por fiesta, colgadas del riel ---------- */
+.carta { max-width: 52rem; margin-inline: auto; overflow-x: clip; overflow-clip-margin: 1rem; padding-bottom: 1rem; }
+.carta__cabeza { display: grid; gap: 0.6rem; margin-bottom: 2rem; }
+.carta__casa { font: 700 0.85rem var(--ticket); text-transform: uppercase; letter-spacing: 0.12em; color: var(--crema-2); }
+.carta .titulo { font-size: clamp(3.4rem, 10vw, 5.5rem); }
+.carta__sub { color: var(--crema-2); max-width: 46ch; }
 .carta__seccion { font: 700 0.85rem var(--ticket); text-transform: uppercase; letter-spacing: 0.12em; color: var(--tinta-2); }
-.carta__seccion--grande { font: 900 clamp(2rem, 5vw, 2.6rem)/0.95 var(--display); letter-spacing: 0; color: var(--tinta); }
+.carta .riel { margin-inline: -0.25rem; }
+.comandas { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; padding-inline: 0.4rem; margin-top: -2px; }
+.comanda-fiesta {
+  --color: var(--tinta-2); --color-texto: var(--papel);
+  box-shadow: 0 16px 28px -12px rgb(0 0 0 / 0.7);
+  transform-origin: 50% 0;
+  rotate: -0.6deg;
+}
+.comanda-fiesta:nth-child(even) { rotate: 0.5deg; }
+.comanda-fiesta[open] { rotate: 0deg; }
+.comanda-fiesta__cab {
+  display: grid; gap: 0.5rem;
+  padding: 0 clamp(1rem, 4vw, 1.6rem) 1rem;
+  cursor: pointer; list-style: none;
+}
+.comanda-fiesta__cab::-webkit-details-marker { display: none; }
+.comanda-fiesta__banda { display: block; height: 0.8rem; margin-inline: calc(-1 * clamp(1rem, 4vw, 1.6rem)); margin-bottom: 0.5rem; background: var(--color); }
+.comanda-fiesta--sin-color .comanda-fiesta__banda { background: repeating-linear-gradient(-45deg, var(--tinta-2) 0 6px, transparent 6px 12px); opacity: 0.45; }
+.comanda-fiesta--fuera .comanda-fiesta__banda { background: var(--tinta); }
+.comanda-fiesta__meta { display: flex; justify-content: space-between; gap: 1rem; font: 700 0.8rem var(--ticket); text-transform: uppercase; letter-spacing: 0.1em; color: var(--tinta-2); border-bottom: 1.5px dashed rgb(22 19 15 / 0.35); padding-bottom: 0.5rem; }
+.comanda-fiesta__linea { display: flex; align-items: center; gap: 0.8rem; }
+.comanda-fiesta__nombre { flex: 1; font: 900 clamp(2.2rem, 8vw, 3.4rem)/0.9 var(--display); text-transform: uppercase; color: var(--tinta); }
+.comanda-fiesta__estado {
+  padding: 0.3rem 0.55rem; border-radius: 3px;
+  background: var(--color); color: var(--color-texto);
+  font: 700 0.75rem var(--ticket); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap;
+}
+.comanda-fiesta--sin-color .comanda-fiesta__estado { background: none; color: var(--tinta-2); box-shadow: inset 0 0 0 1.5px currentColor; }
+.comanda-fiesta--fuera .comanda-fiesta__estado { background: var(--tinta); color: var(--papel); }
+.comanda-fiesta__mas { flex: none; width: 1.6rem; height: 1.6rem; fill: none; stroke: var(--tinta); stroke-width: 2.4; stroke-linecap: round; transition: rotate 300ms var(--sale); }
+.comanda-fiesta[open] .comanda-fiesta__mas { rotate: 45deg; }
+.comanda-fiesta__cab:focus-visible { outline: 2px solid var(--lampara); outline-offset: -4px; }
+.comanda-fiesta__cuerpo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 0.4rem clamp(1rem, 4vw, 1.6rem) calc(1.6rem + var(--diente)); border-top: 1.5px dashed rgb(22 19 15 / 0.35); padding-top: 1.2rem; }
+.comanda-fiesta__texto { color: var(--tinta-2); max-width: 52ch; }
+.comanda-fiesta__datos { display: grid; gap: 0.3rem; margin: 0; font-family: var(--ticket); }
+.comanda-fiesta__datos div { display: flex; gap: 0.6rem; }
+.comanda-fiesta__datos dt { font-weight: 700; text-transform: uppercase; min-width: 6.5rem; }
+.comanda-fiesta__datos dd { margin: 0; }
+.comanda-fiesta a { color: inherit; text-decoration-color: rgb(22 19 15 / 0.5); }
+@supports (interpolate-size: allow-keywords) {
+  .comanda-fiesta { interpolate-size: allow-keywords; }
+  .comanda-fiesta::details-content { block-size: 0; overflow: hidden; transition: block-size 450ms var(--sale), content-visibility 450ms allow-discrete; }
+  .comanda-fiesta[open]::details-content { block-size: auto; }
+}
+.carta__nota { margin-top: 1.6rem; color: var(--crema-2); font-size: 0.95rem; }
+.carta__nota a { color: inherit; }
 .plato-carta { position: relative; display: grid; gap: 1rem; }
 .plato-carta__sello {
   position: absolute; right: 0; top: -0.4rem;
@@ -619,7 +652,6 @@ a.probar[href]:hover { background: #1ED760; border-color: #1ED760; color: #08140
 .plato-carta__acciones .boton { box-shadow: none; }
 .carta .por-desvelar { border-color: var(--tinta-2); }
 .proximos, .fuera-carta { display: grid; gap: 1rem; }
-.fuera-carta { margin-top: 2.6rem; }
 .proximos__lista, .bloqueados { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgb(22 19 15 / 0.2); }
 .proximos__lista li {
   display: flex; align-items: baseline; gap: 0.6rem;
@@ -634,8 +666,7 @@ a.probar[href]:hover { background: #1ED760; border-color: #1ED760; color: #08140
 .bloqueados li { display: flex; align-items: center; gap: 0.6rem; padding: 0.75rem 0; border-bottom: 1px solid rgb(22 19 15 / 0.2); font-family: var(--ticket); }
 .tachon { text-decoration: line-through; text-decoration-thickness: 0.5em; text-decoration-color: var(--tinta); color: var(--tinta); user-select: none; }
 .bloqueados em { margin-left: auto; font-style: normal; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; }
-.carta__pie { margin-top: 2.4rem; font: 900 1.6rem var(--display); text-transform: uppercase; color: var(--tinta-2); text-align: right; }
-.carta a { color: inherit; text-decoration-color: rgb(22 19 15 / 0.5); }
+.carta__pie { margin-top: 0.6rem; font: 900 1.6rem var(--display); text-transform: uppercase; color: var(--crema-2); text-align: right; }
 
 /* ---------- Cómo se sirve ---------- */
 .como__cabeza { display: grid; gap: 2.5rem; align-items: center; }
@@ -973,7 +1004,7 @@ a.ficha:hover { background: var(--acero-3); }
 
 /* Al bajar, cada bloque entra cuando asoma (solo donde el navegador lo hace con el scroll) */
 @supports (animation-timeline: view()) {
-  .titulo, .indice__item, .paso, .plato, .proxima, .preguntas details, .ficha, .album, .carta__libro, .calendario, .plano, .siguiente strong {
+  .titulo, .indice__item, .paso, .plato, .proxima, .preguntas details, .ficha, .album, .comanda-fiesta, .calendario, .plano, .siguiente strong {
     animation: asoma linear both;
     animation-timeline: view();
     animation-range: entry 0% entry 55%;
