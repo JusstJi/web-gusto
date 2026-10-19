@@ -76,7 +76,7 @@ function iniciar(reloj) {
       container: capa,
       style: ESTILO,
       ...(quieto ? LLEGADA : SALIDA),
-      attributionControl: { compact: true },
+      attributionControl: false,           // el crédito va en el pie del mapa, fuera del visor
       cooperativeGestures: true,
       maxPitch: 75,
       fadeDuration: 0,
@@ -107,7 +107,13 @@ function iniciar(reloj) {
     const plano = document.querySelector('.mapa__svg');
     if (plano) plano.setAttribute('hidden', '');
     const pie = document.querySelector('.mapa figcaption');
-    if (pie && pie.firstChild && pie.firstChild.nodeType === 3) pie.firstChild.textContent = 'Mapa real de Burgos. ';
+    if (pie && pie.firstChild && pie.firstChild.nodeType === 3) {
+      pie.firstChild.textContent = 'Mapa real de Burgos. ';
+      const credito = document.createElement('small');
+      credito.className = 'mapa__credito';
+      credito.innerHTML = 'Mapa: <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> · Datos © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">colaboradores de OpenStreetMap</a>';
+      pie.append(credito);
+    }
     caja.classList.add('dron--listo');
     volar(mapa);
   });
