@@ -413,6 +413,28 @@ p { margin: 0; text-wrap: pretty; }
   font: 900 3rem/0.9 var(--display);
 }
 .album__mas small { font: 400 0.95rem var(--ticket); }
+.galeria__todas { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.4rem; font: 800 1.3rem var(--display); text-transform: uppercase; letter-spacing: 0.04em; color: var(--crema); text-decoration: none; }
+.galeria__todas .icono { width: 1.1em; height: 1.1em; color: var(--lampara); transition: transform 200ms var(--sale); }
+.galeria__todas:hover { color: var(--lampara); }
+.galeria__todas:hover .icono { transform: translateX(5px); }
+/* Página de la galería: el álbum entero en muro y los huecos de las próximas fiestas */
+.galeria--pagina { border-top: 0; }
+.galeria__sub { margin-top: 0.8rem; color: var(--crema-2); max-width: 46ch; }
+.album__muro { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(7rem, 30%), 1fr)); gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.album__muro .album__foto img { aspect-ratio: 4 / 5; }
+@media (min-width: 900px) { .album__muro { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.galeria__proximas { margin: clamp(2.6rem, 6vw, 4rem) 0 1.1rem; font: 900 clamp(2rem, 5vw, 2.8rem)/0.95 var(--display); text-transform: uppercase; }
+.albumes-huecos { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.8rem; margin: 0; padding: 0; list-style: none; }
+.album-hueco {
+  display: grid; align-content: start; gap: 0.35rem;
+  min-height: 12rem; padding: 1.2rem 1.3rem;
+  border: 1.5px dashed rgb(243 238 228 / 0.28); border-radius: 6px;
+  background: repeating-linear-gradient(-45deg, rgb(243 238 228 / 0.03) 0 10px, transparent 10px 20px);
+}
+.album-hueco__num { font: 700 0.8rem var(--ticket); text-transform: uppercase; letter-spacing: 0.1em; color: var(--crema-2); }
+.album-hueco__sabor { font: 900 2.4rem/0.9 var(--display); text-transform: uppercase; color: var(--crema); }
+.album-hueco__fecha { font-family: var(--ticket); color: var(--lampara); }
+.album-hueco__nota { margin-top: auto; padding-top: 1rem; font-size: 0.9rem; color: var(--crema-2); }
 @media (min-width: 900px) {
   .album__fotos { grid-template-columns: 2fr 1fr 1fr; grid-template-rows: auto auto; }
   .album__fotos li:first-child { grid-column: 1; grid-row: 1 / span 2; }
