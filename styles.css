@@ -684,14 +684,18 @@ a.probar[href]:hover { background: #1ED760; border-color: #1ED760; color: #08140
 }
 .plano__svg { width: 100%; height: auto; overflow: visible; }
 .plano figcaption { margin-top: 0.8rem; font: 400 0.9rem var(--ticket); text-align: center; }
-.plano figcaption { color: #CDBFA8; }
+.plano figcaption { color: #CDBFA8; padding: 0.2rem 1rem 1rem; }
+.plano:has(.show) { padding: 0; overflow: hidden; }
+.plano .show { display: block; }
 /* Show de cocina: el chef en el centro y la gente alrededor mirando */
 .show__foco { transform-origin: 200px 200px; animation: foco 3.2s ease-in-out infinite alternate; }
 @keyframes foco { from { opacity: 0.75; } to { opacity: 1; transform: scale(1.04); } }
 .show__persona { animation: bota 0.9s ease-in-out var(--d, 0s) infinite alternate; }
 @keyframes bota { to { transform: translateY(-1.6px) scale(1.07); } }
-.show__movil { animation: flash 3s steps(1) var(--d, 0s) infinite; }
-@keyframes flash { 0%, 88% { fill: #16130F; } 90%, 94% { fill: #FFFFFF; } }
+.show__haz { opacity: 0; animation: haz 3.4s ease-out var(--d, 0s) infinite; }
+@keyframes haz { 0%, 86% { opacity: 0; } 88% { opacity: 1; } 100% { opacity: 0; } }
+.show__pantalla { animation: pantalla 3.4s steps(1) var(--d, 0s) infinite; }
+@keyframes pantalla { 0%, 86% { fill: #9FB0C8; } 88%, 94% { fill: #FFFFFF; } }
 .show__llama { animation: llama 0.35s ease-in-out infinite alternate; }
 @keyframes llama { from { transform: scale(0.85); opacity: 0.75; } to { transform: scale(1.12); opacity: 1; } }
 .show__salteo { animation: salteo 1.8s cubic-bezier(0.3, 0, 0.3, 1) infinite; }
