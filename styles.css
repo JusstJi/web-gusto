@@ -420,9 +420,6 @@ p { margin: 0; text-wrap: pretty; }
 /* Página de la galería: el álbum entero en muro y los huecos de las próximas fiestas */
 .galeria--pagina { border-top: 0; }
 .galeria__sub { margin-top: 0.8rem; color: var(--crema-2); max-width: 46ch; }
-.album__muro { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(7rem, 30%), 1fr)); gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
-.album__muro .album__foto img { aspect-ratio: 4 / 5; }
-@media (min-width: 900px) { .album__muro { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 .galeria__proximas { margin: clamp(2.6rem, 6vw, 4rem) 0 1.1rem; font: 900 clamp(2rem, 5vw, 2.8rem)/0.95 var(--display); text-transform: uppercase; }
 .albumes-huecos { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.8rem; margin: 0; padding: 0; list-style: none; }
 .album-hueco {
