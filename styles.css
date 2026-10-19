@@ -815,6 +815,27 @@ a.ficha:hover { background: var(--acero-3); }
   .dron__llegada { right: 1rem; }
   .dron__otra { top: 3rem; bottom: auto; right: 0.9rem; }
 }
+/* Mapa real (mapa-real.js): el visor va por encima y la atribución abajo a la derecha */
+.dron .dron__mapa { position: absolute; inset: 0; z-index: -1; background: var(--acero-2); }
+.dron--real .dron__otra { top: 3rem; bottom: auto; right: 0.9rem; }
+.dron--real .dron__llegada { right: auto; bottom: 2.6rem; }
+.dron__chincheta { position: relative; width: 2.6rem; height: 2.6rem; pointer-events: none; }
+.dron__punta {
+  position: absolute; left: 50%; bottom: 0; width: 1.6rem; height: 1.6rem; margin-left: -0.8rem;
+  background: var(--lampara); border: 3px solid var(--crema);
+  border-radius: 50% 50% 50% 0; transform: rotate(-45deg); transform-origin: center;
+  box-shadow: 0 6px 14px rgb(0 0 0 / 0.55);
+}
+.dron__onda {
+  position: absolute; left: 50%; bottom: -0.5rem; width: 1.4rem; height: 0.7rem; margin-left: -0.7rem;
+  border: 2px solid var(--lampara); border-radius: 50%;
+  animation: onda 1.6s var(--sale) infinite;
+}
+@keyframes onda { from { transform: scale(0.6); opacity: 1; } to { transform: scale(3.4); opacity: 0; } }
+.dron .maplibregl-ctrl-attrib { background: rgb(22 19 15 / 0.8); color: var(--crema-2); font: 400 0.7rem var(--texto); }
+.dron .maplibregl-ctrl-attrib a { color: var(--crema); }
+.dron .maplibregl-ctrl-attrib-button { filter: invert(1); }
+.dron .maplibregl-cooperative-gesture-screen { background: rgb(22 19 15 / 0.75); color: var(--crema); font: 600 1rem var(--texto); }
 
 /* ---------- Preguntas ---------- */
 .preguntas { max-width: 52rem; }
