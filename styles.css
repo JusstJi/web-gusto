@@ -1189,3 +1189,10 @@ a.ficha:hover { background: var(--acero-3); }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 
+
+/* Texto sobre la fiesta (portada) */
+.sobre { padding: var(--seccion) var(--borde); border-top: 1px solid var(--linea); }
+.sobre .titulo { font-size: clamp(2.6rem, 8vw, 4.8rem); max-width: 16ch; }
+.sobre .titulo span { color: var(--lampara); }
+.sobre__texto { display: grid; gap: 1rem; max-width: 62ch; margin-top: 1.4rem; color: var(--crema-2); line-height: 1.6; }
+.sobre__texto a { color: var(--crema); }
