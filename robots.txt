@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://web-gusto.vercel.app/sitemap.xml
+Sitemap: https://www.gustoexperience.es/sitemap.xml
