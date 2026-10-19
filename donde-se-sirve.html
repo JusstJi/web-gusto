@@ -51,6 +51,17 @@
       <h1 class="titulo" id="titulo-donde">¿Dónde se <span>sirve?</span></h1>
       <div class="donde__rejilla">
         <figure class="mapa">
+          <div class="dron" data-dron hidden>
+            <canvas class="dron__lienzo" data-dron-lienzo role="img" aria-label="Vuelo de dron sobre el casco histórico de Burgos que termina en la puerta de New La Miel, en la calle Cardenal Segura"></canvas>
+            <div class="dron__hud" aria-hidden="true">
+              <span class="dron__esquina dron__esquina--1"></span><span class="dron__esquina dron__esquina--2"></span><span class="dron__esquina dron__esquina--3"></span><span class="dron__esquina dron__esquina--4"></span>
+              <p class="dron__rec"><i></i>REC</p>
+              <p class="dron__datos">ALT <b data-dron-alt>000</b> m · DIST <b data-dron-dist>000</b> m</p>
+              <span class="dron__mira"></span>
+            </div>
+            <p class="dron__llegada"><strong>New La Miel</strong> Calle Cardenal Segura, 25</p>
+            <button class="dron__otra" type="button" data-dron-otra>Volver a volar</button>
+          </div>
           <svg class="mapa__svg" viewBox="0 0 420 320" role="img" aria-labelledby="mapa-titulo">
             <title id="mapa-titulo">Plano ilustrado: New La Miel, en la calle Cardenal Segura 25</title>
             <rect width="420" height="320" rx="22" fill="var(--papel)"/>
@@ -73,7 +84,7 @@
               <path d="M300 196 L 276 176" stroke="var(--tinta)" stroke-width="3.5" stroke-linecap="round"/>
             </g>
           </svg>
-          <figcaption>Plano orientativo, no a escala. <a href="https://www.google.com/maps/search/?api=1&amp;query=New+La+Miel+Calle+Cardenal+Segura+25+09003+Burgos" target="_blank" rel="noopener">Ábrelo en Google Maps</a>.</figcaption>
+          <figcaption>Vuelo y plano orientativos, no a escala. <a href="https://www.google.com/maps/search/?api=1&amp;query=New+La+Miel+Calle+Cardenal+Segura+25+09003+Burgos" target="_blank" rel="noopener">Ábrelo en Google Maps</a>.</figcaption>
         </figure>
 
         <div class="donde__fichas">
@@ -124,5 +135,6 @@
   </div>
 
   <script src="main.js" defer></script>
+  <script type="module" src="dron.js"></script>
 </body>
 </html>

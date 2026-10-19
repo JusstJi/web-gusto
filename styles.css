@@ -309,7 +309,6 @@ p { margin: 0; text-wrap: pretty; }
   transform: rotate(-1.2deg);
   transform-origin: 50% 0;
   filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.55));
-  animation: cuelga 1.6s var(--sale) both;
 }
 .comanda-hoy::before {
   content: ""; position: absolute; top: 0; left: 50%;
@@ -354,6 +353,7 @@ p { margin: 0; text-wrap: pretty; }
 @media (min-width: 900px) {
   .portada {
     grid-template-columns: minmax(0, 1fr) minmax(0, 27rem);
+    grid-template-rows: 1fr auto;
     column-gap: 3rem;
     align-items: end;
     min-height: min(100svh, 56rem);
@@ -370,8 +370,8 @@ p { margin: 0; text-wrap: pretty; }
   }
   .portada__texto { grid-column: 1; grid-row: 1 / span 2; align-self: center; }
   .marca { font-size: clamp(7rem, 12vw, 10.5rem); }
-  .portada .riel { grid-column: 2; grid-row: 1; margin: 0 calc(var(--borde) * -1) 0 -2rem; align-self: end; }
-  .comanda-hoy { grid-column: 2; grid-row: 2; justify-self: center; transform: rotate(1.4deg); animation-name: cuelga-d; }
+  .portada .riel { grid-column: 2; grid-row: 2; margin: 0 calc(var(--borde) * -1) 0 -2rem; align-self: start; position: relative; z-index: 1; }
+  .comanda-hoy { grid-column: 2; grid-row: 2; justify-self: center; margin-top: 12px; transform: rotate(1.4deg); }
   @keyframes cuelga-d {
     0% { transform: rotate(-4deg); }
     35% { transform: rotate(3deg); }
@@ -762,6 +762,60 @@ a.ficha:hover { background: var(--acero-3); }
 .enlace-ig:hover { color: var(--lampara); }
 @media (min-width: 900px) { .donde__rejilla { grid-template-columns: 1.2fr 0.8fr; gap: 3rem; } }
 
+/* Vuelo de dron (dron.js): visor de cámara sobre la escena 3D */
+.dron {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--acero-2);
+  isolation: isolate;
+}
+.dron__lienzo { display: block; width: 100%; height: 100%; }
+.dron__hud { position: absolute; inset: 0; pointer-events: none; font: 700 0.78rem var(--ticket); color: var(--crema); letter-spacing: 0.06em; }
+.dron__esquina { position: absolute; width: 1.4rem; height: 1.4rem; border: 2px solid rgb(243 238 228 / 0.8); }
+.dron__esquina--1 { top: 0.9rem; left: 0.9rem; border-right: 0; border-bottom: 0; }
+.dron__esquina--2 { top: 0.9rem; right: 0.9rem; border-left: 0; border-bottom: 0; }
+.dron__esquina--3 { bottom: 0.9rem; left: 0.9rem; border-right: 0; border-top: 0; }
+.dron__esquina--4 { bottom: 0.9rem; right: 0.9rem; border-left: 0; border-top: 0; }
+.dron__rec { position: absolute; top: 1.15rem; left: 2.6rem; display: flex; align-items: center; gap: 0.4rem; }
+.dron__rec i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--rojo); animation: parpadea 1.2s steps(2, jump-none) infinite; }
+@keyframes parpadea { 50% { opacity: 0.15; } }
+.dron__datos { position: absolute; top: 1.15rem; right: 2.6rem; font-variant-numeric: tabular-nums; }
+.dron__mira { position: absolute; left: 50%; top: 50%; width: 2.2rem; height: 2.2rem; margin: -1.1rem 0 0 -1.1rem; opacity: 0.55; transition: opacity 600ms var(--sale);
+  background: linear-gradient(var(--crema) 0 0) center / 100% 1.5px no-repeat, linear-gradient(var(--crema) 0 0) center / 1.5px 100% no-repeat;
+  -webkit-mask: radial-gradient(circle, transparent 0.35rem, #000 0.36rem); mask: radial-gradient(circle, transparent 0.35rem, #000 0.36rem); }
+.dron--llegado .dron__mira { opacity: 0; }
+.dron__llegada {
+  position: absolute; left: 1rem; bottom: 1rem;
+  display: grid; gap: 0.15rem;
+  padding: 0.7rem 0.9rem 0.8rem;
+  background: var(--papel); color: var(--tinta);
+  font: 400 0.85rem var(--ticket);
+  border-radius: 3px;
+  box-shadow: 0 12px 24px rgb(0 0 0 / 0.5);
+  opacity: 0; transform: translateY(0.8rem);
+  transition: opacity 700ms var(--sale), transform 700ms var(--sale);
+}
+.dron__llegada strong { font: 900 1.5rem/1 var(--display); text-transform: uppercase; }
+.dron--llegado .dron__llegada { opacity: 1; transform: none; }
+.dron__otra {
+  position: absolute; right: 1rem; bottom: 1rem;
+  min-height: 2.4rem; padding: 0 0.9rem;
+  border: 1px solid rgb(243 238 228 / 0.4); border-radius: 4px;
+  background: rgb(22 19 15 / 0.7); color: var(--crema);
+  font: 800 0.95rem var(--display); text-transform: uppercase; letter-spacing: 0.06em;
+  cursor: pointer;
+  opacity: 0; transition: opacity 500ms var(--sale);
+}
+.dron--llegado .dron__otra { opacity: 1; }
+.dron__otra:hover { background: var(--lampara); border-color: var(--lampara); color: var(--tinta); }
+@media (max-width: 599px) {
+  .dron { aspect-ratio: 4 / 5; }
+  .dron__llegada { right: 1rem; }
+  .dron__otra { top: 3rem; bottom: auto; right: 0.9rem; }
+}
+
 /* ---------- Preguntas ---------- */
 .preguntas { max-width: 52rem; }
 .preguntas .titulo { margin-bottom: 2rem; }
@@ -864,6 +918,56 @@ a.ficha:hover { background: var(--acero-3); }
 .pie__nav small { font-weight: 400; color: var(--crema-2); }
 .pie__marca { font: 900 clamp(2.8rem, 10vw, 6rem)/0.85 var(--display); text-transform: uppercase; color: var(--crema); }
 .pie a { text-decoration-color: rgb(255 122 26 / 0.6); }
+
+/* ---------- Movimiento ---------- */
+/* Paso de página suave entre secciones (navegadores que lo soportan) */
+@view-transition { navigation: auto; }
+.cabecera { view-transition-name: cabecera; }
+::view-transition-old(root) { animation: 220ms var(--sale) both sale-pagina; }
+::view-transition-new(root) { animation: 420ms var(--sale) both entra-pagina; }
+@keyframes sale-pagina { to { opacity: 0; } }
+@keyframes entra-pagina { from { opacity: 0; transform: translateY(14px); } }
+
+/* Portada: la foto se asienta, el título sube línea a línea y la comanda sale impresa */
+.portada__foto img { animation: asienta 2.6s var(--sale) both; }
+@keyframes asienta { from { transform: scale(1.08); filter: saturate(0.85) contrast(1.05) brightness(0.6); } }
+.marca__linea { overflow: hidden; padding-bottom: 0.04em; }
+.marca__linea > span { display: block; animation: sube 1.1s var(--sale) both; }
+.marca__linea--gusto > span { animation-delay: 120ms; }
+@keyframes sube { from { transform: translateY(105%); } }
+.portada__lema, .portada__que { animation: aparece 900ms var(--sale) both; }
+.portada__lema { animation-delay: 380ms; }
+.portada__que { animation-delay: 480ms; }
+@keyframes aparece { from { opacity: 0; transform: translateY(12px); } }
+.portada .riel { animation: riel 900ms var(--sale) 350ms both; transform-origin: 0 50%; }
+@keyframes riel { from { transform: scaleX(0); } }
+.comanda-hoy { animation: imprime 1.1s cubic-bezier(0.5, 0, 0.2, 1) 650ms both, cuelga 1.6s var(--sale) 1.7s both; }
+@keyframes imprime { from { clip-path: inset(0 -30% 100% -30%); } to { clip-path: inset(-30% -30% -40% -30%); } }
+@media (min-width: 900px) { .comanda-hoy { animation: imprime 1.1s cubic-bezier(0.5, 0, 0.2, 1) 650ms both, cuelga-d 1.6s var(--sale) 1.7s both; } }
+
+/* Al bajar, cada bloque entra cuando asoma (solo donde el navegador lo hace con el scroll) */
+@supports (animation-timeline: view()) {
+  .titulo, .indice__item, .paso, .plato, .proxima, .preguntas details, .ficha, .album, .carta__libro, .calendario, .plano, .siguiente strong {
+    animation: asoma linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+  .portada .titulo { animation: none; }
+  @keyframes asoma { from { opacity: 0; transform: translateY(28px); } }
+  .album__foto img { animation: revela linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  @keyframes revela { from { transform: scale(1.12); filter: brightness(0.5); } }
+}
+
+/* Detalles al pasar: subrayado que crece en el menú y botones que se levantan */
+.cabecera__nav a { position: relative; border-bottom: 0; }
+.cabecera__nav a::after {
+  content: ""; position: absolute; left: 0.75rem; right: 0.75rem; bottom: 0;
+  height: 2px; background: var(--lampara);
+  transform: scaleX(0); transition: transform 300ms var(--sale);
+}
+.cabecera__nav a:hover::after, .cabecera__nav a[aria-current="page"]::after { transform: scaleX(1); }
+.boton:hover { transform: translateY(-2px); box-shadow: 0 12px 22px -10px rgb(0 0 0 / 0.7); }
+.reloj__caja b { display: inline-block; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
