@@ -675,7 +675,9 @@ a.probar[href]:hover { background: #1ED760; border-color: #1ED760; color: #08140
 .siguiente:hover strong .icono { transform: translateX(6px); }
 
 /* ---------- La Carta: una comanda desplegable por fiesta, colgadas del riel ---------- */
-.carta { max-width: 52rem; margin-inline: auto; overflow-x: clip; overflow-clip-margin: 1rem; padding-bottom: 1rem; }
+/* El ancho de la carta incluye su propio margen lateral (sin --borde, que en pantallas anchas se comía la columna) */
+.interior main > .carta { max-width: calc(52rem + 2 * var(--hueco)); padding-inline: var(--hueco); }
+.carta { margin-inline: auto; overflow-x: clip; overflow-clip-margin: 1rem; padding-bottom: 1rem; }
 .carta__cabeza { display: grid; gap: 0.6rem; margin-bottom: 2rem; }
 .carta__casa { font: 700 0.85rem var(--ticket); text-transform: uppercase; letter-spacing: 0.12em; color: var(--crema-2); }
 .carta .titulo { font-size: clamp(3.4rem, 10vw, 5.5rem); }
@@ -1008,7 +1010,7 @@ a.ficha:hover { background: var(--acero-3); }
 .dron .maplibregl-cooperative-gesture-screen { background: rgb(22 19 15 / 0.75); color: var(--crema); font: 600 1rem var(--texto); }
 
 /* ---------- Preguntas ---------- */
-.preguntas { max-width: 52rem; }
+.preguntas { max-width: calc(52rem + 2 * var(--borde)); }
 .preguntas .titulo { margin-bottom: 2rem; }
 .preguntas details { border-top: 1px solid var(--linea); }
 .preguntas details:last-of-type { border-bottom: 1px solid var(--linea); }
