@@ -1487,6 +1487,8 @@ dd.chefs .chefs-lista { margin-top: 0.3rem; }
 .cabecera__marca { border-radius: 0.4rem; transition: rotate 200ms var(--sale); rotate: -2deg; }
 .cabecera__marca:hover { rotate: 0deg; }
 .cabecera__marca img { height: clamp(2.3rem, 2.9vw, 2.75rem); width: auto; }
+/* Borde oscuro fino: la S crema del logo se lee sobre cualquier color del fondo */
+.cabecera__marca img { filter: drop-shadow(1px 0 0 var(--tinta)) drop-shadow(-1px 0 0 var(--tinta)) drop-shadow(0 1px 0 var(--tinta)) drop-shadow(0 -1px 0 var(--tinta)); }
 
 /* ---------- Cabecera que acompaña al bajar ---------- */
 html { scroll-padding-top: 8rem; }
@@ -1640,23 +1642,33 @@ html { scroll-padding-top: 8rem; }
 
 /* Fondo: manchas con los colores del logo que se mueven despacio (main.js las añade) */
 .manchas {
-  position: fixed; inset: 0; z-index: -1;
+  /* Alto de pantalla «grande»: en iPhone llega por detrás de la barra de Safari y no se corta */
+  position: fixed; top: 0; left: 0; right: 0; z-index: -1;
+  height: 100vh; height: 100lvh;
   overflow: hidden; pointer-events: none;
 }
 .manchas i {
   position: absolute;
-  width: 58vmax; height: 58vmax;
+  width: 44vmax; height: 44vmax;
   border-radius: 50%;
   background: radial-gradient(closest-side, var(--c), transparent);
   opacity: 0.85;
   animation: deriva var(--t) ease-in-out var(--d) infinite alternate;
   will-change: transform;
 }
-/* Cada mancha ronda su esquina sin llegar al centro, que queda crema */
-.manchas i:nth-child(1) { --c: var(--verde); left: -32vmax; top: -32vmax; --t: 14s; --d: 0s; --x1: 9vw; --y1: 4vh; --x2: 3vw; --y2: 10vh; }
-.manchas i:nth-child(2) { --c: var(--amarillo); right: -32vmax; top: -30vmax; --t: 17s; --d: -6s; --x1: -10vw; --y1: 6vh; --x2: -3vw; --y2: 12vh; }
-.manchas i:nth-child(3) { --c: var(--naranja); left: -32vmax; bottom: -32vmax; --t: 15s; --d: -10s; --x1: 8vw; --y1: -9vh; --x2: 11vw; --y2: -3vh; }
-.manchas i:nth-child(4) { --c: var(--rojo); right: -32vmax; bottom: -32vmax; --t: 18s; --d: -3s; --x1: -9vw; --y1: -6vh; --x2: -2vw; --y2: -12vh; opacity: 0.75; }
+/* Cada mancha ronda su esquina sin llegar al centro, que queda limpio */
+.manchas i:nth-child(1) { --c: var(--verde); left: -26vmax; top: -26vmax; --t: 14s; --d: 0s; --x1: 6vw; --y1: 5vh; --x2: 2vw; --y2: 8vh; }
+.manchas i:nth-child(2) { --c: var(--amarillo); right: -26vmax; top: -24vmax; --t: 17s; --d: -6s; --x1: -6vw; --y1: 4vh; --x2: -2vw; --y2: 7vh; }
+.manchas i:nth-child(3) { --c: var(--naranja); left: -26vmax; bottom: -26vmax; --t: 15s; --d: -10s; --x1: 5vw; --y1: -6vh; --x2: 7vw; --y2: -2vh; }
+.manchas i:nth-child(4) { --c: var(--rojo); right: -26vmax; bottom: -26vmax; --t: 18s; --d: -3s; --x1: -6vw; --y1: -4vh; --x2: -1vw; --y2: -7vh; opacity: 0.75; }
+/* En móvil, manchas más pequeñas y pegadas a las esquinas */
+@media (max-width: 699px) {
+  .manchas i { width: 95vw; height: 95vw; }
+  .manchas i:nth-child(2) { right: -55vw; top: -50vw; --x1: -7vw; --y1: 3vh; --x2: -2vw; --y2: 5vh; }
+  .manchas i:nth-child(3) { left: -55vw; bottom: -55vw; --x1: 6vw; --y1: -4vh; --x2: 9vw; --y2: -1vh; }
+  .manchas i:nth-child(4) { right: -55vw; bottom: -55vw; --x1: -7vw; --y1: -3vh; --x2: -2vw; --y2: -5vh; }
+  .manchas i:nth-child(1) { left: -55vw; top: -55vw; --x1: 6vw; --y1: 3vh; --x2: 2vw; --y2: 5vh; }
+}
 @keyframes deriva {
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(var(--x1), var(--y1)) scale(1.12); }
