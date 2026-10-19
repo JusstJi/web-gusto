@@ -1653,7 +1653,8 @@ html { scroll-padding-top: 8rem; }
   will-change: transform;
 }
 /* Cada mancha ronda su esquina sin llegar al centro, que queda crema */
-.manchas i:nth-child(1) { --c: var(--verde); left: -32vmax; top: -32vmax; --t: 14s; --d: 0s; --x1: 9vw; --y1: 4vh; --x2: 3vw; --y2: 10vh; }
+/* La verde se queda siempre detrás del logo para que la S crema se lea */
+.manchas i:nth-child(1) { --c: var(--verde); left: calc(14vw - 30vmax); top: calc(3rem - 30vmax); width: 60vmax; height: 60vmax; background: radial-gradient(closest-side, var(--c) 35%, transparent); --t: 14s; --d: 0s; --x1: 4vw; --y1: 2vh; --x2: -2vw; --y2: 4vh; }
 .manchas i:nth-child(2) { --c: var(--amarillo); right: -32vmax; top: -30vmax; --t: 17s; --d: -6s; --x1: -10vw; --y1: 6vh; --x2: -3vw; --y2: 12vh; }
 .manchas i:nth-child(3) { --c: var(--naranja); left: -32vmax; bottom: -32vmax; --t: 15s; --d: -10s; --x1: 8vw; --y1: -9vh; --x2: 11vw; --y2: -3vh; }
 .manchas i:nth-child(4) { --c: var(--rojo); right: -32vmax; bottom: -32vmax; --t: 18s; --d: -3s; --x1: -9vw; --y1: -6vh; --x2: -2vw; --y2: -12vh; opacity: 0.75; }
