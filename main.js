@@ -188,6 +188,13 @@
   // Cuenta atrás de la portada: la fiesta empieza a las 00:00 de la noche del viernes y acaba a las 04:30
   function iniciarReloj() {
     var reloj = document.querySelector('[data-reloj]');
+    var hoy = document.querySelector('.hoy');
+    if (hoy && 'IntersectionObserver' in window) {
+      var miraHoy = new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) { hoy.classList.add('hoy--vista'); miraHoy.disconnect(); }
+      }, { threshold: 0.25 });
+      miraHoy.observe(hoy);
+    } else if (hoy) hoy.classList.add('hoy--vista');
     if (!reloj) return;
     var mesesLargos = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
     var cifras = reloj.querySelector('[data-reloj-cifras]');
@@ -207,6 +214,10 @@
       var c = f.getFullYear() + '-' + String(f.getMonth() + 1).padStart(2, '0') + '-' + String(f.getDate()).padStart(2, '0');
       var fiesta = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
       var fecha = reloj.querySelector('[data-reloj-fecha]');
+      var corta = document.querySelector('[data-portada-fecha]');
+      if (corta) corta.textContent = dos(f.getDate()) + '.' + dos(f.getMonth() + 1);
+      // la fecha grande de la portada va en el color de la fiesta cuando ya se conoce
+      if (corta) corta.style.color = fiesta && fiesta.color ? fiesta.color : '';
       fecha.textContent = 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
         ' · ' + (fiesta && fiesta.sabor ? fiesta.sabor : 'sabor por desvelar');
       // Si ya sabemos el color de la fiesta, va en una pegatina al lado de la fecha
