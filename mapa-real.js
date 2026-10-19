@@ -152,6 +152,7 @@ function volar(mapa) {
     otra: caja.querySelector('[data-dron-otra]')
   };
   const local = new window.maplibregl.LngLat(...LOCAL);
+  const capa = mapa.getContainer();
   let vuelta = 0, visible = false, volado = false, tocado = false, viaje = 0;
 
   // Altura aproximada de la cámara sobre el suelo, a partir del zoom y la inclinación
@@ -179,6 +180,7 @@ function volar(mapa) {
   }
 
   function llegar() {
+    capa.classList.remove('dron__mapa--volando');
     caja.classList.add('dron--llegado');
     girar();
   }
@@ -188,8 +190,9 @@ function volar(mapa) {
     const este = ++viaje;
     caja.classList.remove('dron--llegado');
     if (quieto) { mapa.jumpTo(LLEGADA); llegar(); return; }
+    capa.classList.add('dron__mapa--volando');   // mientras vuela, un toque sin querer no lo para
     mapa.jumpTo(SALIDA);
-    mapa.flyTo({ ...LLEGADA, duration: 8500, curve: 1.3, easing: (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2), essential: true });
+    mapa.flyTo({ ...LLEGADA, duration: 5000, curve: 1.2, easing: (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2), essential: true });
     mapa.once('moveend', () => { if (!tocado && este === viaje) llegar(); });
   }
 

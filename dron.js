@@ -240,7 +240,7 @@ function iniciar() {
     new THREE.Vector3(LOCAL.x + 48, 18, 6)
   ], false, 'centripetal');
   const mira0 = new THREE.Vector3(-60, 0, -40);
-  const DURA = 6.5;
+  const DURA = 4.5;
   const suave = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
   const hud = {

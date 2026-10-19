@@ -820,6 +820,7 @@ a.ficha:hover { background: var(--acero-3); }
 }
 /* Mapa real (mapa-real.js): el visor va por encima y la atribución abajo a la derecha */
 .dron .dron__mapa { position: absolute; inset: 0; z-index: -1; background: var(--acero-2); }
+.dron .dron__mapa--volando { pointer-events: none; }
 .dron--real .dron__otra { top: 3rem; bottom: auto; right: 0.9rem; }
 .dron--real .dron__llegada { bottom: 2.6rem; }
 .dron__chincheta { position: relative; width: 2.6rem; height: 2.6rem; pointer-events: none; }
