@@ -97,7 +97,7 @@
   // Las fechas que no están en FIESTAS salen con el sabor por desvelar.
   var CADA_DOS_VIERNES_DESDE = '2026-10-16';
   var PRIMER_MES = [2026, 9];  // octubre 2026 (los meses empiezan en 0)
-  var NUM_MESES = 9;           // hasta junio 2027
+  var NUM_MESES = 3;           // hasta diciembre 2026 (Ji, 19/10/2026)
 
 
   // Galería: al tocar una foto se abre el visor con todas las de esa fiesta
