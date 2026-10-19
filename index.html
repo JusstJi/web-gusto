@@ -186,6 +186,38 @@
       </div>
     </section>
 
+    <section class="galeria" id="galeria" aria-labelledby="titulo-galeria">
+      <div class="galeria__cabeza">
+        <p class="chip-titulo">Así se sirvió</p>
+        <h2 class="titulo" id="titulo-galeria">La <span>galería</span></h2>
+        <p class="galeria__lema">Una galería por fiesta. Toca una foto para verlas todas.</p>
+      </div>
+      <article class="album" data-album="umami" data-fotos="45" data-sabor="Umami" data-fecha="16 de octubre" aria-labelledby="album-umami">
+        <header class="album__cabeza">
+          <h3 class="album__sabor" id="album-umami">Umami</h3>
+          <p class="album__fecha">Viernes 16 de octubre · 45 fotos</p>
+        </header>
+        <ul class="album__fotos">
+          <li><a class="album__foto album__foto--portada" href="fotos/galeria/umami/01.jpg" data-foto="1"><img src="fotos/galeria/umami/01-mini.jpg" alt="Umami, 16 de octubre: foto 1 de 45" width="560" height="373" loading="lazy" decoding="async"></a></li>
+          <li><a class="album__foto" href="fotos/galeria/umami/02.jpg" data-foto="2"><img src="fotos/galeria/umami/02-mini.jpg" alt="Umami, 16 de octubre: foto 2 de 45" width="373" height="560" loading="lazy" decoding="async"></a></li>
+          <li><a class="album__foto" href="fotos/galeria/umami/03.jpg" data-foto="3"><img src="fotos/galeria/umami/03-mini.jpg" alt="Umami, 16 de octubre: foto 3 de 45" width="373" height="560" loading="lazy" decoding="async"></a></li>
+          <li><a class="album__foto" href="fotos/galeria/umami/04.jpg" data-foto="4"><img src="fotos/galeria/umami/04-mini.jpg" alt="Umami, 16 de octubre: foto 4 de 45" width="560" height="373" loading="lazy" decoding="async"></a></li>
+          <li><a class="album__foto album__mas" href="fotos/galeria/umami/05.jpg" data-foto="5"><img src="fotos/galeria/umami/05-mini.jpg" alt="" width="560" height="373" loading="lazy" decoding="async"><span>+41<small>fotos</small></span></a></li>
+        </ul>
+      </article>
+      <p class="galeria__proxima" data-galeria-proxima hidden></p>
+    </section>
+
+    <dialog class="visor" data-visor aria-label="Fotos de la fiesta">
+      <figure class="visor__marco">
+        <img class="visor__foto" data-visor-foto alt="">
+        <figcaption class="visor__pie"><strong data-visor-sabor></strong> <span data-visor-cuenta></span></figcaption>
+      </figure>
+      <button class="visor__boton visor__cerrar" type="button" data-visor-cerrar aria-label="Cerrar">✕</button>
+      <button class="visor__boton visor__anterior" type="button" data-visor-anterior aria-label="Foto anterior">←</button>
+      <button class="visor__boton visor__siguiente" type="button" data-visor-siguiente aria-label="Foto siguiente">→</button>
+    </dialog>
+
     <section class="degustacion" aria-labelledby="titulo-degustacion">
       <div class="degustacion__cabeza">
         <p class="chip-titulo">Prueba antes de pedir</p>

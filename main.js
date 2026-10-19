@@ -386,6 +386,64 @@
   var NUM_MESES = 9;           // hasta junio 2027
 
 
+  // Galería: al tocar una foto se abre el visor con todas las de esa fiesta
+  function iniciarGaleria() {
+    var visor = document.querySelector('[data-visor]');
+    if (!visor || !visor.showModal) return;
+    var foto = visor.querySelector('[data-visor-foto]');
+    var sabor = visor.querySelector('[data-visor-sabor]');
+    var cuenta = visor.querySelector('[data-visor-cuenta]');
+    var album = null, total = 0, actual = 1;
+    foto.draggable = false;
+
+    function ruta(n) { return 'fotos/galeria/' + album.dataset.album + '/' + String(n).padStart(2, '0') + '.jpg'; }
+    function mostrar(n) {
+      actual = (n - 1 + total) % total + 1;
+      foto.src = ruta(actual);
+      foto.alt = album.dataset.sabor + ', ' + album.dataset.fecha + ': foto ' + actual + ' de ' + total;
+      cuenta.textContent = actual + ' / ' + total;
+      // Precarga la siguiente para que pasar sea instantáneo
+      new Image().src = ruta(actual % total + 1);
+    }
+
+    document.querySelectorAll('[data-album] [data-foto]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        album = a.closest('[data-album]');
+        total = parseInt(album.dataset.fotos, 10);
+        sabor.textContent = album.dataset.sabor;
+        mostrar(parseInt(a.dataset.foto, 10));
+        visor.showModal();
+      });
+    });
+    visor.querySelector('[data-visor-cerrar]').addEventListener('click', function () { visor.close(); });
+    visor.querySelector('[data-visor-anterior]').addEventListener('click', function () { mostrar(actual - 1); });
+    visor.querySelector('[data-visor-siguiente]').addEventListener('click', function () { mostrar(actual + 1); });
+    visor.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') mostrar(actual - 1);
+      if (e.key === 'ArrowRight') mostrar(actual + 1);
+    });
+    // Tocar fuera de la foto cierra; deslizar el dedo pasa de foto
+    visor.addEventListener('click', function (e) { if (e.target === visor) visor.close(); });
+    var x0 = null;
+    foto.addEventListener('pointerdown', function (e) { x0 = e.clientX; });
+    foto.addEventListener('pointerup', function (e) {
+      if (x0 === null) return;
+      var dx = e.clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) mostrar(actual + (dx < 0 ? 1 : -1));
+    });
+
+    // Debajo, la próxima fiesta, que tendrá su propia galería
+    var proxima = document.querySelector('[data-galeria-proxima]');
+    if (proxima) {
+      var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+      var f = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00'), hoy = new Date();
+      while (new Date(f.getFullYear(), f.getMonth(), f.getDate() + 1, 4, 30) <= hoy) f.setDate(f.getDate() + 14);
+      proxima.textContent = 'Próxima galería: viernes ' + f.getDate() + ' de ' + meses[f.getMonth()] + '.';
+      proxima.hidden = false;
+    }
+  }
+
   // Cuenta atrás de la portada: la fiesta empieza a las 00:00 de la noche del viernes y acaba a las 04:30
   function iniciarReloj() {
     var reloj = document.querySelector('[data-reloj]');
@@ -567,7 +625,7 @@
   iniciarDecoracion();
   iniciarPlaylists();
   iniciarLuces();
-  iniciarCalendario(); iniciarProximas(); iniciarReloj();
+  iniciarCalendario(); iniciarProximas(); iniciarReloj(); iniciarGaleria();
   iniciarParallax();
   iniciarCabeceraFija();
 })();

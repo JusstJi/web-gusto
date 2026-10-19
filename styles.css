@@ -1494,3 +1494,94 @@ html { scroll-padding-top: 8rem; }
   background: var(--rosa);
   pointer-events: none;
 }
+
+/* ---------- Galería: una por fiesta, justo debajo de la portada ---------- */
+.galeria {
+  background: var(--confeti), var(--tinta);
+  color: var(--papel);
+  padding: var(--seccion) var(--borde);
+}
+.galeria .titulo { color: var(--papel); }
+.galeria .chip-titulo { color: var(--tinta); }
+.galeria .titulo span { color: var(--amarillo); }
+.galeria__lema { max-width: 30rem; margin: 0; font-size: 1.05rem; }
+.album { max-width: 72rem; margin: clamp(2rem, 5vw, 3rem) 0 0; }
+.album__cabeza { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; margin-bottom: 1.1rem; }
+.album__sabor { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(2.2rem, 6vw, 3.2rem); line-height: 1; color: var(--sabor-tinta); }
+.album__fecha { margin: 0; font-weight: 700; opacity: 0.85; }
+.album__fotos {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: clamp(0.6rem, 1.6vw, 1rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.album__fotos li:first-child { grid-column: 1 / -1; }
+.album__foto {
+  position: relative; display: block; height: 100%;
+  padding: 0.35rem;
+  border-radius: 0.8rem;
+  background: var(--papel);
+  box-shadow: 5px 5px 0 var(--rojo);
+  rotate: -1.2deg;
+  transition: rotate 220ms var(--sale), scale 220ms var(--sale);
+}
+.album__fotos li:nth-child(even) .album__foto { rotate: 1.4deg; box-shadow: 5px 5px 0 var(--verde); }
+.album__fotos li:nth-child(3) .album__foto { box-shadow: 5px 5px 0 var(--amarillo); }
+.album__fotos li:nth-child(5) .album__foto { box-shadow: 5px 5px 0 var(--naranja); }
+.album__foto img { display: block; width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 0.5rem; }
+.album__foto--portada img { aspect-ratio: 3 / 2; }
+.album__foto:hover, .album__foto:focus-visible { rotate: 0deg; scale: 1.03; z-index: 1; }
+.album__foto:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 4px; }
+.album__mas span {
+  position: absolute; inset: 0.35rem;
+  display: grid; place-content: center; text-align: center;
+  border-radius: 0.5rem;
+  background: rgb(30 16 51 / 0.66);
+  color: var(--papel);
+  font-family: var(--display); font-size: clamp(2rem, 6vw, 3rem); line-height: 1;
+}
+.album__mas small { font-family: var(--texto); font-weight: 700; font-size: 0.9rem; }
+.galeria__proxima { margin: 2rem 0 0; font-weight: 700; opacity: 0.8; }
+@media (min-width: 900px) {
+  .album__fotos { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .album__fotos li:first-child { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .album__foto--portada img { aspect-ratio: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .album__foto { transition: none; } }
+
+/* El visor: la foto a pantalla completa, con flechas y deslizando el dedo */
+.visor {
+  width: 100%; max-width: none; height: 100%; max-height: none;
+  margin: 0; padding: 0; border: 0;
+  background: rgb(30 16 51 / 0.96);
+  color: var(--papel);
+  overscroll-behavior: contain;
+}
+.visor::backdrop { background: rgb(30 16 51 / 0.6); }
+.visor[open] { display: grid; place-items: center; }
+.visor__marco { margin: 0; display: grid; justify-items: center; gap: 0.8rem; padding: 4rem 1rem 1.5rem; touch-action: pan-y; }
+.visor__foto {
+  max-width: min(100%, 75rem); max-height: calc(100dvh - 9rem);
+  width: auto; height: auto;
+  border: 0.4rem solid var(--papel); border-radius: 0.7rem;
+  background: #2b1d40;
+}
+.visor__pie { font-weight: 700; font-variant-numeric: tabular-nums; }
+.visor__pie strong { font-family: var(--display); font-weight: 400; font-size: 1.3rem; color: var(--sabor-tinta); margin-right: 0.4rem; }
+.visor__boton {
+  position: fixed;
+  width: 3rem; height: 3rem; border-radius: 50%;
+  border: 3px solid var(--tinta);
+  background: var(--amarillo); color: var(--tinta);
+  font: 700 1.3rem/1 var(--texto);
+  box-shadow: 3px 3px 0 var(--tinta);
+  cursor: pointer;
+}
+.visor__boton:focus-visible { outline: 3px solid var(--papel); outline-offset: 3px; }
+.visor__cerrar { top: max(1rem, env(safe-area-inset-top)); right: 1rem; background: var(--papel); }
+.visor__anterior, .visor__siguiente { top: 50%; translate: 0 -50%; }
+.visor__anterior { left: 1rem; }
+.visor__siguiente { right: 1rem; }
+@media (max-width: 699px) {
+  .visor__anterior, .visor__siguiente { top: auto; bottom: max(1rem, env(safe-area-inset-bottom)); translate: none; }
+  .visor__marco { padding-bottom: 5rem; }
+}
