@@ -935,54 +935,74 @@ a.ficha:hover { background: var(--acero-3); }
 .preguntas summary:hover { color: var(--lampara-clara); }
 .preguntas details p { padding: 0 0 1.4rem; max-width: 60ch; color: var(--crema-2); }
 
-/* ---------- Haz tu pedido ---------- */
-.pedido { display: grid; gap: 3rem; align-items: center; }
-.pedido__texto-col { display: grid; gap: 1.4rem; justify-items: start; }
-.pedido__texto { max-width: 40ch; color: var(--crema-2); }
-.precios { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
-.precio {
-  display: grid; align-content: center;
-  min-width: 6.5rem; padding: 0.7rem 1rem;
-  border: 1.5px solid var(--linea); border-radius: 4px;
-  background: var(--acero-2);
+/* ---------- Haz tu pedido: una comanda por fiesta, colgadas del riel ---------- */
+.pedido__cabeza { display: grid; gap: 1rem; margin-bottom: clamp(2rem, 5vw, 3rem); }
+.pedido__texto { max-width: 46ch; color: var(--crema-2); }
+.pedido__texto a { color: inherit; }
+.pedido__riel { margin-inline: -0.75rem; }
+.tickets {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr)); gap: 1.4rem 1.2rem;
+  margin: -2px 0 0; padding: 0 0.3rem; list-style: none; align-items: start;
 }
-.precio strong { font: 900 2.6rem/1 var(--display); }
-.precio--verde { border-color: var(--lampara); }
-.precio__extra { font: 400 0.85rem var(--ticket); color: var(--crema-2); }
-.pedido__nota { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--ticket); color: var(--crema-2); }
-.pedido__icono { width: 1.3rem; height: 1.3rem; fill: none; stroke: var(--lampara); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
-.pedido__pasada { max-width: 44ch; padding: 1rem 1.2rem; border-left: 1px solid var(--lampara); background: var(--acero-2); }
-.comanda { justify-self: center; width: min(100%, 25rem); }
-.comanda .riel { margin-inline: -0.75rem; }
-@media (min-width: 900px) { .comanda .riel { margin-inline: -2rem; } }
-.comanda__papel { padding: 1.6rem 1.4rem 2rem; transform: rotate(1.5deg); transform-origin: 50% 0; filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.55)); }
-.comanda__cabeza {
-  display: grid; gap: 0.2rem;
-  padding-bottom: 0.8rem; margin-bottom: 0.9rem;
-  border-bottom: 1.5px dashed rgb(22 19 15 / 0.5);
-  font: 900 2rem/1 var(--display); text-transform: uppercase;
+.ticket {
+  --color: var(--tinta-2); --color-texto: var(--papel);
+  position: relative; display: grid; gap: 0.75rem;
+  padding: 0 1.3rem calc(1.6rem + var(--diente));
+  background: var(--papel);
+  filter: drop-shadow(0 16px 22px rgb(0 0 0 / 0.55));
+  transform-origin: 50% 0; rotate: -1.2deg;
 }
-.comanda__cabeza span { font: 700 0.8rem var(--ticket); letter-spacing: 0.1em; }
-.comanda__lineas { margin: 0; display: grid; gap: 0.35rem; }
-.comanda__lineas div { display: flex; align-items: baseline; gap: 0.5rem; }
-.comanda__lineas div::after { content: ""; order: 1; flex: 1; min-width: 1rem; border-bottom: 2px dotted rgb(22 19 15 / 0.4); translate: 0 -0.3em; }
-.comanda__lineas dt { flex: none; }
-.comanda__lineas dd { order: 2; margin: 0; text-align: right; font-weight: 700; }
-.comanda__plato { text-transform: uppercase; }
-.comanda__total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 1rem; padding-top: 0.8rem; border-top: 1.5px dashed rgb(22 19 15 / 0.5); font-weight: 700; text-transform: uppercase; }
-.comanda__total strong { font: 900 2.4rem/1 var(--display); }
-.comanda__sello {
-  position: absolute; right: 1.2rem; bottom: 4.6rem;
-  padding: 0.3rem 0.7rem;
-  border: 3px solid var(--rojo); border-radius: 4px;
-  color: var(--rojo);
-  font: 900 1.3rem var(--display); text-transform: uppercase; letter-spacing: 0.05em;
-  rotate: -9deg; opacity: 0.85; mix-blend-mode: multiply;
+.ticket:nth-child(even) { rotate: 1deg; }
+.ticket:nth-child(3n) { rotate: -0.4deg; }
+/* pinza del riel y banda de color de la fiesta */
+.ticket::before { content: ""; position: absolute; top: -9px; left: 50%; width: 30px; height: 18px; margin-left: -15px; border-radius: 3px; background: linear-gradient(#8a8178, #4a443d); z-index: 1; }
+.ticket__num {
+  display: flex; justify-content: space-between; align-items: center; gap: 0.6rem;
+  margin: 0 -1.3rem; padding: 1.1rem 1.3rem 0.7rem;
+  background: var(--color); color: var(--color-texto);
+  font: 700 0.8rem var(--ticket); text-transform: uppercase; letter-spacing: 0.1em;
 }
-.evento-pasado .comanda__sello,
-.evento-pasado .precios,
-.evento-pasado .pedido__nota { display: none; }
-@media (min-width: 900px) { .pedido { grid-template-columns: 1.1fr 0.9fr; } }
+.ticket--sin-color .ticket__num { background: repeating-linear-gradient(-45deg, #D8CFBF 0 8px, #E9E2D4 8px 16px); color: var(--tinta-2); }
+.ticket__marca { padding: 0.2rem 0.45rem; border-radius: 2px; background: var(--tinta); color: var(--color); letter-spacing: 0.08em; }
+.ticket__sabor {
+  font: 900 clamp(2.6rem, 6vw, 3.4rem)/0.88 var(--display); text-transform: uppercase;
+  color: var(--tinta); padding-bottom: 0.7rem; border-bottom: 1.5px dashed rgb(22 19 15 / 0.4);
+}
+.ticket--servido .ticket__sabor { color: var(--color); }
+.ticket__lineas { margin: 0; display: grid; gap: 0.3rem; font-family: var(--ticket); font-size: 0.95rem; }
+.ticket__lineas div { display: flex; align-items: baseline; gap: 0.5rem; }
+.ticket__lineas div::after { content: ""; order: 1; flex: 1; min-width: 0.8rem; border-bottom: 2px dotted color-mix(in srgb, var(--color) 55%, var(--tinta)); opacity: 0.5; translate: 0 -0.3em; }
+.ticket__lineas dt { flex: none; }
+.ticket__lineas dd { order: 2; margin: 0; text-align: right; font-weight: 700; }
+.ticket__precios { display: flex; gap: 0.4rem; padding-top: 0.7rem; border-top: 1.5px dashed rgb(22 19 15 / 0.4); }
+.ticket__precios span { flex: 1; padding: 0.35rem 0; text-align: center; border: 1.5px solid var(--tinta); border-radius: 2px; font: 900 1.6rem/1 var(--display); }
+.ticket__precios span:last-child { background: var(--tinta); color: var(--papel); }
+.ticket__nota { font-family: var(--ticket); font-size: 0.88rem; color: var(--tinta-2); }
+.ticket__nota a, .ticket__accion { color: inherit; }
+.ticket__accion {
+  justify-self: start; display: inline-flex; align-items: center; min-height: 2.6rem; padding: 0 1rem;
+  border-radius: 3px; background: var(--tinta); color: var(--papel);
+  font: 800 1.05rem var(--display); text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none;
+  transition: background 200ms var(--sale), color 200ms var(--sale);
+}
+.ticket__accion:hover { background: var(--color); color: var(--color-texto); }
+.ticket--proxima .ticket__accion:hover { box-shadow: inset 0 0 0 2px var(--tinta); }
+/* sello de goma */
+.ticket__sello {
+  position: absolute; right: 0.8rem; top: 9.2rem;
+  padding: 0.25rem 0.7rem 0.15rem;
+  border: 4px double currentColor; border-radius: 6px;
+  color: #A3121F;
+  font: 900 2.1rem/1 var(--display); text-transform: uppercase; letter-spacing: 0.08em;
+  rotate: -14deg; opacity: 0.82; mix-blend-mode: multiply; pointer-events: none;
+  -webkit-mask: radial-gradient(circle at 30% 40%, #000 60%, #0008 61% 63%, #000 64%) 0 0 / 9px 9px;
+          mask: radial-gradient(circle at 30% 40%, #000 60%, #0008 61% 63%, #000 64%) 0 0 / 9px 9px;
+  animation: sella 600ms cubic-bezier(0.2, 1.4, 0.4, 1) 400ms both;
+}
+@keyframes sella { from { opacity: 0; scale: 1.8; } to { opacity: 0.82; scale: 1; } }
+.ticket--servido { background: color-mix(in srgb, var(--papel) 90%, #F7B6BA); }
+.ticket--proxima { background: color-mix(in srgb, var(--papel) 85%, var(--color)); }
+.ticket--servido .ticket__lineas, .ticket--servido .ticket__precios { opacity: 0.72; }
 
 /* ---------- Barra de pedido (móvil) ---------- */
 .barra-pedido { display: none; }
