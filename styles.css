@@ -677,16 +677,38 @@ a.probar[href]:hover { background: #1ED760; border-color: #1ED760; color: #08140
   --fucsia: #FF7A1A; --rosa: #E2CFAF; --azul: #8C7B66; --amarillo: #F5C518; --naranja: #D0743A;
   margin: 0;
   padding: clamp(1rem, 3vw, 1.6rem);
-  background: var(--papel); color: var(--tinta);
+  background: #1F1A15; color: #F3EEE4;
+  border: 1px solid rgb(243 238 228 / 0.14);
   border-radius: 4px;
   max-width: 30rem; width: 100%; justify-self: center;
 }
 .plano__svg { width: 100%; height: auto; overflow: visible; }
 .plano figcaption { margin-top: 0.8rem; font: 400 0.9rem var(--ticket); text-align: center; }
-.plano__disco { transform-origin: 200px 200px; animation: gira 4s linear infinite; }
+.plano figcaption { color: #CDBFA8; }
+/* Show de cocina: el chef en el centro y la gente alrededor mirando */
+.show__foco { transform-origin: 200px 200px; animation: foco 3.2s ease-in-out infinite alternate; }
+@keyframes foco { from { opacity: 0.75; } to { opacity: 1; transform: scale(1.04); } }
+.show__persona { animation: bota 0.9s ease-in-out var(--d, 0s) infinite alternate; }
+@keyframes bota { to { transform: translateY(-1.6px) scale(1.07); } }
+.show__movil { animation: flash 3s steps(1) var(--d, 0s) infinite; }
+@keyframes flash { 0%, 88% { fill: #16130F; } 90%, 94% { fill: #FFFFFF; } }
+.show__llama { animation: llama 0.35s ease-in-out infinite alternate; }
+@keyframes llama { from { transform: scale(0.85); opacity: 0.75; } to { transform: scale(1.12); opacity: 1; } }
+.show__salteo { animation: salteo 1.8s cubic-bezier(0.3, 0, 0.3, 1) infinite; }
+@keyframes salteo { 0%, 60%, 100% { transform: none; } 70% { transform: translate(2px, -6px) scale(1.5) rotate(40deg); } 82% { transform: translate(0, -3px) scale(1.2) rotate(80deg); } }
+.show__vapor circle { transform-box: fill-box; transform-origin: center; opacity: 0; animation: vapor 1.8s ease-out var(--d, 0s) infinite; }
+@keyframes vapor { from { opacity: 0.5; transform: scale(0.4); } to { opacity: 0; transform: translate(-10px, -14px) scale(2.2); } }
+.show__disco { animation: gira 1.8s linear infinite; }
 @keyframes gira { to { transform: rotate(360deg); } }
-.plano__persona { transform-box: fill-box; transform-origin: center; animation: bota 1.3s ease-in-out var(--d, 0s) infinite alternate; }
-@keyframes bota { to { transform: scale(1.25); } }
+.show__cuchillo { animation: corta 0.5s ease-in-out infinite alternate; }
+@keyframes corta { to { transform: translateY(5px); } }
+.show__emplatado { transform-box: fill-box; transform-origin: center; animation: emplata 3.6s ease-in-out infinite; }
+@keyframes emplata { 0%, 30% { transform: scale(0); } 45%, 90% { transform: scale(1); } 100% { transform: scale(0); } }
+.show__chef-gira { animation: chef 7.2s ease-in-out infinite; }
+@keyframes chef { 0%, 18% { transform: rotate(-60deg); } 30%, 46% { transform: rotate(55deg); } 58%, 72% { transform: rotate(150deg); } 84%, 100% { transform: rotate(-60deg); } }
+.show__brazo { animation: brazo 0.45s ease-in-out infinite alternate; }
+.show__brazo--d { animation-delay: 0.22s; }
+@keyframes brazo { to { translate: 0 -3px; } }
 .pasos {
   display: grid; gap: 0;
   margin: clamp(3rem, 8vw, 5rem) 0 0; padding: 0; list-style: none;
