@@ -1640,24 +1640,34 @@ html { scroll-padding-top: 8rem; }
 
 /* Fondo: manchas con los colores del logo que se mueven despacio (main.js las añade) */
 .manchas {
-  position: fixed; inset: 0; z-index: -1;
+  /* Alto de pantalla «grande»: en iPhone llega por detrás de la barra de Safari y no se corta */
+  position: fixed; top: 0; left: 0; right: 0; z-index: -1;
+  height: 100vh; height: 100lvh;
   overflow: hidden; pointer-events: none;
 }
 .manchas i {
   position: absolute;
-  width: 58vmax; height: 58vmax;
+  width: 44vmax; height: 44vmax;
   border-radius: 50%;
   background: radial-gradient(closest-side, var(--c), transparent);
   opacity: 0.85;
   animation: deriva var(--t) ease-in-out var(--d) infinite alternate;
   will-change: transform;
 }
-/* Cada mancha ronda su esquina sin llegar al centro, que queda crema */
-/* La verde se queda siempre detrás del logo para que la S crema se lea */
-.manchas i:nth-child(1) { --c: var(--verde); left: calc(14vw - 30vmax); top: calc(3rem - 30vmax); width: 60vmax; height: 60vmax; background: radial-gradient(closest-side, var(--c) 35%, transparent); --t: 14s; --d: 0s; --x1: 4vw; --y1: 2vh; --x2: -2vw; --y2: 4vh; }
-.manchas i:nth-child(2) { --c: var(--amarillo); right: -32vmax; top: -30vmax; --t: 17s; --d: -6s; --x1: -10vw; --y1: 6vh; --x2: -3vw; --y2: 12vh; }
-.manchas i:nth-child(3) { --c: var(--naranja); left: -32vmax; bottom: -32vmax; --t: 15s; --d: -10s; --x1: 8vw; --y1: -9vh; --x2: 11vw; --y2: -3vh; }
-.manchas i:nth-child(4) { --c: var(--rojo); right: -32vmax; bottom: -32vmax; --t: 18s; --d: -3s; --x1: -9vw; --y1: -6vh; --x2: -2vw; --y2: -12vh; opacity: 0.75; }
+/* Cada mancha ronda su esquina sin llegar al centro, que queda limpio.
+   La verde se queda siempre detrás del logo para que la S crema se lea */
+.manchas i:nth-child(1) { --c: var(--verde); width: 32vmax; height: 32vmax; left: calc(17vw - 16vmax); top: calc(2.4rem - 16vmax); background: radial-gradient(closest-side, var(--c) 45%, transparent); --t: 14s; --d: 0s; --x1: 2vw; --y1: 1vh; --x2: -1vw; --y2: 2vh; }
+.manchas i:nth-child(2) { --c: var(--amarillo); right: -26vmax; top: -24vmax; --t: 17s; --d: -6s; --x1: -6vw; --y1: 4vh; --x2: -2vw; --y2: 7vh; }
+.manchas i:nth-child(3) { --c: var(--naranja); left: -26vmax; bottom: -26vmax; --t: 15s; --d: -10s; --x1: 5vw; --y1: -6vh; --x2: 7vw; --y2: -2vh; }
+.manchas i:nth-child(4) { --c: var(--rojo); right: -26vmax; bottom: -26vmax; --t: 18s; --d: -3s; --x1: -6vw; --y1: -4vh; --x2: -1vw; --y2: -7vh; opacity: 0.75; }
+/* En móvil, manchas más pequeñas y pegadas a las esquinas */
+@media (max-width: 699px) {
+  .manchas i { width: 95vw; height: 95vw; }
+  .manchas i:nth-child(2) { right: -55vw; top: -50vw; --x1: -7vw; --y1: 3vh; --x2: -2vw; --y2: 5vh; }
+  .manchas i:nth-child(3) { left: -55vw; bottom: -55vw; --x1: 6vw; --y1: -4vh; --x2: 9vw; --y2: -1vh; }
+  .manchas i:nth-child(4) { right: -55vw; bottom: -55vw; --x1: -7vw; --y1: -3vh; --x2: -2vw; --y2: -5vh; }
+  .manchas i:nth-child(1) { width: 80vw; height: 80vw; left: calc(26vw - 40vw); top: calc(3.3rem - 40vw); --x1: 3vw; --y1: 1vh; --x2: -2vw; --y2: 2vh; }
+}
 @keyframes deriva {
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(var(--x1), var(--y1)) scale(1.12); }
