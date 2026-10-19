@@ -223,14 +223,14 @@ html.con-intro .intro {
 }
 .intro__letra {
   display: inline-block;
-  animation: salta 520ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--d) backwards;
+  animation: salta 420ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--d) backwards;
 }
 .intro__linea--colores .intro__letra {
   color: var(--c);
   rotate: var(--t, 0deg);
   margin-inline: -0.015em;
-  animation: cae 760ms linear var(--d) backwards,
-             baila 1.2s ease-in-out calc(var(--d) + 760ms) infinite;
+  animation: cae 600ms linear var(--d) backwards,
+             baila 1.2s ease-in-out calc(var(--d) + 600ms) infinite;
 }
 @keyframes salta {
   from { scale: 0; rotate: var(--r, -25deg); opacity: 0; }
@@ -1565,6 +1565,16 @@ html { scroll-padding-top: 8rem; }
   border: 0.4rem solid var(--papel); border-radius: 0.7rem;
   background: #2b1d40;
 }
+.visor__descargar {
+  position: fixed; top: max(1rem, env(safe-area-inset-top)); left: 1rem;
+  display: inline-flex; align-items: center; min-height: 3rem; padding: 0 1.1rem;
+  border: 3px solid var(--tinta); border-radius: 999px;
+  background: var(--amarillo); color: var(--tinta);
+  font-weight: 700; text-decoration: none;
+  box-shadow: 3px 3px 0 var(--tinta);
+}
+.visor__descargar::before { content: "↓"; margin-right: 0.45rem; font-size: 1.15rem; }
+.visor__descargar:focus-visible { outline: 3px solid var(--papel); outline-offset: 3px; }
 .visor__pie { font-weight: 700; font-variant-numeric: tabular-nums; }
 .visor__pie strong { font-family: var(--display); font-weight: 400; font-size: 1.3rem; color: var(--sabor-tinta); margin-right: 0.4rem; }
 .visor__boton {

@@ -18,9 +18,9 @@
       { transform: 'translateY(100vh)', easing: 'cubic-bezier(0.55, 0, 0.75, 1)' },
       { transform: 'translateY(-58vh)', offset: 0.5, easing: 'cubic-bezier(0.25, 0, 0.45, 1)' },
       { transform: 'translateY(-216vh)' }
-    ], { duration: 1350, fill: 'both' });
+    ], { duration: 1000, fill: 'both' });
     // A mitad de camino el arcoíris tapa toda la pantalla: el lema y el fondo ya sobran
-    var tapa = setTimeout(alTapar, 675);
+    var tapa = setTimeout(alTapar, 500);
     sube.onfinish = alTerminar;
     return function () { clearTimeout(tapa); sube.cancel(); };
   }
@@ -68,9 +68,9 @@
     // El lema se queda un momento a la vista y luego pasa el arcoíris
     var espera = setTimeout(function () {
       parar = barrerArcoiris(intro, function () { intro.classList.add('intro--tapada'); }, terminar);
-    }, 1750);
+    }, 1250);
     parar = function () { clearTimeout(espera); };
-    setTimeout(terminar, 4200);
+    setTimeout(terminar, 3200);
   }
 
   /* ---------- Decoración de fondo: pegatinas de colores que flotan ---------- */
@@ -135,7 +135,7 @@
       var html = '';
       Array.prototype.forEach.call(linea.textContent, function (ch, i) {
         if (ch === ' ') { html += ' '; return; }
-        var estilo = '--d:' + (esColores ? 420 + i * 80 : n++ * 35) + 'ms;--r:' + (i % 2 ? 25 : -25) + 'deg';
+        var estilo = '--d:' + (esColores ? 280 + i * 55 : n++ * 25) + 'ms;--r:' + (i % 2 ? 25 : -25) + 'deg';
         if (esColores) estilo += ';--c:' + colores[i % colores.length] + ';--t:' + giros[i % giros.length] + 'deg';
         html += '<span class="intro__letra" style="' + estilo + '">' + ch + '</span>';
       });
@@ -393,6 +393,7 @@
     var foto = visor.querySelector('[data-visor-foto]');
     var sabor = visor.querySelector('[data-visor-sabor]');
     var cuenta = visor.querySelector('[data-visor-cuenta]');
+    var descargar = visor.querySelector('[data-visor-descargar]');
     var album = null, total = 0, actual = 1;
     foto.draggable = false;
 
@@ -400,6 +401,8 @@
     function mostrar(n) {
       actual = (n - 1 + total) % total + 1;
       foto.src = ruta(actual);
+      descargar.href = ruta(actual);
+      descargar.setAttribute('download', 'gusto-' + album.dataset.album + '-' + String(actual).padStart(2, '0') + '.jpg');
       foto.alt = album.dataset.sabor + ', ' + album.dataset.fecha + ': foto ' + actual + ' de ' + total;
       cuenta.textContent = actual + ' / ' + total;
       // Precarga la siguiente para que pasar sea instantáneo
