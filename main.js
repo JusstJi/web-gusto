@@ -90,6 +90,15 @@
   };
   var TINTAS = { verde: '#4E8A3A', rojo: '#C8102E', amarillo: '#F5C518', naranja: '#D0743A', fucsia: '#FF3EA5', rosa: '#F7A8D8', papel: '#F3EEE4' };
 
+  // Fondo de manchas de colores del logo, detrás de todo
+  function iniciarManchas() {
+    var capa = document.createElement('div');
+    capa.className = 'manchas';
+    capa.setAttribute('aria-hidden', 'true');
+    capa.innerHTML = '<i></i><i></i><i></i><i></i>';
+    document.body.prepend(capa);
+  }
+
   function iniciarDecoracion() {
     var secciones = document.querySelectorAll('main > section');
     var nombres = Object.keys(PEGATINAS);
@@ -437,16 +446,6 @@
       var dx = e.clientX - x0; x0 = null;
       if (Math.abs(dx) > 40) mostrar(actual + (dx < 0 ? 1 : -1));
     });
-
-    // Debajo, la próxima fiesta, que tendrá su propia galería
-    var proxima = document.querySelector('[data-galeria-proxima]');
-    if (proxima) {
-      var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-      var f = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00'), hoy = new Date();
-      while (new Date(f.getFullYear(), f.getMonth(), f.getDate() + 1, 4, 30) <= hoy) f.setDate(f.getDate() + 14);
-      proxima.textContent = 'Próxima galería: viernes ' + f.getDate() + ' de ' + meses[f.getMonth()] + '.';
-      proxima.hidden = false;
-    }
   }
 
   // Cuenta atrás de la portada: la fiesta empieza a las 00:00 de la noche del viernes y acaba a las 04:30
@@ -639,6 +638,7 @@
   iniciarIntro();
   actualizarEdicion();
   vigilar();
+  iniciarManchas();
   iniciarDecoracion();
   iniciarPlaylists();
   iniciarLuces();
