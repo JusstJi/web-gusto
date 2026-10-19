@@ -247,7 +247,7 @@ p { margin: 0; text-wrap: pretty; }
   background: radial-gradient(60% 50% at 50% 45%, #241E18, var(--acero) 70%);
   cursor: pointer;
 }
-.intro__logo { position: relative; width: min(78vw, 34rem); animation: intro-logo 900ms var(--sale) both; }
+.intro__logo { position: relative; width: min(56vw, 22rem); animation: intro-logo 900ms var(--sale) both; }
 .intro__logo img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.6)); }
 /* el brillo solo se pinta dentro de las letras: se recorta con el propio logo */
 .intro__brillo {
