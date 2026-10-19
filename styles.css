@@ -797,7 +797,10 @@ a.ficha:hover { background: var(--acero-3); }
   opacity: 0; transform: translateY(0.8rem);
   transition: opacity 700ms var(--sale), transform 700ms var(--sale);
 }
+.dron__llegada p { display: grid; gap: 0.15rem; margin: 0; }
+.dron__llegada:has(.dron__fachada) { grid-template-columns: auto 1fr; align-items: center; gap: 0.75rem; padding: 0.55rem 0.9rem 0.55rem 0.55rem; }
 .dron__llegada strong { font: 900 1.5rem/1 var(--display); text-transform: uppercase; }
+.dron__fachada { display: block; width: 7.5rem; height: auto; aspect-ratio: 17 / 9; object-fit: cover; border-radius: 2px; }
 .dron--llegado .dron__llegada { opacity: 1; transform: none; }
 .dron__otra {
   position: absolute; right: 1rem; bottom: 1rem;
@@ -818,7 +821,7 @@ a.ficha:hover { background: var(--acero-3); }
 /* Mapa real (mapa-real.js): el visor va por encima y la atribución abajo a la derecha */
 .dron .dron__mapa { position: absolute; inset: 0; z-index: -1; background: var(--acero-2); }
 .dron--real .dron__otra { top: 3rem; bottom: auto; right: 0.9rem; }
-.dron--real .dron__llegada { right: auto; bottom: 2.6rem; }
+.dron--real .dron__llegada { bottom: 2.6rem; }
 .dron__chincheta { position: relative; width: 2.6rem; height: 2.6rem; pointer-events: none; }
 .dron__punta {
   position: absolute; left: 50%; bottom: 0; width: 1.6rem; height: 1.6rem; margin-left: -0.8rem;
