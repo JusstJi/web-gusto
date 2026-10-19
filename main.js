@@ -210,6 +210,10 @@
       fecha.textContent = 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
         ' · ' + (fiesta && fiesta.sabor ? fiesta.sabor : 'sabor por desvelar');
       // Si ya sabemos el color de la fiesta, va en una pegatina al lado de la fecha
+      // y tiñe la comanda (banda de arriba, subrayado y cifras) con ese color
+      reloj.classList.toggle('comanda-hoy--color', !!(fiesta && fiesta.color));
+      if (fiesta && fiesta.color) reloj.style.setProperty('--color', fiesta.color);
+      else reloj.style.removeProperty('--color');
       if (fiesta && fiesta.color) {
         var muestra = document.createElement('span');
         muestra.className = 'reloj__color';
