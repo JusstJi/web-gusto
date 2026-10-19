@@ -238,6 +238,34 @@ p { margin: 0; text-wrap: pretty; }
   .cabecera__nav a { flex-direction: row; gap: 0.35rem; align-items: baseline; padding: 0.45rem 0.75rem; }
 }
 
+/* ---------- Intro con el logo (portada) ---------- */
+.intro { display: none; }
+.con-intro { overflow: hidden; }
+.con-intro .intro {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-content: center; justify-items: center; gap: 1.4rem;
+  background: radial-gradient(60% 50% at 50% 45%, #241E18, var(--acero) 70%);
+  cursor: pointer;
+}
+.intro__logo { position: relative; width: min(78vw, 34rem); animation: intro-logo 900ms var(--sale) both; }
+.intro__logo img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.6)); }
+/* el brillo solo se pinta dentro de las letras: se recorta con el propio logo */
+.intro__brillo {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 0 38%, rgb(255 255 255 / 0.15) 42%, rgb(255 250 235 / 0.95) 50%, rgb(255 255 255 / 0.15) 58%, transparent 62% 100%) no-repeat;
+  background-size: 250% 100%; background-position: 130% 0;
+  -webkit-mask: url(logo-gusto-3d.png) center / 100% 100% no-repeat;
+          mask: url(logo-gusto-3d.png) center / 100% 100% no-repeat;
+  mix-blend-mode: screen;
+  animation: intro-brillo 1.3s cubic-bezier(0.45, 0, 0.25, 1) 650ms both;
+}
+.intro__lema { font: 800 clamp(1rem, 3.5vw, 1.3rem) var(--display); text-transform: uppercase; letter-spacing: 0.4em; color: var(--crema-2); animation: aparece 800ms var(--sale) 1.4s both; }
+.intro--sale { animation: intro-sale 800ms cubic-bezier(0.7, 0, 0.2, 1) both; }
+@keyframes intro-logo { from { opacity: 0; transform: scale(0.92); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes intro-brillo { from { background-position: 130% 0; } to { background-position: -30% 0; } }
+@keyframes intro-sale { to { clip-path: inset(0 0 100% 0); } }
+.con-intro .portada *, .con-intro .portada::before { animation-play-state: paused !important; }
+
 /* ---------- Comanda: papel térmico con borde de sierra ---------- */
 .papel {
   position: relative;

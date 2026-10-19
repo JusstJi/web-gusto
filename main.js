@@ -116,6 +116,25 @@
     comandas.forEach(function (d) { d.open = d === proxima; });
   }
 
+  // Intro con el logo (solo en la portada): el brillo cruza las letras y la cortina sube
+  function iniciarIntro() {
+    var intro = document.querySelector('[data-intro]');
+    var html = document.documentElement;
+    if (!intro || !html.classList.contains('con-intro')) { if (intro) intro.remove(); return; }
+    try { sessionStorage.setItem('gusto-intro', '1'); } catch (e) {}
+    var hecho = false;
+    function salir() {
+      if (hecho) return;
+      hecho = true;
+      intro.classList.add('intro--sale');
+      setTimeout(function () { html.classList.remove('con-intro'); }, 250);
+      setTimeout(function () { intro.remove(); }, 1000);
+    }
+    var t = setTimeout(salir, 2700);
+    intro.addEventListener('click', function () { clearTimeout(t); salir(); });
+    window.addEventListener('keydown', function () { clearTimeout(t); salir(); }, { once: true });
+  }
+
   function iniciarGaleria() {
     var visor = document.querySelector('[data-visor]');
     if (!visor || !visor.showModal) return;
@@ -358,5 +377,6 @@
   iniciarPlaylists();
   iniciarCalendario(); iniciarProximas(); iniciarReloj(); iniciarGaleria();
   iniciarCarta();
+  iniciarIntro();
   iniciarCabeceraFija();
 })();
