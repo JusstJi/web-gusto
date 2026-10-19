@@ -92,6 +92,9 @@
       if ((!sessionStorage.getItem('gusto-intro') || /[?&]intro/.test(location.search)) &&
           !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('con-intro');
     } catch (e) {}
+    // Propuestas de portada para que Ji elija: ?portada=b, c o d
+    var propuesta = /[?&]portada=([bcd])/.exec(location.search);
+    if (propuesta) document.documentElement.classList.add('portada-' + propuesta[1]);
   </script>
 </head>
 <body class="inicio">

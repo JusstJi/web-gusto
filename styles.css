@@ -1186,3 +1186,103 @@ a.ficha:hover { background: var(--acero-3); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+
+/* ---------- Propuestas de portada (?portada=b, c, d) ---------- */
+
+/* B · Piruleta: rojo de neón, letras rotadas y fecha en cápsula */
+.portada-b .portada { background: #120708; }
+.portada-b .portada__foto img { filter: grayscale(1) contrast(1.4) brightness(0.7) sepia(1) hue-rotate(-50deg) saturate(4); opacity: 0.5; }
+.portada-b .portada__foto { background: #2A0507; }
+.portada-b .portada::before {
+  background:
+    radial-gradient(60% 40% at 15% 20%, rgb(255 40 40 / 0.65), transparent 70%),
+    radial-gradient(70% 45% at 90% 85%, rgb(255 40 40 / 0.55), transparent 70%),
+    radial-gradient(140% 90% at 50% 50%, transparent 35%, rgb(10 3 4 / 0.95) 100%);
+}
+.portada-b .portada::after { opacity: 0.8; background-size: 5px 5px; }
+.portada-b .portada__cartel { justify-items: center; }
+.portada-b .marca {
+  grid-row: 2; color: #FF2A2A; text-align: center; transform: rotate(-7deg); margin-top: 2.6rem;
+  font-size: 33vw; line-height: 0.74; text-shadow: 0 0 40px rgb(255 30 30 / 0.45);
+}
+.portada-b .marca__linea--gusto { color: #FF2A2A; text-align: center; }
+.portada-b .marca__linea--gusto small { color: #fff; vertical-align: 2.6em; }
+.portada-b .portada__fecha {
+  grid-row: 2; grid-column: 1 / -1; justify-self: center; align-self: start; margin-top: 0.4rem;
+  position: relative; z-index: 1; transform: rotate(-7deg);
+  font: 700 1.3rem/1 var(--texto); letter-spacing: 0.04em;
+  padding: 0.45rem 1rem; border: 2px solid #fff; border-radius: 99px; color: #fff !important; background: rgb(18 7 8 / 0.6);
+}
+.portada-b .portada__fecha small { display: none; }
+.portada-b .portada__lema { justify-self: center; text-align: center; color: #fff; font-size: clamp(1.4rem, 6vw, 2.4rem); text-shadow: none; }
+.portada-b .portada__sup, .portada-b .portada__pie { color: #fff; }
+.portada-b .portada__pie { justify-content: center; gap: 1.2rem; border-top: 0; }
+
+.portada-c .inicio .cabecera, .portada-c .cabecera { background: rgb(22 19 15 / 0.94); }
+/* C · Pegatina: fondo del color de la próxima fiesta, foto recortada con borde blanco */
+.portada-c .portada { background: #FDEF50; }
+.portada-c .portada::before {
+  background: repeating-radial-gradient(circle at 50% 120%, rgb(0 0 0 / 0) 0 38px, rgb(0 0 0 / 0.05) 38px 76px);
+}
+.portada-c .portada::after { opacity: 0.25; }
+.portada-c .portada__foto {
+  inset: auto 8% 9% 8%; height: 52%; z-index: 0;
+  border: 10px solid #F7F2E6; border-radius: 18px; transform: rotate(-3deg);
+  box-shadow: 0 20px 40px rgb(0 0 0 / 0.35); overflow: hidden;
+}
+.portada-c .portada__foto img { filter: saturate(1.1) contrast(1.05); }
+.portada-c .portada__cartel { position: relative; z-index: 1; }
+.portada-c .marca { color: #16130F; text-shadow: none; font-size: 31vw; margin-top: 0.3rem; }
+.portada-c .marca__linea--gusto { color: #16130F; -webkit-text-stroke: 0; }
+.portada-c .marca__linea--gusto small { color: #16130F; }
+.portada-c .portada__sup, .portada-c .portada__pie { color: #16130F; }
+.portada-c .portada__pie { border-top-color: rgb(22 19 15 / 0.35); }
+.portada-c .portada__fecha {
+  grid-row: 4; grid-column: 1; justify-self: start; align-self: end; margin: 0 0 0.9rem;
+  color: #F7F2E6 !important; font-size: clamp(2.6rem, 13vw, 5rem);
+  text-shadow: 0 3px 0 #16130F, 0 6px 18px rgb(0 0 0 / 0.5);
+}
+.portada-c .portada__fecha small { color: #F7F2E6; }
+.portada-c .portada__lema {
+  grid-row: 4; align-self: end; margin-bottom: 0.9rem; color: #F7F2E6; font-size: clamp(1.5rem, 7vw, 3rem);
+  text-shadow: 0 3px 0 #16130F, 0 6px 18px rgb(0 0 0 / 0.5);
+}
+.portada-c .portada__pie { grid-row: 5; }
+
+/* D · Revista: foto en blanco y negro, letra blanca apretada y fecha arriba */
+.portada-d .portada__foto img { filter: grayscale(1) contrast(1.2) brightness(0.8); }
+.portada-d .portada::before {
+  background: linear-gradient(180deg, rgb(0 0 0 / 0.6) 0%, rgb(0 0 0 / 0.05) 35%, rgb(0 0 0 / 0.05) 60%, rgb(0 0 0 / 0.85) 100%);
+}
+.portada-d .portada::after { display: none; }
+.portada-d .marca {
+  font-family: "Familjen Grotesk", system-ui, sans-serif; font-weight: 700; letter-spacing: -0.07em;
+  font-size: 22vw; line-height: 0.8; color: #fff; text-transform: uppercase;
+}
+.portada-d .marca__linea--gusto { color: #fff; text-align: right; }
+.portada-d .marca__linea--gusto small { color: var(--lampara); letter-spacing: -0.03em; }
+.portada-d .portada__fecha {
+  grid-row: 1; grid-column: 2; margin-top: -0.3rem;
+  font-family: "Familjen Grotesk", system-ui, sans-serif; font-weight: 700; letter-spacing: -0.06em;
+  font-size: clamp(2rem, 10vw, 4.4rem);
+}
+.portada-d .portada__fecha small { letter-spacing: 0.2em; }
+.portada-d .portada__sup { grid-column: 1; text-align: left; align-self: center; }
+.portada-d .portada__lema {
+  font-family: "Familjen Grotesk", system-ui, sans-serif; font-weight: 700; letter-spacing: -0.05em; line-height: 0.92;
+  font-size: clamp(1.8rem, 9vw, 3.6rem);
+}
+
+@media (min-width: 900px) {
+  .portada-b .marca { font-size: min(22vw, 40svh); grid-column: 1 / -1; }
+  .portada-b .marca__linea--gusto { text-align: center; }
+  .portada-b .portada__fecha { grid-column: 1 / -1; font-size: 1.6rem; }
+  .portada-c .portada__foto { inset: 16% 6% 14% auto; width: 34%; height: auto; }
+  .portada-c .marca { grid-column: 1; font-size: min(15vw, 30svh); }
+  .portada-c .portada__fecha { grid-row: 3; align-self: end; }
+  .portada-c .portada__lema { grid-row: 3; justify-self: start; margin-left: 13rem; text-align: left; }
+  .portada-c .portada__pie { grid-row: 4; }
+  .portada-d .marca { font-size: min(14vw, 30svh); grid-column: 1 / -1; }
+  .portada-d .portada__fecha { grid-row: 1; font-size: 4.4rem; }
+}
