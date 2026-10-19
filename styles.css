@@ -1487,8 +1487,8 @@ dd.chefs .chefs-lista { margin-top: 0.3rem; }
 .cabecera__marca { border-radius: 0.4rem; transition: rotate 200ms var(--sale); rotate: -2deg; }
 .cabecera__marca:hover { rotate: 0deg; }
 .cabecera__marca img { height: clamp(2.3rem, 2.9vw, 2.75rem); width: auto; }
-/* Borde oscuro fino: la S crema del logo se lee sobre cualquier color del fondo */
-.cabecera__marca img { filter: drop-shadow(1px 0 0 var(--tinta)) drop-shadow(-1px 0 0 var(--tinta)) drop-shadow(0 1px 0 var(--tinta)) drop-shadow(0 -1px 0 var(--tinta)); }
+/* Logo 3D: una sombra suave lo despega del fondo */
+.cabecera__marca img { filter: drop-shadow(0 2px 3px rgb(30 16 51 / 0.25)); }
 
 /* ---------- Cabecera que acompaña al bajar ---------- */
 html { scroll-padding-top: 8rem; }
