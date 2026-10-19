@@ -3,7 +3,7 @@
 
 const LOCAL = [-3.7035898, 42.3422114];      // puerta de New La Miel [lng, lat], marcada por Ji
 const SALIDA = { center: [-3.7155, 42.3365], zoom: 13.2, pitch: 20, bearing: -20 };
-const LLEGADA = { center: LOCAL, zoom: 18.1, pitch: 64, bearing: 32 };
+const LLEGADA = { center: LOCAL, zoom: 16.4, pitch: 55, bearing: 32 };
 const ESTILO = 'https://tiles.openfreemap.org/styles/dark';
 const ESPERA = 9000;                          // si el mapa no está listo en este tiempo, vuelo ilustrado
 
