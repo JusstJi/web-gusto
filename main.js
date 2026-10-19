@@ -90,8 +90,8 @@
      Para añadir una fiesta, añade una línea a FIESTAS. */
   var FIESTAS = [
     { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' },
-    // Ji (19/10/2026): el color de la fiesta del 30 es amarillo limón; el sabor aún no
-    { fecha: '2026-10-30', sabor: '', color: '#FDEF50', nombreColor: 'amarillo limón', enlace: 'la-carta.html' }
+    // Ji (19/10/2026): el color de la fiesta del 30 no se ha anunciado aún; no ponerlo hasta que Ji lo diga
+    { fecha: '2026-10-30', sabor: '', enlace: 'la-carta.html' }
   ];
   // Viernes de Gusto se celebra cada dos viernes en New La Miel (Ji, 16/10/2026).
   // Las fechas que no están en FIESTAS salen con el sabor por desvelar.
@@ -276,7 +276,8 @@
     var colores = ['amarillo', 'verde', 'rojo', 'naranja', 'rosa'];
     var html = '';
     var primera = null;
-    for (var i = 0; i < 5; i++) {
+    // Solo la próxima fecha: las siguientes se van añadiendo cuando se acercan (Ji, 19/10/2026)
+    for (var i = 0; i < 1; i++) {
       var c = fecha.getFullYear() + '-' + String(fecha.getMonth() + 1).padStart(2, '0') + '-' + String(fecha.getDate()).padStart(2, '0');
       var f = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
       if (!primera) primera = { fecha: new Date(fecha), sabor: f && f.sabor };
@@ -315,9 +316,14 @@
     var indice = 0;
 
     var inicioCiclo = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00');
+    // Solo se marca hasta la próxima fiesta, en incógnito; las siguientes se suben cuando se acercan (Ji, 19/10/2026)
+    var proxima = new Date(inicioCiclo);
+    var mediodia = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate(), 12);
+    while (proxima < mediodia) proxima.setDate(proxima.getDate() + 14);
+    var claveProxima = clave(proxima.getFullYear(), proxima.getMonth(), proxima.getDate());
     function toca(a, m, d) {
       var dias = Math.round((new Date(a, m, d, 12) - inicioCiclo) / 86400000);
-      return dias >= 0 && dias % 14 === 0;
+      return dias >= 0 && dias % 14 === 0 && clave(a, m, d) <= claveProxima;
     }
     function clave(a, m, d) { return a + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0'); }
     function mesDe(i) { var m = PRIMER_MES[1] + i; return [PRIMER_MES[0] + Math.floor(m / 12), m % 12]; }
@@ -340,7 +346,7 @@
       for (var h = 0; h < hueco; h++) { html += '<td></td>'; celdas++; }
       for (var d = 1; d <= total; d++) {
         var c = clave(a, m, d);
-        var fiesta = FIESTAS.filter(function (f) { return f.fecha === c; })[0];
+        var fiesta = FIESTAS.filter(function (f) { return f.fecha === c && c <= claveProxima; })[0];
         if (!fiesta && toca(a, m, d)) fiesta = { fecha: c, sabor: '', enlace: 'la-carta.html' };
         var clases = [];
         if (c < claveHoy) clases.push('dia-pasado');
