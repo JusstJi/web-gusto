@@ -1487,6 +1487,8 @@ dd.chefs .chefs-lista { margin-top: 0.3rem; }
 .cabecera__marca { border-radius: 0.4rem; transition: rotate 200ms var(--sale); rotate: -2deg; }
 .cabecera__marca:hover { rotate: 0deg; }
 .cabecera__marca img { height: clamp(2.3rem, 2.9vw, 2.75rem); width: auto; }
+/* Borde oscuro fino: la S crema del logo se lee sobre cualquier color del fondo */
+.cabecera__marca img { filter: drop-shadow(1px 0 0 var(--tinta)) drop-shadow(-1px 0 0 var(--tinta)) drop-shadow(0 1px 0 var(--tinta)) drop-shadow(0 -1px 0 var(--tinta)); }
 
 /* ---------- Cabecera que acompaña al bajar ---------- */
 html { scroll-padding-top: 8rem; }
@@ -1654,9 +1656,8 @@ html { scroll-padding-top: 8rem; }
   animation: deriva var(--t) ease-in-out var(--d) infinite alternate;
   will-change: transform;
 }
-/* Cada mancha ronda su esquina sin llegar al centro, que queda limpio.
-   La verde se queda siempre detrás del logo para que la S crema se lea */
-.manchas i:nth-child(1) { --c: var(--verde); width: 32vmax; height: 32vmax; left: calc(17vw - 16vmax); top: calc(2.4rem - 16vmax); background: radial-gradient(closest-side, var(--c) 45%, transparent); --t: 14s; --d: 0s; --x1: 2vw; --y1: 1vh; --x2: -1vw; --y2: 2vh; }
+/* Cada mancha ronda su esquina sin llegar al centro, que queda limpio */
+.manchas i:nth-child(1) { --c: var(--verde); left: -26vmax; top: -26vmax; --t: 14s; --d: 0s; --x1: 6vw; --y1: 5vh; --x2: 2vw; --y2: 8vh; }
 .manchas i:nth-child(2) { --c: var(--amarillo); right: -26vmax; top: -24vmax; --t: 17s; --d: -6s; --x1: -6vw; --y1: 4vh; --x2: -2vw; --y2: 7vh; }
 .manchas i:nth-child(3) { --c: var(--naranja); left: -26vmax; bottom: -26vmax; --t: 15s; --d: -10s; --x1: 5vw; --y1: -6vh; --x2: 7vw; --y2: -2vh; }
 .manchas i:nth-child(4) { --c: var(--rojo); right: -26vmax; bottom: -26vmax; --t: 18s; --d: -3s; --x1: -6vw; --y1: -4vh; --x2: -1vw; --y2: -7vh; opacity: 0.75; }
@@ -1666,7 +1667,7 @@ html { scroll-padding-top: 8rem; }
   .manchas i:nth-child(2) { right: -55vw; top: -50vw; --x1: -7vw; --y1: 3vh; --x2: -2vw; --y2: 5vh; }
   .manchas i:nth-child(3) { left: -55vw; bottom: -55vw; --x1: 6vw; --y1: -4vh; --x2: 9vw; --y2: -1vh; }
   .manchas i:nth-child(4) { right: -55vw; bottom: -55vw; --x1: -7vw; --y1: -3vh; --x2: -2vw; --y2: -5vh; }
-  .manchas i:nth-child(1) { width: 80vw; height: 80vw; left: calc(26vw - 40vw); top: calc(3.3rem - 40vw); --x1: 3vw; --y1: 1vh; --x2: -2vw; --y2: 2vh; }
+  .manchas i:nth-child(1) { left: -55vw; top: -55vw; --x1: 6vw; --y1: 3vh; --x2: 2vw; --y2: 5vh; }
 }
 @keyframes deriva {
   0% { transform: translate(0, 0) scale(1); }
