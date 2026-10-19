@@ -377,7 +377,9 @@
   /* ---------- Calendario de varios meses ----------
      Para añadir una fiesta, añade una línea a FIESTAS. */
   var FIESTAS = [
-    { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' }
+    { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' },
+    // Ji (19/10/2026): el color de la fiesta del 30 es amarillo limón; el sabor aún no
+    { fecha: '2026-10-30', sabor: '', color: '#FDEF50', nombreColor: 'amarillo limón', enlace: 'la-carta.html' }
   ];
   // Viernes de Gusto se celebra cada dos viernes en New La Miel (Ji, 16/10/2026).
   // Las fechas que no están en FIESTAS salen con el sabor por desvelar.
@@ -468,8 +470,19 @@
       viernes = f;
       var c = f.getFullYear() + '-' + String(f.getMonth() + 1).padStart(2, '0') + '-' + String(f.getDate()).padStart(2, '0');
       var fiesta = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
-      reloj.querySelector('[data-reloj-fecha]').textContent = 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
+      var fecha = reloj.querySelector('[data-reloj-fecha]');
+      fecha.textContent = 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
         ' · ' + (fiesta && fiesta.sabor ? fiesta.sabor : 'sabor por desvelar');
+      // Si ya sabemos el color de la fiesta, va en una pegatina al lado de la fecha
+      if (fiesta && fiesta.color) {
+        var muestra = document.createElement('span');
+        muestra.className = 'reloj__color';
+        muestra.style.background = fiesta.color;
+        muestra.title = 'Color de la fiesta: ' + fiesta.nombreColor;
+        muestra.setAttribute('role', 'img');
+        muestra.setAttribute('aria-label', 'Color: ' + fiesta.nombreColor);
+        fecha.insertBefore(muestra, fecha.firstChild);
+      }
     }
 
     function dos(n) { return String(n).padStart(2, '0'); }
@@ -505,9 +518,10 @@
       var c = fecha.getFullYear() + '-' + String(fecha.getMonth() + 1).padStart(2, '0') + '-' + String(fecha.getDate()).padStart(2, '0');
       var f = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
       if (!primera) primera = { fecha: new Date(fecha), sabor: f && f.sabor };
-      var clase = f && f.sabor ? 'proxima--sabor' : 'proxima--' + colores[i % colores.length];
+      var clase = f && f.sabor ? 'proxima--sabor' : (f && f.color ? 'proxima--color' : 'proxima--' + colores[i % colores.length]);
+      var tinta = f && !f.sabor && f.color ? ' style="--c:' + f.color + '"' : '';
       var etiqueta = fecha.getDate() + ' de ' + mesesLargos[fecha.getMonth()] + ': ' + (f && f.sabor ? f.sabor : 'sabor por desvelar');
-      html += '<li class="proxima ' + clase + '"><a href="' + (f ? f.enlace : 'la-carta.html') + '" aria-label="' + etiqueta + '">' +
+      html += '<li class="proxima ' + clase + '"' + tinta + '><a href="' + (f ? f.enlace : 'la-carta.html') + '" aria-label="' + etiqueta + '">' +
         '<span class="proxima__dia">' + fecha.getDate() + '</span><span class="proxima__mes">' + meses[fecha.getMonth()] + '</span>' +
         '<span class="proxima__sabor">' + (f && f.sabor ? f.sabor : 'Por desvelar') + '</span></a></li>';
       fecha.setDate(fecha.getDate() + 14);
@@ -572,8 +586,8 @@
         if (fiesta) {
           hayFiesta = true;
           clases.push('dia-gusto');
-          if (!fiesta.sabor) clases.push('dia-sorpresa');
-          html += '<td class="' + clases.join(' ') + '"><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + (fiesta.sabor || 'sabor por desvelar') + '">' + d + '<span aria-hidden="true">' + (fiesta.sabor || '¿?') + '</span></a></td>';
+          if (!fiesta.sabor) clases.push(fiesta.color ? 'dia-color' : 'dia-sorpresa');
+          html += '<td class="' + clases.join(' ') + '"' + (fiesta.color && !fiesta.sabor ? ' style="--c:' + fiesta.color + '"' : '') + '><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + (fiesta.sabor || 'sabor por desvelar') + '">' + d + '<span aria-hidden="true">' + (fiesta.sabor || '¿?') + '</span></a></td>';
         } else {
           html += '<td' + (clases.length ? ' class="' + clases.join(' ') + '"' : '') + (c === claveHoy ? ' aria-current="date"' : '') + '>' + d + '</td>';
         }
