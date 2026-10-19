@@ -18,9 +18,9 @@
       { transform: 'translateY(100vh)', easing: 'cubic-bezier(0.55, 0, 0.75, 1)' },
       { transform: 'translateY(-58vh)', offset: 0.5, easing: 'cubic-bezier(0.25, 0, 0.45, 1)' },
       { transform: 'translateY(-216vh)' }
-    ], { duration: 1350, fill: 'both' });
+    ], { duration: 1000, fill: 'both' });
     // A mitad de camino el arcoíris tapa toda la pantalla: el lema y el fondo ya sobran
-    var tapa = setTimeout(alTapar, 675);
+    var tapa = setTimeout(alTapar, 500);
     sube.onfinish = alTerminar;
     return function () { clearTimeout(tapa); sube.cancel(); };
   }
@@ -68,9 +68,9 @@
     // El lema se queda un momento a la vista y luego pasa el arcoíris
     var espera = setTimeout(function () {
       parar = barrerArcoiris(intro, function () { intro.classList.add('intro--tapada'); }, terminar);
-    }, 1750);
+    }, 1250);
     parar = function () { clearTimeout(espera); };
-    setTimeout(terminar, 4200);
+    setTimeout(terminar, 3200);
   }
 
   /* ---------- Decoración de fondo: pegatinas de colores que flotan ---------- */
@@ -135,7 +135,7 @@
       var html = '';
       Array.prototype.forEach.call(linea.textContent, function (ch, i) {
         if (ch === ' ') { html += ' '; return; }
-        var estilo = '--d:' + (esColores ? 420 + i * 80 : n++ * 35) + 'ms;--r:' + (i % 2 ? 25 : -25) + 'deg';
+        var estilo = '--d:' + (esColores ? 280 + i * 55 : n++ * 25) + 'ms;--r:' + (i % 2 ? 25 : -25) + 'deg';
         if (esColores) estilo += ';--c:' + colores[i % colores.length] + ';--t:' + giros[i % giros.length] + 'deg';
         html += '<span class="intro__letra" style="' + estilo + '">' + ch + '</span>';
       });
@@ -377,7 +377,9 @@
   /* ---------- Calendario de varios meses ----------
      Para añadir una fiesta, añade una línea a FIESTAS. */
   var FIESTAS = [
-    { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' }
+    { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' },
+    // Ji (19/10/2026): el color de la fiesta del 30 es amarillo limón; el sabor aún no
+    { fecha: '2026-10-30', sabor: '', color: '#FDEF50', nombreColor: 'amarillo limón', enlace: 'la-carta.html' }
   ];
   // Viernes de Gusto se celebra cada dos viernes en New La Miel (Ji, 16/10/2026).
   // Las fechas que no están en FIESTAS salen con el sabor por desvelar.
@@ -385,6 +387,67 @@
   var PRIMER_MES = [2026, 9];  // octubre 2026 (los meses empiezan en 0)
   var NUM_MESES = 9;           // hasta junio 2027
 
+
+  // Galería: al tocar una foto se abre el visor con todas las de esa fiesta
+  function iniciarGaleria() {
+    var visor = document.querySelector('[data-visor]');
+    if (!visor || !visor.showModal) return;
+    var foto = visor.querySelector('[data-visor-foto]');
+    var sabor = visor.querySelector('[data-visor-sabor]');
+    var cuenta = visor.querySelector('[data-visor-cuenta]');
+    var descargar = visor.querySelector('[data-visor-descargar]');
+    var album = null, total = 0, actual = 1;
+    foto.draggable = false;
+
+    function ruta(n) { return 'fotos/galeria/' + album.dataset.album + '/' + String(n).padStart(2, '0') + '.jpg'; }
+    function mostrar(n) {
+      actual = (n - 1 + total) % total + 1;
+      foto.src = ruta(actual);
+      descargar.href = ruta(actual);
+      descargar.setAttribute('download', 'gusto-' + album.dataset.album + '-' + String(actual).padStart(2, '0') + '.jpg');
+      foto.alt = album.dataset.sabor + ', ' + album.dataset.fecha + ': foto ' + actual + ' de ' + total;
+      cuenta.textContent = actual + ' / ' + total;
+      // Precarga la siguiente para que pasar sea instantáneo
+      new Image().src = ruta(actual % total + 1);
+    }
+
+    document.querySelectorAll('[data-album] [data-foto]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        album = a.closest('[data-album]');
+        total = parseInt(album.dataset.fotos, 10);
+        sabor.textContent = album.dataset.sabor;
+        mostrar(parseInt(a.dataset.foto, 10));
+        visor.showModal();
+      });
+    });
+    visor.querySelector('[data-visor-cerrar]').addEventListener('click', function () { visor.close(); });
+    visor.querySelector('[data-visor-anterior]').addEventListener('click', function () { mostrar(actual - 1); });
+    visor.querySelector('[data-visor-siguiente]').addEventListener('click', function () { mostrar(actual + 1); });
+    visor.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') mostrar(actual - 1);
+      if (e.key === 'ArrowRight') mostrar(actual + 1);
+    });
+    // Tocar fuera de la foto cierra; deslizar el dedo pasa de foto
+    visor.addEventListener('click', function (e) { if (e.target === visor) visor.close(); });
+    var x0 = null;
+    foto.addEventListener('pointerdown', function (e) { x0 = e.clientX; });
+    foto.addEventListener('pointerup', function (e) {
+      if (x0 === null) return;
+      var dx = e.clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) mostrar(actual + (dx < 0 ? 1 : -1));
+    });
+
+    // Debajo, la próxima fiesta, que tendrá su propia galería
+    var proxima = document.querySelector('[data-galeria-proxima]');
+    if (proxima) {
+      var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+      var f = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00'), hoy = new Date();
+      while (new Date(f.getFullYear(), f.getMonth(), f.getDate() + 1, 4, 30) <= hoy) f.setDate(f.getDate() + 14);
+      proxima.textContent = 'Próxima galería: viernes ' + f.getDate() + ' de ' + meses[f.getMonth()] + '.';
+      proxima.hidden = false;
+    }
+  }
 
   // Cuenta atrás de la portada: la fiesta empieza a las 00:00 de la noche del viernes y acaba a las 04:30
   function iniciarReloj() {
@@ -407,8 +470,19 @@
       viernes = f;
       var c = f.getFullYear() + '-' + String(f.getMonth() + 1).padStart(2, '0') + '-' + String(f.getDate()).padStart(2, '0');
       var fiesta = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
-      reloj.querySelector('[data-reloj-fecha]').textContent = 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
+      var fecha = reloj.querySelector('[data-reloj-fecha]');
+      fecha.textContent = 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
         ' · ' + (fiesta && fiesta.sabor ? fiesta.sabor : 'sabor por desvelar');
+      // Si ya sabemos el color de la fiesta, va en una pegatina al lado de la fecha
+      if (fiesta && fiesta.color) {
+        var muestra = document.createElement('span');
+        muestra.className = 'reloj__color';
+        muestra.style.background = fiesta.color;
+        muestra.title = 'Color de la fiesta: ' + fiesta.nombreColor;
+        muestra.setAttribute('role', 'img');
+        muestra.setAttribute('aria-label', 'Color: ' + fiesta.nombreColor);
+        fecha.insertBefore(muestra, fecha.firstChild);
+      }
     }
 
     function dos(n) { return String(n).padStart(2, '0'); }
@@ -444,9 +518,10 @@
       var c = fecha.getFullYear() + '-' + String(fecha.getMonth() + 1).padStart(2, '0') + '-' + String(fecha.getDate()).padStart(2, '0');
       var f = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
       if (!primera) primera = { fecha: new Date(fecha), sabor: f && f.sabor };
-      var clase = f && f.sabor ? 'proxima--sabor' : 'proxima--' + colores[i % colores.length];
+      var clase = f && f.sabor ? 'proxima--sabor' : (f && f.color ? 'proxima--color' : 'proxima--' + colores[i % colores.length]);
+      var tinta = f && !f.sabor && f.color ? ' style="--c:' + f.color + '"' : '';
       var etiqueta = fecha.getDate() + ' de ' + mesesLargos[fecha.getMonth()] + ': ' + (f && f.sabor ? f.sabor : 'sabor por desvelar');
-      html += '<li class="proxima ' + clase + '"><a href="' + (f ? f.enlace : 'la-carta.html') + '" aria-label="' + etiqueta + '">' +
+      html += '<li class="proxima ' + clase + '"' + tinta + '><a href="' + (f ? f.enlace : 'la-carta.html') + '" aria-label="' + etiqueta + '">' +
         '<span class="proxima__dia">' + fecha.getDate() + '</span><span class="proxima__mes">' + meses[fecha.getMonth()] + '</span>' +
         '<span class="proxima__sabor">' + (f && f.sabor ? f.sabor : 'Por desvelar') + '</span></a></li>';
       fecha.setDate(fecha.getDate() + 14);
@@ -511,8 +586,8 @@
         if (fiesta) {
           hayFiesta = true;
           clases.push('dia-gusto');
-          if (!fiesta.sabor) clases.push('dia-sorpresa');
-          html += '<td class="' + clases.join(' ') + '"><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + (fiesta.sabor || 'sabor por desvelar') + '">' + d + '<span aria-hidden="true">' + (fiesta.sabor || '¿?') + '</span></a></td>';
+          if (!fiesta.sabor) clases.push(fiesta.color ? 'dia-color' : 'dia-sorpresa');
+          html += '<td class="' + clases.join(' ') + '"' + (fiesta.color && !fiesta.sabor ? ' style="--c:' + fiesta.color + '"' : '') + '><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + (fiesta.sabor || 'sabor por desvelar') + '">' + d + '<span aria-hidden="true">' + (fiesta.sabor || '¿?') + '</span></a></td>';
         } else {
           html += '<td' + (clases.length ? ' class="' + clases.join(' ') + '"' : '') + (c === claveHoy ? ' aria-current="date"' : '') + '>' + d + '</td>';
         }
@@ -567,7 +642,7 @@
   iniciarDecoracion();
   iniciarPlaylists();
   iniciarLuces();
-  iniciarCalendario(); iniciarProximas(); iniciarReloj();
+  iniciarCalendario(); iniciarProximas(); iniciarReloj(); iniciarGaleria();
   iniciarParallax();
   iniciarCabeceraFija();
 })();

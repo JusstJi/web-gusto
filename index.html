@@ -108,14 +108,14 @@
   <a class="saltar-contenido" href="#contenido">Ir al contenido</a>
 
   <header class="cabecera">
-    <a class="cabecera__marca" href="index.html"><img src="logo-gusto.svg" alt="Gusto, inicio" width="526" height="132"></a>
+    <a class="cabecera__marca" href="index.html"><img src="logo-gusto.svg" alt="Gusto, inicio" width="466" height="96"></a>
     <nav class="cabecera__nav" aria-label="Páginas">
       <ul>
         <li><a href="la-carta.html">La Carta<span>Fiestas</span></a></li>
         <li><a href="como-se-sirve.html">Cómo se sirve<span>Formato</span></a></li>
         <li><a href="menu-del-mes.html">Menú del mes<span>Calendario</span></a></li>
         <li><a href="donde-se-sirve.html">¿Dónde se sirve?<span>Ubicación</span></a></li>
-        <li><a href="preguntas.html">Preguntas<span>Dudas</span></a></li>
+        <li><a href="#galeria">Galería<span>Fotos</span></a></li>
       </ul>
     </nav>
     <a class="boton boton--pequeno" href="haz-tu-pedido.html">Haz tu pedido <small>Entradas</small></a>
@@ -186,6 +186,39 @@
       </div>
     </section>
 
+    <section class="galeria" id="galeria" aria-labelledby="titulo-galeria">
+      <div class="galeria__cabeza">
+        <p class="chip-titulo">Así se sirvió</p>
+        <h2 class="titulo" id="titulo-galeria">La <span>galería</span></h2>
+        <p class="galeria__lema">Una galería por fiesta. Toca una foto para verlas todas.</p>
+      </div>
+      <article class="album" data-album="umami" data-fotos="45" data-sabor="Umami" data-fecha="16 de octubre" aria-labelledby="album-umami">
+        <header class="album__cabeza">
+          <h3 class="album__sabor" id="album-umami">Umami</h3>
+          <p class="album__fecha">Viernes 16 de octubre · 45 fotos</p>
+        </header>
+        <ul class="album__fotos">
+          <li><a class="album__foto album__foto--portada" href="fotos/galeria/umami/01.jpg" data-foto="1"><img src="fotos/galeria/umami/01-medio.jpg" srcset="fotos/galeria/umami/01-mini.jpg 700w, fotos/galeria/umami/01-medio.jpg 1100w, fotos/galeria/umami/01.jpg 1600w" sizes="(min-width: 900px) 54rem, 92vw" alt="Umami, 16 de octubre: foto 1 de 45" width="560" height="373" loading="lazy" decoding="async"></a></li>
+          <li><a class="album__foto" href="fotos/galeria/umami/02.jpg" data-foto="2"><img src="fotos/galeria/umami/02-medio.jpg" srcset="fotos/galeria/umami/02-mini.jpg 700w, fotos/galeria/umami/02-medio.jpg 1100w, fotos/galeria/umami/02.jpg 1600w" sizes="(min-width: 900px) 27rem, 70vw" alt="Umami, 16 de octubre: foto 2 de 45" width="373" height="560" loading="lazy" decoding="async"></a></li>
+          <li><a class="album__foto" href="fotos/galeria/umami/03.jpg" data-foto="3"><img src="fotos/galeria/umami/03-medio.jpg" srcset="fotos/galeria/umami/03-mini.jpg 700w, fotos/galeria/umami/03-medio.jpg 1100w, fotos/galeria/umami/03.jpg 1600w" sizes="(min-width: 900px) 27rem, 70vw" alt="Umami, 16 de octubre: foto 3 de 45" width="373" height="560" loading="lazy" decoding="async"></a></li>
+          <li><a class="album__foto" href="fotos/galeria/umami/04.jpg" data-foto="4"><img src="fotos/galeria/umami/04-medio.jpg" srcset="fotos/galeria/umami/04-mini.jpg 700w, fotos/galeria/umami/04-medio.jpg 1100w, fotos/galeria/umami/04.jpg 1600w" sizes="(min-width: 900px) 27rem, 70vw" alt="Umami, 16 de octubre: foto 4 de 45" width="560" height="373" loading="lazy" decoding="async"></a></li>
+          <li><a class="album__foto album__mas" href="fotos/galeria/umami/05.jpg" data-foto="5"><img src="fotos/galeria/umami/05-medio.jpg" srcset="fotos/galeria/umami/05-mini.jpg 700w, fotos/galeria/umami/05-medio.jpg 1100w, fotos/galeria/umami/05.jpg 1600w" sizes="(min-width: 900px) 27rem, 70vw" alt="" width="560" height="373" loading="lazy" decoding="async"><span>+41<small>fotos</small></span></a></li>
+        </ul>
+      </article>
+      <p class="galeria__proxima" data-galeria-proxima hidden></p>
+    </section>
+
+    <dialog class="visor" data-visor aria-label="Fotos de la fiesta">
+      <figure class="visor__marco">
+        <img class="visor__foto" data-visor-foto alt="">
+        <figcaption class="visor__pie"><strong data-visor-sabor></strong> <span data-visor-cuenta></span></figcaption>
+      </figure>
+      <a class="visor__descargar" data-visor-descargar href="" download>Descargar foto</a>
+      <button class="visor__boton visor__cerrar" type="button" data-visor-cerrar aria-label="Cerrar">✕</button>
+      <button class="visor__boton visor__anterior" type="button" data-visor-anterior aria-label="Foto anterior">←</button>
+      <button class="visor__boton visor__siguiente" type="button" data-visor-siguiente aria-label="Foto siguiente">→</button>
+    </dialog>
+
     <section class="degustacion" aria-labelledby="titulo-degustacion">
       <div class="degustacion__cabeza">
         <p class="chip-titulo">Prueba antes de pedir</p>
@@ -216,7 +249,7 @@
             <span>Pruébalo</span><small data-playlist-pronto>pronto</small>
           </a>
         </li>
-        <li class="plato plato--sorpresa plato--amarillo">
+        <li class="plato plato--sorpresa plato--limon">
           <div class="plato__dibujo" aria-hidden="true">
             <svg viewBox="0 0 200 110" focusable="false">
               <rect x="66" y="22" width="68" height="68" rx="34" fill="#F3EEE4" stroke="#1E1033" stroke-width="5"/>
@@ -228,7 +261,7 @@
             <h3>Próximo sabor</h3>
             <span class="etiqueta">30 oct</span>
           </div>
-          <p>Su color, su música y su chupito se desvelan en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
+          <p>Su color ya está: amarillo limón. Su sabor, su música y su chupito se desvelan en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
           <p class="plato__chips"><span>Fuera de carta</span><span>Chefs por desvelar</span></p>
           <a class="probar" data-playlist="proximo" aria-disabled="true">
             <svg class="spotify" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="12" fill="#1ED760"/><g fill="none" stroke="#000" stroke-linecap="round"><path d="M6 9.1c3.9-1.2 8.5-.9 12 1.1" stroke-width="2.1"/><path d="M6.7 12.5c3.2-.9 7-.6 9.8 1" stroke-width="1.8"/><path d="M7.3 15.7c2.6-.7 5.4-.5 7.7.8" stroke-width="1.5"/></g></svg>

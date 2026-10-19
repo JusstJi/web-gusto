@@ -51,6 +51,8 @@
   --sabor: #410107;
   --sabor-oscuro: #6A0A14;
   --sabor-tinta: #F7B6BA;
+  /* Color de la próxima fiesta (30 oct), aún sin sabor: amarillo limón (Ji) */
+  --limon: #FDEF50;
 
   --display: "Shrikhand", "Familjen Grotesk", serif;
   --texto: "Familjen Grotesk", system-ui, sans-serif;
@@ -223,14 +225,14 @@ html.con-intro .intro {
 }
 .intro__letra {
   display: inline-block;
-  animation: salta 520ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--d) backwards;
+  animation: salta 420ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--d) backwards;
 }
 .intro__linea--colores .intro__letra {
   color: var(--c);
   rotate: var(--t, 0deg);
   margin-inline: -0.015em;
-  animation: cae 760ms linear var(--d) backwards,
-             baila 1.2s ease-in-out calc(var(--d) + 760ms) infinite;
+  animation: cae 600ms linear var(--d) backwards,
+             baila 1.2s ease-in-out calc(var(--d) + 600ms) infinite;
 }
 @keyframes salta {
   from { scale: 0; rotate: var(--r, -25deg); opacity: 0; }
@@ -406,6 +408,12 @@ html.con-intro .intro {
 .reloj[hidden] { display: none; }
 .reloj p { margin: 0; }
 .reloj__antes { display: grid; justify-items: center; gap: 0.35rem; font-weight: 700; font-size: 0.95rem; text-align: center; }
+.reloj__color {
+  display: inline-block; vertical-align: -0.2em;
+  width: 1.1em; height: 1.1em; margin-right: 0.4rem;
+  border: 2px solid var(--tinta); border-radius: 50%;
+  box-shadow: 2px 2px 0 var(--tinta);
+}
 .reloj__etiqueta {
   display: inline-block;
   padding: 0.15rem 0.6rem;
@@ -523,12 +531,16 @@ html.con-intro .intro {
   /* En ordenador: marca y entrada a la izquierda, la boca a un lado */
   .portada {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-rows: auto auto auto auto;
     column-gap: clamp(2rem, 5vw, 5rem);
     row-gap: 1.25rem;
     align-items: start;
-    min-height: min(92vh, 60rem);
+    /* La portada llena la pantalla: la galería empieza al bajar */
+    align-content: center;
+    min-height: 100vh;
+    min-height: 100svh;
     padding-top: 6.5rem;
+    padding-bottom: 3rem;
   }
   .portada__antes,
   .ola { display: none; }
@@ -538,7 +550,7 @@ html.con-intro .intro {
   .portada__que { grid-column: 1; grid-row: 3; justify-self: start; }
   .reloj, .reloj__antes { justify-items: start; }
   .reloj { grid-column: 1; grid-row: 4; justify-self: start; }
-  .escena { grid-column: 2; grid-row: 1 / 6; align-self: center; margin: 0; padding: 0; }
+  .escena { grid-column: 2; grid-row: 1 / 5; align-self: center; margin: 0; padding: 0; }
   .boca { width: min(100%, 34rem); }
 }
 
@@ -672,6 +684,7 @@ dd.por-desvelar { justify-self: start; }
 .proximos__lista { list-style: none; margin: 0; padding: 0; text-align: left; }
 .proximos__lista li { display: flex; align-items: baseline; gap: 0.6rem; padding: 0.55rem 0; }
 .proximos__nombre { display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--display); font-size: 1.35rem; }
+.proximos__color { width: 0.9rem; height: 0.9rem; border-radius: 50%; background: var(--limon); border: 2px solid var(--tinta); }
 .proximos__nombre .icono { width: 1.1rem; height: 1.1rem; }
 .proximos__puntos { flex: 1; min-width: 1rem; border-bottom: 3px dotted rgb(30 16 51 / 0.35); translate: 0 -0.3em; }
 .proximos__lista time { font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -869,6 +882,10 @@ dd.por-desvelar { justify-self: start; }
   color: var(--tinta);
 }
 .dia-sorpresa span { color: var(--tinta); }
+/* Fiesta con el color ya anunciado y el sabor aún no */
+.dia-color a { background: var(--c); color: var(--tinta); box-shadow: inset 0 0 0 3px var(--tinta); }
+.dia-color span { color: var(--tinta); }
+.punto.punto--color { background: var(--limon); box-shadow: inset 0 0 0 2px var(--tinta); }
 .calendario__leyenda { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 1.25rem; margin-top: 1rem; font-size: 0.95rem; }
 .calendario__leyenda > span { display: inline-flex; align-items: center; gap: 0.45rem; }
 .punto.punto--sorpresa { background: conic-gradient(var(--verde), var(--rojo), var(--papel), var(--amarillo), var(--naranja), var(--verde)); }
@@ -1358,6 +1375,7 @@ dd.por-desvelar { justify-self: start; }
 }
 .plato__dibujo svg { width: 100%; height: 100%; }
 .plato--amarillo .plato__dibujo { background: var(--amarillo); }
+.plato--limon .plato__dibujo, .plato--limon .etiqueta { background: var(--limon); }
 .plato--verde .plato__dibujo { background: var(--verde); }
 .plato__cabeza { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin-top: 0.3rem; }
 .plato h3 { font-family: var(--display); font-weight: 400; font-size: 1.75rem; line-height: 1.05; margin: 0; }
@@ -1493,4 +1511,105 @@ html { scroll-padding-top: 8rem; }
   height: 50vh;
   background: var(--rosa);
   pointer-events: none;
+}
+
+/* ---------- Galería: una por fiesta, justo debajo de la portada ---------- */
+.galeria {
+  background: var(--confeti), var(--tinta);
+  color: var(--papel);
+  padding: var(--seccion) var(--borde);
+}
+.galeria .titulo { color: var(--papel); }
+.galeria .chip-titulo { color: var(--tinta); }
+.galeria .titulo span { color: var(--amarillo); }
+.galeria__lema { max-width: 30rem; margin: 0; font-size: 1.05rem; }
+.album { max-width: 72rem; margin: clamp(2rem, 5vw, 3rem) 0 0; }
+.album__cabeza { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; margin-bottom: 1.1rem; }
+.album__sabor { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(2.2rem, 6vw, 3.2rem); line-height: 1; color: var(--sabor-tinta); }
+.album__fecha { margin: 0; font-weight: 700; opacity: 0.85; }
+.album__fotos {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: clamp(0.6rem, 1.6vw, 1rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.album__fotos li:first-child { grid-column: 1 / -1; }
+.album__foto {
+  position: relative; display: block; height: 100%;
+  padding: 0.35rem;
+  border-radius: 0.8rem;
+  background: var(--papel);
+  box-shadow: 5px 5px 0 var(--rojo);
+  rotate: -1.2deg;
+  transition: rotate 220ms var(--sale), scale 220ms var(--sale);
+}
+.album__fotos li:nth-child(even) .album__foto { rotate: 1.4deg; box-shadow: 5px 5px 0 var(--verde); }
+.album__fotos li:nth-child(3) .album__foto { box-shadow: 5px 5px 0 var(--amarillo); }
+.album__fotos li:nth-child(5) .album__foto { box-shadow: 5px 5px 0 var(--naranja); }
+.album__foto img { display: block; width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 0.5rem; }
+.album__foto--portada img { aspect-ratio: 3 / 2; }
+.album__foto:hover, .album__foto:focus-visible { rotate: 0deg; scale: 1.03; z-index: 1; }
+.album__foto:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 4px; }
+.album__mas span {
+  position: absolute; inset: 0.35rem;
+  display: grid; place-content: center; text-align: center;
+  border-radius: 0.5rem;
+  background: rgb(30 16 51 / 0.66);
+  color: var(--papel);
+  font-family: var(--display); font-size: clamp(2rem, 6vw, 3rem); line-height: 1;
+}
+.album__mas small { font-family: var(--texto); font-weight: 700; font-size: 0.9rem; }
+.galeria__proxima { margin: 2rem 0 0; font-weight: 700; opacity: 0.8; }
+@media (min-width: 900px) {
+  .album__fotos { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .album__fotos li:first-child { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .album__foto--portada img { aspect-ratio: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .album__foto { transition: none; } }
+
+/* El visor: la foto a pantalla completa, con flechas y deslizando el dedo */
+.visor {
+  width: 100%; max-width: none; height: 100%; max-height: none;
+  margin: 0; padding: 0; border: 0;
+  background: rgb(30 16 51 / 0.96);
+  color: var(--papel);
+  overscroll-behavior: contain;
+}
+.visor::backdrop { background: rgb(30 16 51 / 0.6); }
+.visor[open] { display: grid; place-items: center; }
+.visor__marco { margin: 0; display: grid; justify-items: center; gap: 0.8rem; padding: 4rem 1rem 1.5rem; touch-action: pan-y; }
+.visor__foto {
+  max-width: min(100%, 75rem); max-height: calc(100dvh - 9rem);
+  width: auto; height: auto;
+  border: 0.4rem solid var(--papel); border-radius: 0.7rem;
+  background: #2b1d40;
+}
+.visor__descargar {
+  position: fixed; top: max(1rem, env(safe-area-inset-top)); left: 1rem;
+  display: inline-flex; align-items: center; min-height: 3rem; padding: 0 1.1rem;
+  border: 3px solid var(--tinta); border-radius: 999px;
+  background: var(--amarillo); color: var(--tinta);
+  font-weight: 700; text-decoration: none;
+  box-shadow: 3px 3px 0 var(--tinta);
+}
+.visor__descargar::before { content: "↓"; margin-right: 0.45rem; font-size: 1.15rem; }
+.visor__descargar:focus-visible { outline: 3px solid var(--papel); outline-offset: 3px; }
+.visor__pie { font-weight: 700; font-variant-numeric: tabular-nums; }
+.visor__pie strong { font-family: var(--display); font-weight: 400; font-size: 1.3rem; color: var(--sabor-tinta); margin-right: 0.4rem; }
+.visor__boton {
+  position: fixed;
+  width: 3rem; height: 3rem; border-radius: 50%;
+  border: 3px solid var(--tinta);
+  background: var(--amarillo); color: var(--tinta);
+  font: 700 1.3rem/1 var(--texto);
+  box-shadow: 3px 3px 0 var(--tinta);
+  cursor: pointer;
+}
+.visor__boton:focus-visible { outline: 3px solid var(--papel); outline-offset: 3px; }
+.visor__cerrar { top: max(1rem, env(safe-area-inset-top)); right: 1rem; background: var(--papel); }
+.visor__anterior, .visor__siguiente { top: 50%; translate: 0 -50%; }
+.visor__anterior { left: 1rem; }
+.visor__siguiente { right: 1rem; }
+@media (max-width: 699px) {
+  .visor__anterior, .visor__siguiente { top: auto; bottom: max(1rem, env(safe-area-inset-bottom)); translate: none; }
+  .visor__marco { padding-bottom: 5rem; }
 }
