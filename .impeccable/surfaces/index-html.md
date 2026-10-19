@@ -10,14 +10,14 @@ Audience: young locals arriving from Instagram on a phone; action: buy the advan
 
 ## Direction contract
 
-THESIS: The site is a menu you can lick. The plate seen from above is also the dance floor seen from above: the DJ in the centre, everybody around. It refuses the club-night default of a black page with a neon flyer.
+THESIS: La noche es un servicio de cocina. Cada fiesta llega como una comanda colgada del riel bajo la lámpara de pase; la web se lee como la cocina de un local de noche, no como un cartel infantil.
 
-OWN-WORLD: Risograph party-flyer inks overprinting on the party pink #F7A8D8: fluor pink, yellow, blue, green, orange, with multiply mixes where they cross and a fine grain. Shrikhand for the wide script wordmark and dish names, Familjen Grotesk for menu text. Each section is a full color field.
+OWN-WORLD: Acero oscuro cálido, luz naranja de lámpara, papel térmico con borde de sierra, fotos reales de la sala. Big Shoulders Display (cartel de cocina), Courier Prime (lo impreso), Familjen Grotesk (texto).
 
-STORY: The tongue licks the screen open; the visitor sees tonight's flavour, the date and "Haz tu pedido"; then reads the menu (La Carta), how it is served (boiler room), the month, where, and questions.
+STORY: Foto de la fiesta y «Viernes de Gusto»; debajo, la comanda de la próxima fiesta con cuenta atrás y «Haz tu pedido»; luego galería, menú degustación y el índice de la casa.
 
-FIRST VIEWPORT: Wordmark across the top, the concentric plate/dancefloor below it with the DJ at the centre and the crowd orbiting, and a dish ticket naming tonight's sabor, date, hours and the ticket button. Sticky ticket bar on mobile.
+FIRST VIEWPORT: Foto a sangre con luz naranja arriba, marca enorme en dos líneas (crema / naranja), lema; en ordenador la comanda cuelga del riel a la derecha.
 
-FORM: pinned by the brief (restaurant menu + multicolor tongue); seed: none (direction pinned by brief, concept-seed not run).
+FORM: elegida por Ji en tarjeta (A · Cocina en servicio) frente a B · Pizarra del bar, 19/10/2026; seed:d0f6ade25676b160.
 
-FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+SIGNATURE MOTION: la comanda se balancea al colgarse al cargar la página.

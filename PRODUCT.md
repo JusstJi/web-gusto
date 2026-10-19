@@ -32,10 +32,8 @@ Cada edición es un sabor con su color, su música y su chupito. «Mezclando pal
 
 ## Brand Commitments
 
-- Nombre visual «Viernes de Gusto» en tipografía cursiva y ancha.
-- Color de la fiesta: rosa #F7A8D8.
 - Lema: «Para gustos, colores» (corregido por Ji). Descriptor: «Un sabor por noche».
-- Estética muy joven y muy colorida; intro con la boca abierta y la lengua fuera: la lengua se dobla y se relame, y una lengua enorme lame la pantalla de abajo arriba dejando ver la portada (petición de Ji).
+- Estética adulta y nocturna, nada infantil (Ji, 19/10/2026): cocina en servicio, ver DESIGN.md. Sin boca de dibujo, intro ni pegatinas.
 
 ## Evidence on Hand
 
