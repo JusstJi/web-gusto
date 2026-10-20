@@ -31,8 +31,9 @@
     "@graph": [
       {
         "@type": "NightClub",
-        "@id": "#new-la-miel",
+        "@id": "https://www.gustoexperience.es/#new-la-miel",
         "name": "New La Miel",
+        "url": "https://www.instagram.com/newlamielpub/",
         "description": "Pub y discoteca del casco histórico de Burgos.",
         "address": {
           "@type": "PostalAddress",
@@ -52,8 +53,9 @@
       },
       {
         "@type": "Organization",
-        "@id": "#gusto",
+        "@id": "https://www.gustoexperience.es/#gusto",
         "name": "Gusto",
+        "url": "https://www.gustoexperience.es/",
         "sameAs": ["https://www.instagram.com/gustoexperiencee/"]
       },
       {
@@ -66,8 +68,8 @@
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "image": "https://www.gustoexperience.es/og-image.png?v=6",
-        "location": { "@id": "#new-la-miel" },
-        "organizer": [{ "@id": "#gusto" }, { "@id": "#new-la-miel" }],
+        "location": { "@id": "https://www.gustoexperience.es/#new-la-miel" },
+        "organizer": [{ "@id": "https://www.gustoexperience.es/#gusto" }, { "@id": "https://www.gustoexperience.es/#new-la-miel" }],
         "performer": [
           { "@type": "Person", "name": "URMAXXX", "sameAs": "https://www.instagram.com/dj_urmaxx/" },
           { "@type": "Person", "name": "Lemmy Brown", "sameAs": "https://www.instagram.com/lemmybrowndj/" }
@@ -78,20 +80,35 @@
           "priceCurrency": "EUR",
           "lowPrice": "4",
           "highPrice": "8",
-          "offerCount": "3"
+          "offerCount": "3",
+          "availability": "https://schema.org/InStock",
+          "validFrom": "2026-10-16T00:00:00+02:00",
+          "validThrough": "2026-10-17T04:30:00+02:00"
         }
       },
       {
         "@type": "Event",
         "name": "Viernes de Gusto · 30 de octubre",
+        "url": "https://www.gustoexperience.es/la-carta.html",
         "description": "Fiesta de Viernes de Gusto en New La Miel, Burgos: el DJ en el centro de la sala y todos alrededor. El sabor de la noche se desvela en Instagram.",
         "startDate": "2026-10-31T00:00:00+01:00",
         "endDate": "2026-10-31T04:30:00+01:00",
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "image": "https://www.gustoexperience.es/og-image.png?v=6",
-        "location": { "@id": "#new-la-miel" },
-        "organizer": [{ "@id": "#gusto" }, { "@id": "#new-la-miel" }]
+        "location": { "@id": "https://www.gustoexperience.es/#new-la-miel" },
+        "organizer": [{ "@id": "https://www.gustoexperience.es/#gusto" }, { "@id": "https://www.gustoexperience.es/#new-la-miel" }],
+        "performer": { "@id": "https://www.gustoexperience.es/#gusto" },
+        "offers": {
+          "@type": "AggregateOffer",
+          "url": "https://www.gustoexperience.es/haz-tu-pedido.html",
+          "priceCurrency": "EUR",
+          "lowPrice": "4",
+          "highPrice": "8",
+          "offerCount": "3",
+          "availability": "https://schema.org/PreOrder",
+          "validFrom": "2026-10-19T00:00:00+02:00"
+        }
       }
     ]
   }
