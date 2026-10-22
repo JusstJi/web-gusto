@@ -1200,7 +1200,6 @@ a.ficha:hover { background: var(--acero-3); }
 /* Aviso legal */
 .legal__intro { max-width: 60ch; margin: 0 0 2rem; color: var(--crema); font-size: 1.1rem; }
 .legal details p a { color: var(--crema); }
-.pendiente { background: var(--lampara); color: #16130F; padding: 0 0.25em; font-weight: 700; }
 .pie__legal { font-size: 0.85rem; }
 .pie__legal a { color: var(--crema-2); }
 .galeria__quitar { margin-top: 0.6rem; font-size: 0.9rem; color: var(--crema-2); }
