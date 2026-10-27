@@ -358,6 +358,40 @@ p { margin: 0; text-wrap: pretty; }
   display: block; font: 700 0.72rem/1 var(--texto); letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--lampara-clara); margin-bottom: 0.35rem;
 }
+/* Guiño al sabor de la próxima fiesta: rodaja de lima y nombre en pegatina */
+.portada__sabor {
+  display: flex; align-items: center; justify-content: flex-end; gap: 0.4rem;
+  margin-top: 0.55rem;
+}
+.portada__sabor[hidden] { display: none; }
+.portada__sabor .lima {
+  width: clamp(2.6rem, 11vw, 4.2rem); height: auto; flex: none;
+  filter: drop-shadow(0 4px 10px rgb(0 0 0 / 0.5));
+  animation: lima-gira 14s linear infinite;
+}
+@keyframes lima-gira { to { rotate: 1turn; } }
+.portada__sabor-nombre {
+  display: inline-block; padding: 0.3rem 0.6rem 0.22rem;
+  background: #E3CF0E; color: #232A0F; border-radius: 3px;
+  font: 900 clamp(1.3rem, 6vw, 2rem)/0.95 var(--display); text-transform: uppercase; letter-spacing: 0.01em;
+  rotate: -4deg; box-shadow: 0 6px 16px rgb(0 0 0 / 0.45);
+}
+.portada__sabor-nombre small {
+  display: block; margin: 0; color: inherit;
+  font: 700 0.42em/1 var(--ticket); letter-spacing: 0.18em;
+}
+@media (prefers-reduced-motion: reduce) { .portada__sabor .lima { animation: none; } }
+/* En móvil va a la izquierda de la fecha, sin ocupar alto, para no chocar con el lema */
+@media (max-width: 899px) {
+  .portada__fecha { position: relative; }
+  .portada__sabor {
+    position: absolute; right: 100%; bottom: 0; margin: 0 0.7rem 0 0;
+    flex-direction: column; align-items: center; gap: 0.3rem;
+  }
+  .portada__sabor .lima { width: 2.4rem; }
+  .portada__sabor-nombre { font-size: 1.2rem; white-space: nowrap; }
+}
+.en-espera[aria-disabled] { cursor: default; background: transparent; color: inherit; box-shadow: inset 0 0 0 2px currentColor; }
 .portada__lema {
   grid-column: 1 / -1; grid-row: 3; align-self: end; justify-self: end;
   margin-bottom: 1.2rem;
@@ -376,6 +410,18 @@ p { margin: 0; text-wrap: pretty; }
 /* Próxima fiesta, justo debajo de la portada */
 .hoy { display: grid; padding: 0 var(--borde) var(--seccion); }
 .hoy .riel { margin: 0 calc(var(--borde) * -1); }
+/* Cartel de la próxima fiesta, colgado del mismo riel que la comanda */
+.cartel-hoy {
+  justify-self: start; display: block;
+  width: min(100%, 26rem); margin-top: 2.2rem;
+  rotate: 1deg; filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.55));
+}
+.cartel-hoy img { display: block; width: 100%; height: auto; border-radius: 2px; }
+@media (min-width: 900px) {
+  .hoy { grid-template-columns: repeat(2, auto); justify-content: center; column-gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .hoy .riel { grid-column: 1 / -1; }
+  .cartel-hoy { width: min(24rem, 34vw); margin-top: -2px; rotate: -1.4deg; }
+}
 .comanda-hoy {
   justify-self: start;
   width: min(100%, 26rem);
@@ -582,6 +628,8 @@ p { margin: 0; text-wrap: pretty; }
   background: var(--acero-2);
 }
 .plato--umami { --c: var(--sabor-tinta); background: var(--sabor); color: var(--sabor-tinta); }
+.plato--acido { --c: #232A0F; background: #E3CF0E; color: #232A0F; }
+.plato--acido .chef__foto { box-shadow: 0 0 0 2px #232A0F; }
 .plato--limon { --c: var(--limon); }
 .plato--verde { --c: var(--verde); }
 .plato__cabeza { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
@@ -743,6 +791,9 @@ a.probar[href]:hover { background: #1ED760; border-color: #1ED760; color: #08140
 .plato-carta__puntos { flex: 1; min-width: 1rem; border-bottom: 2.5px dotted rgb(22 19 15 / 0.45); translate: 0 -0.35em; }
 .plato-carta__fecha { font: 700 1.05rem var(--ticket); white-space: nowrap; }
 .plato-carta__desc { color: var(--tinta-2); max-width: 52ch; }
+.plato-carta__cartel { display: block; width: min(100%, 22rem); justify-self: center; rotate: -1deg; box-shadow: 0 10px 20px -8px rgb(0 0 0 / 0.45); }
+.plato-carta__cartel img { display: block; width: 100%; height: auto; }
+.muestra-color { display: inline-block; width: 0.9em; height: 0.9em; border-radius: 50%; vertical-align: -0.1em; margin-right: 0.3em; box-shadow: 0 0 0 1.5px var(--tinta); }
 .plato-carta__seccion { font: 700 0.85rem var(--ticket); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 0.4rem; }
 .ingredientes { margin: 0; border-top: 1px solid rgb(22 19 15 / 0.2); }
 .ingredientes div { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.6rem 0; border-bottom: 1px solid rgb(22 19 15 / 0.2); }
@@ -855,9 +906,9 @@ a.probar[href]:hover { background: #1ED760; border-color: #1ED760; color: #08140
   text-decoration: none;
   height: 100%;
 }
-.proxima--sabor a { --c: var(--sabor-tinta); background: var(--sabor); color: var(--sabor-tinta); }
+.proxima--sabor a { --c: var(--ft, var(--sabor-tinta)); background: var(--fc, var(--sabor)); color: var(--ft, var(--sabor-tinta)); }
 .proxima--color a { --c: inherit; }
-.proxima[style] a { border-top-color: var(--c); }
+.proxima--color[style] a { border-top-color: var(--c); }
 .proxima__dia { font: 900 2.6rem/0.9 var(--display); }
 .proxima__mes { font: 700 0.85rem var(--ticket); text-transform: uppercase; }
 .proxima__sabor { margin-top: 0.4rem; font-size: 0.9rem; color: var(--crema-2); }
@@ -881,8 +932,8 @@ a.probar[href]:hover { background: #1ED760; border-color: #1ED760; color: #08140
 .calendario .dia-hoy { box-shadow: inset 0 0 0 2px var(--crema); }
 .calendario .dia-gusto { padding: 0; background: var(--lampara); color: var(--tinta); }
 .calendario .dia-gusto a { display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding: 0.3rem; text-decoration: none; font-weight: 700; }
-.calendario .dia-gusto span { font: 900 0.8rem/1 var(--display); text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.calendario .dia-gusto:not(.dia-sorpresa):not(.dia-color) { background: var(--sabor); color: var(--sabor-tinta); }
+.calendario .dia-gusto span { font: 900 0.8rem/1.15 var(--display); text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.calendario .dia-gusto:not(.dia-sorpresa):not(.dia-color) { background: var(--fc, var(--sabor)); color: var(--ft, var(--sabor-tinta)); }
 .calendario .dia-color { background: var(--c); }
 .calendario .dia-sorpresa { background: transparent; color: var(--crema); box-shadow: inset 0 0 0 1.5px var(--lampara); }
 .calendario .dia-pasado.dia-gusto { opacity: 0.55; }

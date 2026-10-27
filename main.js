@@ -29,8 +29,8 @@
 
   /* ---------- Estado de la edición según la fecha ---------- */
   var EDICION = {
-    inicio: new Date('2026-10-17T00:00:00+02:00'),
-    fin: new Date('2026-10-17T04:30:00+02:00')
+    inicio: new Date('2026-10-31T00:00:00+01:00'),
+    fin: new Date('2026-10-31T04:30:00+01:00')
   };
 
   function actualizarEdicion() {
@@ -49,13 +49,13 @@
         }
       });
       document.querySelectorAll('[data-pasada]').forEach(function (p) { p.hidden = false; });
-      if (cuando) cuando.textContent = 'Se sirvió el viernes 16 de octubre';
+      if (cuando) cuando.textContent = 'Se sirvió el viernes 30 de octubre';
       return;
     }
 
-    var mismoDia = ahora.toDateString() === new Date('2026-10-16T12:00:00+02:00').toDateString();
+    var mismoDia = ahora.toDateString() === new Date('2026-10-30T12:00:00+01:00').toDateString();
     if (mismoDia || ahora >= EDICION.inicio) {
-      if (cuando) cuando.textContent = ahora >= EDICION.inicio ? 'Sirviéndose ahora' : 'Esta noche · viernes 16';
+      if (cuando) cuando.textContent = ahora >= EDICION.inicio ? 'Sirviéndose ahora' : 'Esta noche · viernes 30';
       if (corto) corto.textContent = ahora >= EDICION.inicio ? 'Ahora' : 'Esta noche';
     }
   }
@@ -90,8 +90,8 @@
      Para añadir una fiesta, añade una línea a FIESTAS. */
   var FIESTAS = [
     { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' },
-    // Ji (19/10/2026): el color de la fiesta del 30 no se ha anunciado aún; no ponerlo hasta que Ji lo diga
-    { fecha: '2026-10-30', sabor: '', enlace: 'la-carta.html' }
+    // Ji (27/10/2026): anunciada con su cartel; amarillo del cartel
+    { fecha: '2026-10-30', sabor: 'Ácido', color: '#E3CF0E', colorTexto: '#232A0F', nombreColor: 'amarillo ácido', enlace: 'la-carta.html' }
   ];
   // Viernes de Gusto se celebra cada dos viernes en New La Miel (Ji, 16/10/2026).
   // Las fechas que no están en FIESTAS salen con el sabor por desvelar.
@@ -101,6 +101,32 @@
 
 
   // Galería: al tocar una foto se abre el visor con todas las de esa fiesta
+  // Entradas que salen a la venta a una hora: antes se ve el aviso (data-antes), después el texto de venta (data-despues)
+  function iniciarVenta() {
+    var avisos = document.querySelectorAll('[data-venta]');
+    if (!avisos.length) return;
+    function revisar() {
+      var falta = 0;
+      avisos.forEach(function (el) {
+        var abre = new Date(el.getAttribute('data-venta')).getTime() - Date.now();
+        if (el.dataset.original == null) el.dataset.original = el.textContent;
+        if (el.dataset.href == null && el.hasAttribute('href')) el.dataset.href = el.getAttribute('href');
+        var espera = abre > 0;
+        el.classList.toggle('en-espera', espera);
+        if (espera) {
+          falta = falta ? Math.min(falta, abre) : abre;
+          if (el.dataset.antes) el.textContent = el.dataset.antes;
+          if (el.dataset.href != null) { el.removeAttribute('href'); el.setAttribute('aria-disabled', 'true'); }
+        } else {
+          el.textContent = el.dataset.despues || el.dataset.original;
+          if (el.dataset.href != null) { el.setAttribute('href', el.dataset.href); el.removeAttribute('aria-disabled'); }
+        }
+      });
+      if (falta && falta < 2147483647) setTimeout(revisar, falta + 500);
+    }
+    revisar();
+  }
+
   // La Carta: se abre sola la comanda de la próxima fiesta (o la de esta noche)
   function iniciarCarta() {
     var comandas = document.querySelectorAll('[data-comandas] details[data-fecha]');
@@ -229,6 +255,9 @@
       if (corta) corta.textContent = dos(f.getDate()) + '.' + dos(f.getMonth() + 1);
       // la fecha grande de la portada va en el color de la fiesta cuando ya se conoce
       if (corta) corta.style.color = fiesta && fiesta.color ? fiesta.color : '';
+      // la pegatina de lima de la portada es solo de la Ácido Edition
+      var sello = document.querySelector('[data-portada-sabor]');
+      if (sello) sello.hidden = !(fiesta && fiesta.sabor === 'Ácido');
       fecha.textContent = 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
         ' · ' + (fiesta && fiesta.sabor ? fiesta.sabor : 'sabor por desvelar');
       // Si ya sabemos el color de la fiesta, va en una pegatina al lado de la fecha
@@ -282,7 +311,7 @@
       var f = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
       if (!primera) primera = { fecha: new Date(fecha), sabor: f && f.sabor };
       var clase = f && f.sabor ? 'proxima--sabor' : (f && f.color ? 'proxima--color' : 'proxima--' + colores[i % colores.length]);
-      var tinta = f && !f.sabor && f.color ? ' style="--c:' + f.color + '"' : '';
+      var tinta = f && f.color ? (f.sabor ? ' style="--fc:' + f.color + ';--ft:' + f.colorTexto + '"' : ' style="--c:' + f.color + '"') : '';
       var etiqueta = fecha.getDate() + ' de ' + mesesLargos[fecha.getMonth()] + ': ' + (f && f.sabor ? f.sabor : 'sabor por desvelar');
       html += '<li class="proxima ' + clase + '"' + tinta + '><a href="' + (f ? f.enlace : 'la-carta.html') + '" aria-label="' + etiqueta + '">' +
         '<span class="proxima__dia">' + fecha.getDate() + '</span><span class="proxima__mes">' + meses[fecha.getMonth()] + '</span>' +
@@ -355,7 +384,7 @@
           hayFiesta = true;
           clases.push('dia-gusto');
           if (!fiesta.sabor) clases.push(fiesta.color ? 'dia-color' : 'dia-sorpresa');
-          html += '<td class="' + clases.join(' ') + '"' + (fiesta.color && !fiesta.sabor ? ' style="--c:' + fiesta.color + '"' : '') + '><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + (fiesta.sabor || 'sabor por desvelar') + '">' + d + '<span aria-hidden="true">' + (fiesta.sabor || '¿?') + '</span></a></td>';
+          html += '<td class="' + clases.join(' ') + '"' + (fiesta.color ? (fiesta.sabor ? ' style="--fc:' + fiesta.color + ';--ft:' + fiesta.colorTexto + '"' : ' style="--c:' + fiesta.color + '"') : '') + '><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + (fiesta.sabor || 'sabor por desvelar') + '">' + d + '<span aria-hidden="true">' + (fiesta.sabor || '¿?') + '</span></a></td>';
         } else {
           html += '<td' + (clases.length ? ' class="' + clases.join(' ') + '"' : '') + (c === claveHoy ? ' aria-current="date"' : '') + '>' + d + '</td>';
         }
@@ -407,6 +436,7 @@
   actualizarEdicion();
   vigilar();
   iniciarPlaylists();
+  iniciarVenta();
   iniciarCalendario(); iniciarProximas(); iniciarReloj(); iniciarGaleria();
   iniciarCarta();
   iniciarIntro();
