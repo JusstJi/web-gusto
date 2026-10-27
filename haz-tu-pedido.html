@@ -27,7 +27,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=7">
   <link rel="preload" href="fonts/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/familjen-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body class="interior">
   <a class="saltar-contenido" href="#contenido">Ir al contenido</a>
@@ -68,16 +68,18 @@
           <a class="ticket__accion" href="galeria.html">Ver las fotos</a>
           <p class="ticket__sello" aria-label="Servido">Servido</p>
         </li>
-        <li class="ticket ticket--proxima ticket--sin-color papel">
+        <li class="ticket ticket--proxima papel" style="--color: #E3CF0E; --color-texto: #232A0F">
           <p class="ticket__num">Comanda nº 02 <span class="ticket__marca">Próxima</span></p>
-          <h2 class="ticket__sabor">Por servir</h2>
+          <h2 class="ticket__sabor">Ácido</h2>
           <dl class="ticket__lineas">
               <div><dt>Día</dt><dd>Vie 30 · 10</dd></div>
               <div><dt>Servicio</dt><dd>00:00 a 04:30</dd></div>
               <div><dt>Mesa</dt><dd>New La Miel</dd></div>
+              <div><dt>Chefs</dt><dd>Lucas Dios · Apolo · Lemmy Brown · URMAXXX</dd></div>
             </dl>
-          <p class="ticket__nota">Sabor y precio se desvelan en <a href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">@gustoexperiencee</a>.</p>
-          <a class="ticket__accion" href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">Síguelo en Instagram</a>
+          <p class="ticket__precios"><span>4&#8239;€</span><span>6&#8239;€</span><span>8&#8239;€</span></p>
+          <p class="ticket__nota">Todas con copa y chupito.</p>
+          <a class="ticket__accion" data-entradas href="https://www.instagram.com/gustoexperiencee/" target="_blank" rel="noopener">Compra en la bio de @gustoexperiencee</a>
         </li>
       </ol>
     </section>
@@ -92,10 +94,10 @@
   </footer>
 
   <div class="barra-pedido" data-barra>
-    <p><strong>Umami</strong> <span data-cuando-corto>Vie 16 oct</span> · 00:00</p>
-    <a class="boton boton--pequeno" data-entradas href="https://site.fourvenues.com/es/new-la-miel1/events/viernes-de-gusto-umami-16-10-2026-EDAB" target="_blank" rel="noopener">Haz tu pedido</a>
+    <p><strong>Ácido</strong> <span data-cuando-corto>Vie 30 oct</span> · 00:00</p>
+    <a class="boton boton--pequeno" data-entradas href="haz-tu-pedido.html">Haz tu pedido</a>
   </div>
 
-  <script src="main.js?v=8" defer></script>
+  <script src="main.js?v=9" defer></script>
 </body>
 </html>

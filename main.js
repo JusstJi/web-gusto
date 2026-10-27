@@ -29,8 +29,8 @@
 
   /* ---------- Estado de la edición según la fecha ---------- */
   var EDICION = {
-    inicio: new Date('2026-10-17T00:00:00+02:00'),
-    fin: new Date('2026-10-17T04:30:00+02:00')
+    inicio: new Date('2026-10-31T00:00:00+01:00'),
+    fin: new Date('2026-10-31T04:30:00+01:00')
   };
 
   function actualizarEdicion() {
@@ -49,13 +49,13 @@
         }
       });
       document.querySelectorAll('[data-pasada]').forEach(function (p) { p.hidden = false; });
-      if (cuando) cuando.textContent = 'Se sirvió el viernes 16 de octubre';
+      if (cuando) cuando.textContent = 'Se sirvió el viernes 30 de octubre';
       return;
     }
 
-    var mismoDia = ahora.toDateString() === new Date('2026-10-16T12:00:00+02:00').toDateString();
+    var mismoDia = ahora.toDateString() === new Date('2026-10-30T12:00:00+01:00').toDateString();
     if (mismoDia || ahora >= EDICION.inicio) {
-      if (cuando) cuando.textContent = ahora >= EDICION.inicio ? 'Sirviéndose ahora' : 'Esta noche · viernes 16';
+      if (cuando) cuando.textContent = ahora >= EDICION.inicio ? 'Sirviéndose ahora' : 'Esta noche · viernes 30';
       if (corto) corto.textContent = ahora >= EDICION.inicio ? 'Ahora' : 'Esta noche';
     }
   }
@@ -90,8 +90,8 @@
      Para añadir una fiesta, añade una línea a FIESTAS. */
   var FIESTAS = [
     { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' },
-    // Ji (19/10/2026): el color de la fiesta del 30 no se ha anunciado aún; no ponerlo hasta que Ji lo diga
-    { fecha: '2026-10-30', sabor: '', enlace: 'la-carta.html' }
+    // Ji (27/10/2026): anunciada con su cartel; amarillo del cartel
+    { fecha: '2026-10-30', sabor: 'Ácido', color: '#E3CF0E', colorTexto: '#232A0F', nombreColor: 'amarillo ácido', enlace: 'la-carta.html' }
   ];
   // Viernes de Gusto se celebra cada dos viernes en New La Miel (Ji, 16/10/2026).
   // Las fechas que no están en FIESTAS salen con el sabor por desvelar.
@@ -282,7 +282,7 @@
       var f = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
       if (!primera) primera = { fecha: new Date(fecha), sabor: f && f.sabor };
       var clase = f && f.sabor ? 'proxima--sabor' : (f && f.color ? 'proxima--color' : 'proxima--' + colores[i % colores.length]);
-      var tinta = f && !f.sabor && f.color ? ' style="--c:' + f.color + '"' : '';
+      var tinta = f && f.color ? (f.sabor ? ' style="--fc:' + f.color + ';--ft:' + f.colorTexto + '"' : ' style="--c:' + f.color + '"') : '';
       var etiqueta = fecha.getDate() + ' de ' + mesesLargos[fecha.getMonth()] + ': ' + (f && f.sabor ? f.sabor : 'sabor por desvelar');
       html += '<li class="proxima ' + clase + '"' + tinta + '><a href="' + (f ? f.enlace : 'la-carta.html') + '" aria-label="' + etiqueta + '">' +
         '<span class="proxima__dia">' + fecha.getDate() + '</span><span class="proxima__mes">' + meses[fecha.getMonth()] + '</span>' +
@@ -355,7 +355,7 @@
           hayFiesta = true;
           clases.push('dia-gusto');
           if (!fiesta.sabor) clases.push(fiesta.color ? 'dia-color' : 'dia-sorpresa');
-          html += '<td class="' + clases.join(' ') + '"' + (fiesta.color && !fiesta.sabor ? ' style="--c:' + fiesta.color + '"' : '') + '><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + (fiesta.sabor || 'sabor por desvelar') + '">' + d + '<span aria-hidden="true">' + (fiesta.sabor || '¿?') + '</span></a></td>';
+          html += '<td class="' + clases.join(' ') + '"' + (fiesta.color ? (fiesta.sabor ? ' style="--fc:' + fiesta.color + ';--ft:' + fiesta.colorTexto + '"' : ' style="--c:' + fiesta.color + '"') : '') + '><a href="' + fiesta.enlace + '" aria-label="' + d + ' de ' + nombres[m].toLowerCase() + ': Viernes de Gusto, ' + (fiesta.sabor || 'sabor por desvelar') + '">' + d + '<span aria-hidden="true">' + (fiesta.sabor || '¿?') + '</span></a></td>';
         } else {
           html += '<td' + (clases.length ? ' class="' + clases.join(' ') + '"' : '') + (c === claveHoy ? ' aria-current="date"' : '') + '>' + d + '</td>';
         }
