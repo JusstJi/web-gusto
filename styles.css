@@ -381,6 +381,16 @@ p { margin: 0; text-wrap: pretty; }
   font: 700 0.42em/1 var(--ticket); letter-spacing: 0.18em;
 }
 @media (prefers-reduced-motion: reduce) { .portada__sabor .lima { animation: none; } }
+/* En móvil va a la izquierda de la fecha, sin ocupar alto, para no chocar con el lema */
+@media (max-width: 899px) {
+  .portada__fecha { position: relative; }
+  .portada__sabor {
+    position: absolute; right: 100%; bottom: 0; margin: 0 0.7rem 0 0;
+    flex-direction: column; align-items: center; gap: 0.3rem;
+  }
+  .portada__sabor .lima { width: 2.4rem; }
+  .portada__sabor-nombre { font-size: 1.2rem; white-space: nowrap; }
+}
 .en-espera[aria-disabled] { cursor: default; background: transparent; color: inherit; box-shadow: inset 0 0 0 2px currentColor; }
 .portada__lema {
   grid-column: 1 / -1; grid-row: 3; align-self: end; justify-self: end;
