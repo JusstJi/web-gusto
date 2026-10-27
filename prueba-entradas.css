@@ -1,0 +1,103 @@
+/* Prueba de venta de entradas: compra, entrada con QR y escáner de puerta */
+
+.prueba-aviso {
+  margin: 0;
+  padding: 0.55rem var(--hueco);
+  background: var(--amarillo);
+  color: var(--tinta);
+  font: 700 0.9rem/1.3 var(--ticket);
+  text-align: center;
+}
+.prueba main { max-width: 34rem; margin-inline: auto; padding: clamp(1.75rem, 6vw, 3rem) var(--hueco) var(--seccion); }
+.prueba .titulo { font-size: clamp(2.8rem, 12vw, 4.4rem); margin-bottom: 0.8rem; }
+.prueba__intro { color: var(--crema-2); margin-bottom: 1.8rem; }
+
+/* La comanda de papel donde se hace el pedido */
+.papel {
+  background: var(--papel);
+  color: var(--tinta);
+  padding: clamp(1.1rem, 5vw, 1.6rem);
+  border-radius: 2px;
+  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.8);
+  font-family: var(--ticket);
+}
+.papel + .papel { margin-top: 1.25rem; }
+.papel h2 { font: 900 1.9rem/1 var(--display); text-transform: uppercase; margin-bottom: 0.9rem; }
+.papel fieldset { border: 0; margin: 0 0 1.2rem; padding: 0; }
+.papel legend, .papel label.campo { display: block; font-weight: 700; margin-bottom: 0.4rem; }
+.papel .boton { width: 100%; }
+.papel .boton--hueco { color: var(--tinta); border-color: var(--tinta-2); margin-top: 0.6rem; }
+
+.tramos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+.tramo { position: relative; display: grid; place-items: center; gap: 0.1rem; padding: 0.7rem 0.3rem; border: 2px dashed var(--tinta-2); border-radius: 3px; cursor: pointer; text-align: center; }
+.tramo input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.tramo__precio { font: 900 2rem/1 var(--display); }
+.tramo__nombre { font-size: 0.78rem; line-height: 1.2; }
+.tramo:has(input:checked) { border-style: solid; border-color: var(--tinta); background: var(--lampara); }
+.tramo:has(input:focus-visible) { outline: 2px solid var(--tinta); outline-offset: 2px; }
+
+.papel input[type="text"], .papel input[type="email"], .papel select {
+  width: 100%; min-height: 2.9rem; margin-bottom: 0.9rem;
+  padding: 0.55rem 0.7rem;
+  border: 2px solid var(--tinta); border-radius: 3px;
+  background: #fff; color: var(--tinta);
+  font: 400 1.05rem var(--ticket);
+}
+.papel small { display: block; margin: -0.6rem 0 0.9rem; color: var(--tinta-2); font-size: 0.85rem; }
+
+.resumen { margin: 0 0 1.2rem; padding-top: 0.9rem; border-top: 2px dashed var(--tinta-2); display: grid; gap: 0.2rem; }
+.resumen div { display: flex; justify-content: space-between; gap: 1rem; }
+.resumen dd { margin: 0; white-space: nowrap; }
+.resumen__total { font-weight: 700; font-size: 1.2rem; margin-top: 0.3rem; }
+.error { color: var(--rojo); font-weight: 700; min-height: 1.4em; margin-bottom: 0.6rem; }
+
+/* El paso de pago imita la página de Stripe sin cobrar nada */
+.pago__caja { border: 2px solid var(--tinta); border-radius: 6px; padding: 1rem; margin-bottom: 1rem; background: #fff; }
+.pago__caja p + p { margin-top: 0.4rem; }
+.pago__tarjeta { display: flex; justify-content: space-between; padding: 0.6rem 0.7rem; margin-top: 0.8rem; border: 1px solid #c9c2b5; border-radius: 4px; color: var(--tinta-2); }
+
+/* La entrada */
+.entradas { display: grid; gap: 1.25rem; }
+.entrada { background: var(--papel); color: var(--tinta); padding: 1.2rem; border-radius: 2px; text-align: center; font-family: var(--ticket); box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.8); }
+.entrada__cabeza { display: flex; justify-content: space-between; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; text-align: left; }
+.entrada__cabeza span { font-weight: 400; }
+.entrada__qr img { width: 100%; max-width: 20rem; margin: 0.8rem auto; image-rendering: pixelated; }
+.entrada__nombre { font-weight: 700; font-size: 1.25rem; text-transform: uppercase; }
+.entrada__datos { margin-bottom: 1rem; }
+.entrada .boton { width: 100%; }
+
+.correo { margin-top: 2.2rem; }
+.correo h2 { font: 900 1.6rem/1 var(--display); text-transform: uppercase; margin-bottom: 0.6rem; }
+.correo__nota { color: var(--crema-2); font-size: 0.95rem; margin-bottom: 0.9rem; }
+.correo__mensaje { background: #fff; color: #222; border-radius: 8px; overflow: hidden; font: 400 0.95rem/1.5 system-ui, sans-serif; }
+.correo__cabeza { padding: 0.8rem 1rem; background: #f1f1f1; border-bottom: 1px solid #ddd; font-size: 0.85rem; display: grid; gap: 0.15rem; }
+.correo__cuerpo { padding: 1rem; }
+.correo__cuerpo p + p { margin-top: 0.6rem; }
+.correo__qr img { width: 9rem; margin: 0.8rem 0; }
+
+.recuperar { margin-top: 2rem; }
+.recuperar__aviso { color: var(--rojo); font-weight: 700; margin-top: 0.4rem; }
+.prueba__enlaces { margin-top: 2rem; display: grid; gap: 0.6rem; }
+.prueba__enlaces .boton { width: 100%; }
+
+/* ---------- Escáner ---------- */
+.escaner__visor { position: relative; aspect-ratio: 3 / 4; background: #000; border-radius: 6px; overflow: hidden; display: grid; place-items: center; }
+.escaner__visor video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.escaner__visor--activo::after {
+  content: ""; position: absolute; inset: 18%;
+  border: 3px solid var(--lampara); border-radius: 10px;
+  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0.35);
+}
+.escaner__visor .boton { position: relative; z-index: 1; }
+.contador { margin-top: 1rem; font: 900 1.8rem/1 var(--display); text-transform: uppercase; text-align: center; }
+.escaner__pie { margin-top: 1.2rem; display: grid; gap: 0.6rem; }
+
+.veredicto {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; place-content: center; gap: 0.6rem;
+  padding: var(--hueco); text-align: center; cursor: pointer;
+}
+.veredicto--ok { background: #1F9D4C; color: #fff; }
+.veredicto--mal { background: var(--rojo); color: #fff; }
+.veredicto__titulo { font: 900 clamp(4rem, 22vw, 8rem)/0.9 var(--display); }
+.veredicto__detalle { font: 700 1.3rem/1.3 var(--ticket); }

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Escáner de puerta · Viernes de Gusto</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#16130F">
+  <link rel="icon" href="favicon-32.png?v=7" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=7">
+  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="prueba-entradas.css?v=1">
+</head>
+<body class="prueba" data-prueba="escaner">
+  <p class="prueba-aviso">PRUEBA · Escáner de puerta (funciona sin cobertura)</p>
+  <header class="cabecera">
+    <a class="cabecera__marca" href="index.html"><img src="logo-gusto-3d.png" alt="Gusto, inicio" width="617" height="127"></a>
+  </header>
+
+  <main id="contenido">
+    <h1 class="titulo">Puerta</h1>
+    <p class="prueba__intro">Apunta al QR de la entrada. Verde: adelante. Rojo: entrada falsa o ya usada.</p>
+
+    <div class="escaner__visor">
+      <video playsinline muted></video>
+      <button class="boton boton--grande" type="button" id="empezar">Abrir cámara</button>
+    </div>
+    <p class="error" id="error-camara" role="alert"></p>
+    <p class="contador" id="contador" aria-live="polite"></p>
+
+    <div class="escaner__pie">
+      <a class="boton boton--hueco" href="prueba-entradas.html">Comprar una entrada de prueba</a>
+      <button class="boton boton--hueco" type="button" id="reiniciar">Reiniciar la prueba</button>
+    </div>
+  </main>
+
+  <div class="veredicto" id="veredicto" hidden role="status" aria-live="assertive">
+    <p class="veredicto__titulo"></p>
+    <p class="veredicto__detalle"></p>
+  </div>
+
+  <script src="vendor/entradas/jsQR.js"></script>
+  <script src="prueba-entradas.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Prueba de entradas · Viernes de Gusto</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#16130F">
+  <link rel="icon" href="favicon-32.png?v=7" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=7">
+  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="prueba-entradas.css?v=1">
+</head>
+<body class="prueba" data-prueba="compra">
+  <p class="prueba-aviso">PRUEBA · No se cobra nada y esta página no está enlazada en la web</p>
+  <header class="cabecera">
+    <a class="cabecera__marca" href="index.html"><img src="logo-gusto-3d.png" alt="Gusto, inicio" width="617" height="127"></a>
+  </header>
+
+  <main id="contenido">
+    <h1 class="titulo" data-antes-de-pagar>Haz tu <span>pedido</span></h1>
+    <p class="prueba__intro" data-antes-de-pagar>Fiesta de prueba en New La Miel. Elige tu entrada, paga y te llevas el QR al momento.</p>
+
+    <form class="papel" id="compra" novalidate>
+      <h2>Comanda</h2>
+      <fieldset>
+        <legend>Entrada</legend>
+        <div class="tramos" id="tramos"></div>
+      </fieldset>
+
+      <label class="campo" for="cantidad">Cuántas</label>
+      <select id="cantidad" name="cantidad">
+        <option>1</option><option>2</option><option>3</option><option>4</option>
+      </select>
+
+      <label class="campo" for="nombre">Nombre</label>
+      <input id="nombre" name="nombre" type="text" autocomplete="name" required maxlength="40">
+
+      <label class="campo" for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
+      <label class="campo" for="email2">Repite el email</label>
+      <input id="email2" name="email2" type="email" autocomplete="off" inputmode="email" required>
+      <small>Te mandamos ahí la entrada, pero también la verás en pantalla nada más pagar.</small>
+
+      <dl class="resumen" id="resumen" aria-live="polite"></dl>
+      <p class="error" id="error-compra" role="alert"></p>
+      <button class="boton boton--grande" type="submit">Ir a pagar</button>
+    </form>
+
+    <section class="papel" id="pago" hidden aria-labelledby="titulo-pago">
+      <h2 id="titulo-pago">Pago</h2>
+      <div class="pago__caja">
+        <p><strong>Aquí se abriría la página de pago de Stripe.</strong></p>
+        <p>Total: <strong id="pago-total"></strong></p>
+        <p>Recibo a: <span id="pago-email"></span></p>
+        <div class="pago__tarjeta"><span>•••• •••• •••• 4242</span><span>Prueba</span></div>
+      </div>
+      <button class="boton boton--grande" type="button" id="simular-pago">Simular pago</button>
+      <button class="boton boton--hueco" type="button" id="volver">Volver</button>
+    </section>
+
+    <section id="resultado" hidden aria-labelledby="titulo-resultado">
+      <h2 class="titulo" id="titulo-resultado">Ya estás <span>dentro</span></h2>
+      <p class="prueba__intro">Enseña este QR en la puerta. Guárdalo en el móvil por si no tienes cobertura en la cola.</p>
+      <div class="entradas" id="entradas"></div>
+
+      <div class="correo" id="correo">
+        <h2>Así te llegaría el email</h2>
+        <p class="correo__nota">Se envía desde el dominio de Gusto con las firmas que piden Gmail y Outlook, para que no acabe en spam. En la prueba no se manda de verdad.</p>
+        <div class="correo__mensaje">
+          <div class="correo__cabeza">
+            <span><strong>De:</strong> Gusto &lt;entradas@gustoexperience.es&gt;</span>
+            <span><strong>Para:</strong> <span id="correo-para"></span></span>
+            <span><strong>Asunto:</strong> Tu entrada para Gusto · Fiesta de prueba</span>
+          </div>
+          <div class="correo__cuerpo">
+            <p>¡Hola! Aquí tienes <span id="correo-n"></span> para la fiesta de prueba en New La Miel (C/ Cardenal Segura, 25, Burgos).</p>
+            <div class="correo__qr" id="correo-qr"></div>
+            <p>Enseña el QR en la puerta. Si lo pierdes, puedes recuperarlo en gustoexperience.es/entradas con este email.</p>
+            <p>Nos vemos en la pista,<br>Gusto</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <form class="papel recuperar" id="recuperar" data-antes-de-pagar>
+      <h2>Recuperar mi entrada</h2>
+      <label class="campo" for="email-recuperar">Tu email</label>
+      <input id="email-recuperar" name="email" type="email" autocomplete="email" inputmode="email" required>
+      <button class="boton" type="submit">Ver mis entradas</button>
+      <p class="recuperar__aviso" role="alert"></p>
+    </form>
+
+    <div class="prueba__enlaces">
+      <a class="boton boton--hueco" href="prueba-escaner.html">Abrir el escáner de puerta</a>
+    </div>
+  </main>
+
+  <script src="vendor/entradas/qrcode.js"></script>
+  <script src="prueba-entradas.js?v=1"></script>
+</body>
+</html>
