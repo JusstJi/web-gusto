@@ -358,6 +358,30 @@ p { margin: 0; text-wrap: pretty; }
   display: block; font: 700 0.72rem/1 var(--texto); letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--lampara-clara); margin-bottom: 0.35rem;
 }
+/* Guiño al sabor de la próxima fiesta: rodaja de lima y nombre en pegatina */
+.portada__sabor {
+  display: flex; align-items: center; justify-content: flex-end; gap: 0.4rem;
+  margin-top: 0.55rem;
+}
+.portada__sabor[hidden] { display: none; }
+.portada__sabor .lima {
+  width: clamp(2.6rem, 11vw, 4.2rem); height: auto; flex: none;
+  filter: drop-shadow(0 4px 10px rgb(0 0 0 / 0.5));
+  animation: lima-gira 14s linear infinite;
+}
+@keyframes lima-gira { to { rotate: 1turn; } }
+.portada__sabor-nombre {
+  display: inline-block; padding: 0.3rem 0.6rem 0.22rem;
+  background: #E3CF0E; color: #232A0F; border-radius: 3px;
+  font: 900 clamp(1.3rem, 6vw, 2rem)/0.95 var(--display); text-transform: uppercase; letter-spacing: 0.01em;
+  rotate: -4deg; box-shadow: 0 6px 16px rgb(0 0 0 / 0.45);
+}
+.portada__sabor-nombre small {
+  display: block; margin: 0; color: inherit;
+  font: 700 0.42em/1 var(--ticket); letter-spacing: 0.18em;
+}
+@media (prefers-reduced-motion: reduce) { .portada__sabor .lima { animation: none; } }
+.en-espera[aria-disabled] { cursor: default; background: transparent; color: inherit; box-shadow: inset 0 0 0 2px currentColor; }
 .portada__lema {
   grid-column: 1 / -1; grid-row: 3; align-self: end; justify-self: end;
   margin-bottom: 1.2rem;

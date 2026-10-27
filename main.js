@@ -101,6 +101,32 @@
 
 
   // Galería: al tocar una foto se abre el visor con todas las de esa fiesta
+  // Entradas que salen a la venta a una hora: antes se ve el aviso (data-antes), después el texto de venta (data-despues)
+  function iniciarVenta() {
+    var avisos = document.querySelectorAll('[data-venta]');
+    if (!avisos.length) return;
+    function revisar() {
+      var falta = 0;
+      avisos.forEach(function (el) {
+        var abre = new Date(el.getAttribute('data-venta')).getTime() - Date.now();
+        if (el.dataset.original == null) el.dataset.original = el.textContent;
+        if (el.dataset.href == null && el.hasAttribute('href')) el.dataset.href = el.getAttribute('href');
+        var espera = abre > 0;
+        el.classList.toggle('en-espera', espera);
+        if (espera) {
+          falta = falta ? Math.min(falta, abre) : abre;
+          if (el.dataset.antes) el.textContent = el.dataset.antes;
+          if (el.dataset.href != null) { el.removeAttribute('href'); el.setAttribute('aria-disabled', 'true'); }
+        } else {
+          el.textContent = el.dataset.despues || el.dataset.original;
+          if (el.dataset.href != null) { el.setAttribute('href', el.dataset.href); el.removeAttribute('aria-disabled'); }
+        }
+      });
+      if (falta && falta < 2147483647) setTimeout(revisar, falta + 500);
+    }
+    revisar();
+  }
+
   // La Carta: se abre sola la comanda de la próxima fiesta (o la de esta noche)
   function iniciarCarta() {
     var comandas = document.querySelectorAll('[data-comandas] details[data-fecha]');
@@ -229,6 +255,9 @@
       if (corta) corta.textContent = dos(f.getDate()) + '.' + dos(f.getMonth() + 1);
       // la fecha grande de la portada va en el color de la fiesta cuando ya se conoce
       if (corta) corta.style.color = fiesta && fiesta.color ? fiesta.color : '';
+      // la pegatina de lima de la portada es solo de la Ácido Edition
+      var sello = document.querySelector('[data-portada-sabor]');
+      if (sello) sello.hidden = !(fiesta && fiesta.sabor === 'Ácido');
       fecha.textContent = 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
         ' · ' + (fiesta && fiesta.sabor ? fiesta.sabor : 'sabor por desvelar');
       // Si ya sabemos el color de la fiesta, va en una pegatina al lado de la fecha
@@ -407,6 +436,7 @@
   actualizarEdicion();
   vigilar();
   iniciarPlaylists();
+  iniciarVenta();
   iniciarCalendario(); iniciarProximas(); iniciarReloj(); iniciarGaleria();
   iniciarCarta();
   iniciarIntro();
