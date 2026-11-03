@@ -548,6 +548,17 @@ p { margin: 0; text-wrap: pretty; }
   font: 900 3rem/0.9 var(--display);
 }
 .album__mas small { font: 400 0.95rem var(--ticket); }
+.album__todas {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.4rem;
+  margin: 0; padding: 0; list-style: none;
+}
+.album__ayuda { margin: -0.4rem 0 1rem; font-size: 0.95rem; }
+.volver { display: inline-flex; align-items: center; gap: 0.4rem; margin-bottom: 1.2rem; font: 800 1.1rem var(--display); text-transform: uppercase; letter-spacing: 0.04em; color: var(--crema); text-decoration: none; }
+.volver .icono { width: 1.1em; height: 1.1em; color: var(--lampara); transition: transform 200ms var(--sale); }
+.volver:hover { color: var(--lampara); }
+.volver:hover .icono { transform: translateX(-4px); }
+.galeria--fiesta .galeria__quitar { margin-top: 1.2rem; }
+@media (min-width: 600px) { .album__todas { grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 0.5rem; } }
 .galeria__todas { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.4rem; font: 800 1.3rem var(--display); text-transform: uppercase; letter-spacing: 0.04em; color: var(--crema); text-decoration: none; }
 .galeria__todas .icono { width: 1.1em; height: 1.1em; color: var(--lampara); transition: transform 200ms var(--sale); }
 .galeria__todas:hover { color: var(--lampara); }
