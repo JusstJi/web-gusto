@@ -485,6 +485,7 @@ p { margin: 0; text-wrap: pretty; }
 .comanda-hoy__lineas dt { flex: none; }
 .comanda-hoy__lineas dd { order: 2; margin: 0; text-align: right; }
 .reloj__antes { margin-top: 1rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--tinta-2); }
+.comanda-hoy--sin-anunciar .reloj__antes { display: none; }
 .reloj__cifras { display: flex; gap: 0.9rem; margin-top: 0.15rem; font-variant-numeric: tabular-nums; }
 .reloj__caja { display: flex; align-items: baseline; gap: 0.15rem; }
 .reloj__caja b { font: 900 2.3rem/1 var(--display); }
