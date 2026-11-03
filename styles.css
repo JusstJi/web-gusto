@@ -1268,5 +1268,10 @@ a.ficha:hover { background: var(--acero-3); }
 .legal details p a { color: var(--crema); }
 .pie__legal { font-size: 0.85rem; }
 .pie__legal a { color: var(--crema-2); }
+.pie__credito { margin: 0; padding-top: 1.2rem; border-top: 1px solid var(--linea); font-size: 0.8rem; }
+.pie__credito a { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--crema-2); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+.pie__credito a:hover, .pie__credito a:focus-visible { color: var(--crema); }
+.pie__credito img { display: block; height: 20px; width: auto; opacity: 0.85; transition: opacity 0.2s; }
+.pie__credito a:hover img, .pie__credito a:focus-visible img { opacity: 1; }
 .galeria__quitar { margin-top: 0.6rem; font-size: 0.9rem; color: var(--crema-2); }
 .galeria__quitar a { color: var(--crema); }
