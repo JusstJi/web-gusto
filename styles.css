@@ -521,6 +521,9 @@ p { margin: 0; text-wrap: pretty; }
   background: var(--sabor);
   color: var(--sabor-tinta);
 }
+.album + .album { margin-top: clamp(1.2rem, 3vw, 1.8rem); }
+.album--acido { --sabor: #E3CF0E; --sabor-tinta: #232A0F; --sabor-velo: rgb(35 42 15 / 0.74); }
+.album--acido .album__mas span { color: var(--sabor); }
 .album__cabeza { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.3rem 1rem; margin-bottom: 1.1rem; }
 .album__sabor { font: 900 clamp(2.6rem, 7vw, 4rem)/0.9 var(--display); text-transform: uppercase; }
 .album__fecha { font-family: var(--ticket); font-size: 0.95rem; }
@@ -540,7 +543,7 @@ p { margin: 0; text-wrap: pretty; }
 .album__mas span {
   position: absolute; inset: 0;
   display: grid; place-content: center; text-align: center;
-  background: rgb(65 1 7 / 0.72);
+  background: var(--sabor-velo, rgb(65 1 7 / 0.72));
   color: var(--sabor-tinta);
   font: 900 3rem/0.9 var(--display);
 }
