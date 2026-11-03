@@ -237,7 +237,7 @@
     var cifras = reloj.querySelector('[data-reloj-cifras]');
     var ahora = reloj.querySelector('[data-reloj-ahora]');
     var campos = ['dias', 'horas', 'min', 'seg'].map(function (k) { return reloj.querySelector('[data-reloj-' + k + ']'); });
-    var viernes = null, empieza = 0, acaba = 0;
+    var viernes = null, empieza = 0, acaba = 0, sinAnunciar = false;
 
     function buscar(t) {
       var f = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00');
@@ -252,14 +252,19 @@
       var fiesta = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
       var fecha = reloj.querySelector('[data-reloj-fecha]');
       var corta = document.querySelector('[data-portada-fecha]');
-      if (corta) corta.textContent = dos(f.getDate()) + '.' + dos(f.getMonth() + 1);
+      // Mientras Ji no anuncia la siguiente fiesta (no está en FIESTAS) no se enseña su fecha: sale «???» (Ji, 3/11/2026)
+      sinAnunciar = !fiesta;
+      if (corta) corta.textContent = sinAnunciar ? '???' : dos(f.getDate()) + '.' + dos(f.getMonth() + 1);
+      reloj.classList.toggle('comanda-hoy--sin-anunciar', sinAnunciar);
+      var venta = reloj.querySelector('[data-venta]');
+      if (venta && sinAnunciar) venta.textContent = 'Por anunciar';
       // la fecha grande de la portada va en el color de la fiesta cuando ya se conoce
       if (corta) corta.style.color = fiesta && fiesta.color ? fiesta.color : '';
       // la pegatina de lima de la portada es solo de la Ácido Edition
       var sello = document.querySelector('[data-portada-sabor]');
       if (sello) sello.hidden = !(fiesta && fiesta.sabor === 'Ácido');
-      fecha.textContent = 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
-        ' · ' + (fiesta && fiesta.sabor ? fiesta.sabor : 'sabor por desvelar');
+      fecha.textContent = sinAnunciar ? '??? · Fecha y sabor por desvelar' : 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
+        ' · ' + (fiesta.sabor || 'sabor por desvelar');
       // Si ya sabemos el color de la fiesta, va en una pegatina al lado de la fecha
       // y tiñe la comanda (banda de arriba, subrayado y cifras) con ese color
       reloj.classList.toggle('comanda-hoy--color', !!(fiesta && fiesta.color));
@@ -281,8 +286,8 @@
       var t = Date.now();
       if (!viernes || t >= acaba) buscar(t);
       var falta = Math.max(0, Math.floor((empieza - t) / 1000));
-      cifras.hidden = falta === 0;
-      ahora.hidden = falta > 0;
+      cifras.hidden = falta === 0 || sinAnunciar;
+      ahora.hidden = falta > 0 || sinAnunciar;
       campos[0].textContent = Math.floor(falta / 86400);
       campos[1].textContent = dos(Math.floor(falta / 3600) % 24);
       campos[2].textContent = dos(Math.floor(falta / 60) % 60);
