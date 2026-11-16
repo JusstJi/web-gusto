@@ -645,6 +645,8 @@ p { margin: 0; text-wrap: pretty; }
 .plato--umami { --c: var(--sabor-tinta); background: var(--sabor); color: var(--sabor-tinta); }
 .plato--acido { --c: #232A0F; background: #E3CF0E; color: #232A0F; }
 .plato--acido .chef__foto { box-shadow: 0 0 0 2px #232A0F; }
+.plato--proximo { --c: #1C2A0B; background: #82AC40; color: #1C2A0B; }
+.plato--proximo a:not(.probar) { color: inherit; }
 .plato--limon { --c: var(--limon); }
 .plato--verde { --c: var(--verde); }
 .plato__cabeza { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
@@ -1158,6 +1160,8 @@ a.ficha:hover { background: var(--acero-3); }
 }
 @keyframes sella { from { opacity: 0; scale: 1.8; } to { opacity: 0.82; scale: 1; } }
 .ticket--servido { background: color-mix(in srgb, var(--papel) 90%, #F7B6BA); }
+.ticket--acido { background: color-mix(in srgb, var(--papel) 88%, #E3CF0E); }
+.ticket--acido .ticket__sabor { color: var(--color-texto); }
 .ticket--proxima { background: color-mix(in srgb, var(--papel) 85%, var(--color)); }
 .ticket--servido .ticket__lineas, .ticket--servido .ticket__precios { opacity: 0.72; }
 

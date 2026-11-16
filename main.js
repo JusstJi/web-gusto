@@ -29,8 +29,8 @@
 
   /* ---------- Estado de la edición según la fecha ---------- */
   var EDICION = {
-    inicio: new Date('2026-10-31T00:00:00+01:00'),
-    fin: new Date('2026-10-31T04:30:00+01:00')
+    inicio: new Date('2026-11-21T00:00:00+01:00'),
+    fin: new Date('2026-11-21T04:30:00+01:00')
   };
 
   function actualizarEdicion() {
@@ -49,13 +49,13 @@
         }
       });
       document.querySelectorAll('[data-pasada]').forEach(function (p) { p.hidden = false; });
-      if (cuando) cuando.textContent = 'Se sirvió el viernes 30 de octubre';
+      if (cuando) cuando.textContent = 'Se sirvió el viernes 20 de noviembre';
       return;
     }
 
-    var mismoDia = ahora.toDateString() === new Date('2026-10-30T12:00:00+01:00').toDateString();
+    var mismoDia = ahora.toDateString() === new Date('2026-11-20T12:00:00+01:00').toDateString();
     if (mismoDia || ahora >= EDICION.inicio) {
-      if (cuando) cuando.textContent = ahora >= EDICION.inicio ? 'Sirviéndose ahora' : 'Esta noche · viernes 30';
+      if (cuando) cuando.textContent = ahora >= EDICION.inicio ? 'Sirviéndose ahora' : 'Esta noche · viernes 20';
       if (corto) corto.textContent = ahora >= EDICION.inicio ? 'Ahora' : 'Esta noche';
     }
   }
@@ -91,13 +91,28 @@
   var FIESTAS = [
     { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' },
     // Ji (27/10/2026): anunciada con su cartel; amarillo del cartel
-    { fecha: '2026-10-30', sabor: 'Ácido', color: '#E3CF0E', colorTexto: '#232A0F', nombreColor: 'amarillo ácido', enlace: 'la-carta.html' }
+    { fecha: '2026-10-30', sabor: 'Ácido', color: '#E3CF0E', colorTexto: '#232A0F', nombreColor: 'amarillo ácido', enlace: 'la-carta.html' },
+    // Ji (16/11/2026): fecha y color anunciados (el verde claro del fondo del nuevo sabor); nombre, cartel y entradas, próximamente
+    { fecha: '2026-11-20', color: '#82AC40', colorTexto: '#1C2A0B', nombreColor: 'verde', enlace: 'la-carta.html' }
   ];
   // Viernes de Gusto se celebra cada dos viernes en New La Miel (Ji, 16/10/2026).
   // Las fechas que no están en FIESTAS salen con el sabor por desvelar.
   var CADA_DOS_VIERNES_DESDE = '2026-10-16';
   var PRIMER_MES = [2026, 9];  // octubre 2026 (los meses empiezan en 0)
   var NUM_MESES = 3;           // hasta diciembre 2026 (Ji, 19/10/2026)
+
+  // Fechas de fiesta en orden: las de cada dos viernes más las que Ji anuncia fuera de ese ritmo
+  // (el 20/11/2026 cae fuera). Devuelve la primera cuyo final (sábado 04:30) sea posterior a «t».
+  function siguienteFiesta(t) {
+    var f = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00');
+    while (finDe(f) <= t) f.setDate(f.getDate() + 14);
+    FIESTAS.forEach(function (x) {
+      var d = new Date(x.fecha + 'T12:00:00');
+      if (finDe(d) > t && d < f) f = d;
+    });
+    return new Date(f);
+  }
+  function finDe(f) { return new Date(f.getFullYear(), f.getMonth(), f.getDate() + 1, 4, 30).getTime(); }
 
 
   // Galería: al tocar una foto se abre el visor con todas las de esa fiesta
@@ -240,13 +255,9 @@
     var viernes = null, empieza = 0, acaba = 0, sinAnunciar = false;
 
     function buscar(t) {
-      var f = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00');
-      for (;;) {
-        empieza = new Date(f.getFullYear(), f.getMonth(), f.getDate() + 1, 0, 0).getTime();
-        acaba = empieza + 4.5 * 3600000;
-        if (acaba > t) break;
-        f.setDate(f.getDate() + 14);
-      }
+      var f = siguienteFiesta(t);
+      empieza = new Date(f.getFullYear(), f.getMonth(), f.getDate() + 1, 0, 0).getTime();
+      acaba = empieza + 4.5 * 3600000;
       viernes = f;
       var c = f.getFullYear() + '-' + String(f.getMonth() + 1).padStart(2, '0') + '-' + String(f.getDate()).padStart(2, '0');
       var fiesta = FIESTAS.filter(function (x) { return x.fecha === c; })[0];
@@ -256,7 +267,7 @@
       sinAnunciar = !fiesta;
       if (corta) corta.textContent = sinAnunciar ? '???' : dos(f.getDate()) + '.' + dos(f.getMonth() + 1);
       reloj.classList.toggle('comanda-hoy--sin-anunciar', sinAnunciar);
-      var venta = reloj.querySelector('[data-venta]');
+      var venta = reloj.querySelector('[data-entradas-estado]');
       if (venta && sinAnunciar) venta.textContent = 'Por anunciar';
       // la fecha grande de la portada va en el color de la fiesta cuando ya se conoce
       if (corta) corta.style.color = fiesta && fiesta.color ? fiesta.color : '';
@@ -305,8 +316,8 @@
     var meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
     var mesesLargos = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
     var hoy = new Date(); hoy.setHours(12, 0, 0, 0);
-    var fecha = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00');
-    while (fecha < hoy) fecha.setDate(fecha.getDate() + 14);
+    var fecha = siguienteFiesta(hoy.getTime() - 12 * 3600000);
+    fecha.setHours(12, 0, 0, 0);
     var colores = ['amarillo', 'verde', 'rojo', 'naranja', 'rosa'];
     var html = '';
     var primera = null;
@@ -351,13 +362,12 @@
 
     var inicioCiclo = new Date(CADA_DOS_VIERNES_DESDE + 'T12:00:00');
     // Solo se marca hasta la próxima fiesta, en incógnito; las siguientes se suben cuando se acercan (Ji, 19/10/2026)
-    var proxima = new Date(inicioCiclo);
-    var mediodia = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate(), 12);
-    while (proxima < mediodia) proxima.setDate(proxima.getDate() + 14);
+    var proxima = siguienteFiesta(new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate()).getTime());
     var claveProxima = clave(proxima.getFullYear(), proxima.getMonth(), proxima.getDate());
     function toca(a, m, d) {
       var dias = Math.round((new Date(a, m, d, 12) - inicioCiclo) / 86400000);
-      return dias >= 0 && dias % 14 === 0 && clave(a, m, d) <= claveProxima;
+      // los viernes ya pasados que no están en FIESTAS no se marcan (p. ej. el 13/11, que no hubo fiesta)
+      return dias >= 0 && dias % 14 === 0 && clave(a, m, d) <= claveProxima && clave(a, m, d) >= claveHoy;
     }
     function clave(a, m, d) { return a + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0'); }
     function mesDe(i) { var m = PRIMER_MES[1] + i; return [PRIMER_MES[0] + Math.floor(m / 12), m % 12]; }
