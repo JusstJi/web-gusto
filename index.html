@@ -42,13 +42,6 @@
           "addressLocality": "Burgos",
           "addressCountry": "ES"
         },
-        "telephone": "+34 637 58 08 54",
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["https://schema.org/Thursday", "https://schema.org/Friday", "https://schema.org/Saturday"],
-          "opens": "23:00",
-          "closes": "04:30"
-        },
         "sameAs": ["https://www.instagram.com/newlamielpub/", "https://www.facebook.com/newlamiel"]
       },
       {
@@ -135,7 +128,7 @@
   </script>
   <link rel="preload" href="fonts/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/familjen-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=18">
+  <link rel="stylesheet" href="styles.css?v=20">
   <script>
     // Intro con el logo: una vez por visita (o siempre con ?intro), y nunca con movimiento reducido
     try {
@@ -172,8 +165,8 @@
       <div class="portada__cartel">
         <p class="portada__sup">New La Miel · Burgos</p>
         <h1 class="marca" id="titulo-portada"><span class="marca__linea"><span>Viernes</span></span> <span class="marca__linea marca__linea--gusto"><span><small>de</small> Gusto</span></span></h1>
-        <p class="portada__fecha"><small>Próxima</small> <span data-portada-fecha>20.11</span>
-          <span class="portada__sabor" data-portada-sabor><svg class="lima" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="48" fill="#F4F1C9"/><circle cx="50" cy="50" r="42" fill="#C9D93A"/><g stroke="#F4F1C9" stroke-width="3.2" stroke-linecap="round"><path d="M50 14v72M14 50h72M24.5 24.5l51 51M75.5 24.5l-51 51"/></g><circle cx="50" cy="50" r="7" fill="#F4F1C9"/></svg><span class="portada__sabor-nombre">Ácido <small>Edition</small></span></span></p>
+        <p class="portada__fecha"><small data-portada-cuando>Próxima · Vie 20.11</small> <span class="portada__cuenta" data-portada-fecha role="timer" aria-live="off">20.11</span>
+          <span class="portada__sabor" data-portada-sabor><svg class="lima" data-portada-lima hidden viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="48" fill="#F4F1C9"/><circle cx="50" cy="50" r="42" fill="#C9D93A"/><g stroke="#F4F1C9" stroke-width="3.2" stroke-linecap="round"><path d="M50 14v72M14 50h72M24.5 24.5l51 51M75.5 24.5l-51 51"/></g><circle cx="50" cy="50" r="7" fill="#F4F1C9"/></svg><span class="portada__sabor-nombre" data-portada-sabor-nombre style="background: #82AC40; color: #1C2A0B">Amargo</span></span></p>
         <p class="portada__lema">Un sabor<br> por noche.</p>
         <p class="portada__pie"><span>Fiesta con DJs</span> <span>Cada dos viernes</span> <span>00:00 a 04:30</span></p>
       </div>
@@ -382,6 +375,6 @@
     <a class="boton boton--pequeno en-espera" data-entradas aria-disabled="true">Entradas próximamente</a>
   </div>
 
-  <script src="main.js?v=13" defer></script>
+  <script src="main.js?v=14" defer></script>
 </body>
 </html>

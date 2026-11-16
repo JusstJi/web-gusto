@@ -252,7 +252,7 @@
     var cifras = reloj.querySelector('[data-reloj-cifras]');
     var ahora = reloj.querySelector('[data-reloj-ahora]');
     var campos = ['dias', 'horas', 'min', 'seg'].map(function (k) { return reloj.querySelector('[data-reloj-' + k + ']'); });
-    var viernes = null, empieza = 0, acaba = 0, sinAnunciar = false;
+    var viernes = null, empieza = 0, acaba = 0, sinAnunciar = false, portadaCuenta = null;
 
     function buscar(t) {
       var f = siguienteFiesta(t);
@@ -265,15 +265,30 @@
       var corta = document.querySelector('[data-portada-fecha]');
       // Mientras Ji no anuncia la siguiente fiesta (no está en FIESTAS) no se enseña su fecha: sale «???» (Ji, 3/11/2026)
       sinAnunciar = !fiesta;
-      if (corta) corta.textContent = sinAnunciar ? '???' : dos(f.getDate()) + '.' + dos(f.getMonth() + 1);
+      // Con la fiesta anunciada, la portada lleva la cuenta atrás en grande y la fecha encima (Ji, 16/11/2026)
+      if (corta) corta.textContent = sinAnunciar ? '???' : '';
+      var cuandoPortada = document.querySelector('[data-portada-cuando]');
+      if (cuandoPortada) cuandoPortada.textContent = sinAnunciar ? 'Próxima' : 'Próxima · Vie ' + dos(f.getDate()) + '.' + dos(f.getMonth() + 1);
+      portadaCuenta = corta && !sinAnunciar ? corta : null;
       reloj.classList.toggle('comanda-hoy--sin-anunciar', sinAnunciar);
       var venta = reloj.querySelector('[data-entradas-estado]');
       if (venta && sinAnunciar) venta.textContent = 'Por anunciar';
       // la fecha grande de la portada va en el color de la fiesta cuando ya se conoce
       if (corta) corta.style.color = fiesta && fiesta.color ? fiesta.color : '';
       // la pegatina de lima de la portada es solo de la Ácido Edition
+      // y el nombre del sabor va en una pegatina con su color (la rodaja de lima, solo en la Ácido)
       var sello = document.querySelector('[data-portada-sabor]');
-      if (sello) sello.hidden = !(fiesta && fiesta.sabor === 'Ácido');
+      if (sello) {
+        sello.hidden = !(fiesta && fiesta.sabor);
+        var nombre = sello.querySelector('[data-portada-sabor-nombre]');
+        var lima = sello.querySelector('[data-portada-lima]');
+        if (lima) lima.hidden = !(fiesta && fiesta.sabor === 'Ácido');
+        if (nombre && fiesta && fiesta.sabor) {
+          nombre.textContent = fiesta.sabor;
+          nombre.style.background = fiesta.color || '';
+          nombre.style.color = fiesta.colorTexto || '';
+        }
+      }
       fecha.textContent = sinAnunciar ? '??? · Fecha y sabor por desvelar' : 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
         ' · ' + (fiesta.sabor || 'sabor por desvelar');
       // Si ya sabemos el color de la fiesta, va en una pegatina al lado de la fecha
@@ -303,6 +318,13 @@
       campos[1].textContent = dos(Math.floor(falta / 3600) % 24);
       campos[2].textContent = dos(Math.floor(falta / 60) % 60);
       campos[3].textContent = dos(falta % 60);
+      if (portadaCuenta) {
+        portadaCuenta.innerHTML = falta === 0 ? '¡Ahora!' :
+          Math.floor(falta / 86400) + '<i>d</i> ' + dos(Math.floor(falta / 3600) % 24) + '<i>h</i> ' +
+          dos(Math.floor(falta / 60) % 60) + '<i>m</i> ' + dos(falta % 60) + '<i>s</i>';
+        portadaCuenta.setAttribute('aria-label', falta === 0 ? 'Se está sirviendo ahora' :
+          'Faltan ' + Math.floor(falta / 86400) + ' días, ' + Math.floor(falta / 3600) % 24 + ' horas y ' + Math.floor(falta / 60) % 60 + ' minutos');
+      }
     }
     pintar();
     reloj.hidden = false;

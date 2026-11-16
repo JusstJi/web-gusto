@@ -354,6 +354,8 @@ p { margin: 0; text-wrap: pretty; }
   font: 900 clamp(3rem, 15vw, 6.5rem)/0.85 var(--display);
   color: var(--crema); text-align: right; font-variant-numeric: tabular-nums;
 }
+.portada__cuenta { display: block; white-space: nowrap; font-size: min(1em, 12.5vw); }
+.portada__cuenta i { font-style: normal; font-size: 0.42em; margin-left: 0.04em; vertical-align: 0.12em; opacity: 0.85; }
 .portada__fecha small {
   display: block; font: 700 0.72rem/1 var(--texto); letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--lampara-clara); margin-bottom: 0.35rem;
@@ -381,15 +383,10 @@ p { margin: 0; text-wrap: pretty; }
   font: 700 0.42em/1 var(--ticket); letter-spacing: 0.18em;
 }
 @media (prefers-reduced-motion: reduce) { .portada__sabor .lima { animation: none; } }
-/* En móvil va a la izquierda de la fecha, sin ocupar alto, para no chocar con el lema */
+/* En móvil la pegatina del sabor va debajo de la cuenta atrás, a la derecha */
 @media (max-width: 899px) {
-  .portada__fecha { position: relative; }
-  .portada__sabor {
-    position: absolute; right: 100%; bottom: 0; margin: 0 0.7rem 0 0;
-    flex-direction: column; align-items: center; gap: 0.3rem;
-  }
   .portada__sabor .lima { width: 2.4rem; }
-  .portada__sabor-nombre { font-size: 1.2rem; white-space: nowrap; }
+  .portada__sabor-nombre { font-size: clamp(1.6rem, 8vw, 2.2rem); white-space: nowrap; }
 }
 .en-espera[aria-disabled] { cursor: default; background: transparent; color: inherit; box-shadow: inset 0 0 0 2px currentColor; }
 .portada__lema {
@@ -500,7 +497,7 @@ p { margin: 0; text-wrap: pretty; }
   .marca { font-size: min(19vw, 33svh); margin-inline: 0; line-height: 0.8; }
   .marca__linea--gusto { text-align: left; }
   .marca { grid-column: 1; grid-row: 2; }
-  .portada__fecha { grid-row: 2; align-self: center; font-size: clamp(5rem, 9vw, 8.5rem); margin-top: 0; }
+  .portada__fecha { grid-row: 2; align-self: center; font-size: clamp(3rem, 4.6vw, 5rem); margin-top: 0; }
   .portada__lema { justify-self: end; font-size: clamp(3rem, 5vw, 4.4rem); }
   .portada__pie { letter-spacing: 0.16em; }
   .hoy { justify-items: center; }
