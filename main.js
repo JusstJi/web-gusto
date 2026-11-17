@@ -92,8 +92,8 @@
     { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' },
     // Ji (27/10/2026): anunciada con su cartel; amarillo del cartel
     { fecha: '2026-10-30', sabor: 'Ácido', color: '#E3CF0E', colorTexto: '#232A0F', nombreColor: 'amarillo ácido', enlace: 'la-carta.html' },
-    // Ji (16/11/2026): Amargo, verde claro del fondo del sabor, música urbana; cartel y entradas, próximamente
-    { fecha: '2026-11-20', sabor: 'Amargo', color: '#82AC40', colorTexto: '#1C2A0B', nombreColor: 'verde', enlace: 'la-carta.html' }
+    // Ji (16/11/2026): Amargo, verde claro del fondo del sabor, música urbana. Entradas en Fourvenues desde el 17/11/2026
+    { fecha: '2026-11-20', sabor: 'Amargo', color: '#82AC40', colorTexto: '#1C2A0B', nombreColor: 'verde', enlace: 'la-carta.html', entradas: 'https://www.fourvenues.com/alvaro-de-los-mozos2/events/gusto-amargo-20-11-2026-XXAR' }
   ];
   // Viernes de Gusto se celebra cada dos viernes en New La Miel (Ji, 16/10/2026).
   // Las fechas que no están en FIESTAS salen con el sabor por desvelar.
@@ -287,6 +287,17 @@
           nombre.textContent = fiesta.sabor;
           nombre.style.background = fiesta.color || '';
           nombre.style.color = fiesta.colorTexto || '';
+        }
+      }
+      // Botón de compra en la portada, en el color de la fiesta; solo si está anunciada y tiene enlace de entradas (Ji, 17/11/2026)
+      var compra = document.querySelector('[data-portada-compra]');
+      if (compra) {
+        var conEntradas = !!(fiesta && fiesta.entradas);
+        compra.hidden = !conEntradas;
+        if (conEntradas) {
+          compra.href = fiesta.entradas;
+          compra.style.background = compra.style.borderColor = fiesta.color || '';
+          compra.style.color = fiesta.colorTexto || '';
         }
       }
       fecha.textContent = sinAnunciar ? '??? · Fecha y sabor por desvelar' : 'Viernes ' + f.getDate() + ' de ' + mesesLargos[f.getMonth()] +
