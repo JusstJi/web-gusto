@@ -657,6 +657,7 @@ p { margin: 0; text-wrap: pretty; }
 .plato--acido .chef__foto { box-shadow: 0 0 0 2px #232A0F; }
 .plato--proximo { --c: #1C2A0B; background: #82AC40; color: #1C2A0B; }
 .plato--proximo a:not(.probar) { color: inherit; }
+.plato--proximo .chef__foto { box-shadow: 0 0 0 2px #1C2A0B; }
 .plato--limon { --c: var(--limon); }
 .plato--verde { --c: var(--verde); }
 .plato__cabeza { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
