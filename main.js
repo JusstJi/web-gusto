@@ -89,11 +89,11 @@
   /* ---------- Calendario de varios meses ----------
      Para añadir una fiesta, añade una línea a FIESTAS. */
   var FIESTAS = [
-    { fecha: '2026-10-16', sabor: 'Umami', enlace: 'la-carta.html' },
+    { fecha: '2026-10-16', sabor: 'Umami', enlace: '/la-carta' },
     // Ji (27/10/2026): anunciada con su cartel; amarillo del cartel
-    { fecha: '2026-10-30', sabor: 'Ácido', color: '#E3CF0E', colorTexto: '#232A0F', nombreColor: 'amarillo ácido', enlace: 'la-carta.html' },
+    { fecha: '2026-10-30', sabor: 'Ácido', color: '#E3CF0E', colorTexto: '#232A0F', nombreColor: 'amarillo ácido', enlace: '/la-carta' },
     // Ji (16/11/2026): Amargo, verde claro del fondo del sabor, música urbana. Entradas en Fourvenues desde el 17/11/2026
-    { fecha: '2026-11-20', sabor: 'Amargo', color: '#82AC40', colorTexto: '#1C2A0B', nombreColor: 'verde', enlace: 'la-carta.html', entradas: 'https://www.fourvenues.com/alvaro-de-los-mozos2/events/gusto-amargo-20-11-2026-XXAR' }
+    { fecha: '2026-11-20', sabor: 'Amargo', color: '#82AC40', colorTexto: '#1C2A0B', nombreColor: 'verde', enlace: '/la-carta', entradas: 'https://www.fourvenues.com/alvaro-de-los-mozos2/events/gusto-amargo-20-11-2026-XXAR' }
   ];
   // Viernes de Gusto se celebra cada dos viernes en New La Miel (Ji, 16/10/2026).
   // Las fechas que no están en FIESTAS salen con el sabor por desvelar.
@@ -363,7 +363,7 @@
       var clase = f && f.sabor ? 'proxima--sabor' : (f && f.color ? 'proxima--color' : 'proxima--' + colores[i % colores.length]);
       var tinta = f && f.color ? (f.sabor ? ' style="--fc:' + f.color + ';--ft:' + f.colorTexto + '"' : ' style="--c:' + f.color + '"') : '';
       var etiqueta = fecha.getDate() + ' de ' + mesesLargos[fecha.getMonth()] + ': ' + (f && f.sabor ? f.sabor : 'sabor por desvelar');
-      html += '<li class="proxima ' + clase + '"' + tinta + '><a href="' + (f ? f.enlace : 'la-carta.html') + '" aria-label="' + etiqueta + '">' +
+      html += '<li class="proxima ' + clase + '"' + tinta + '><a href="' + (f ? f.enlace : '/la-carta') + '" aria-label="' + etiqueta + '">' +
         '<span class="proxima__dia">' + fecha.getDate() + '</span><span class="proxima__mes">' + meses[fecha.getMonth()] + '</span>' +
         '<span class="proxima__sabor">' + (f && f.sabor ? f.sabor : 'Por desvelar') + '</span></a></li>';
       fecha.setDate(fecha.getDate() + 14);
@@ -425,7 +425,7 @@
       for (var d = 1; d <= total; d++) {
         var c = clave(a, m, d);
         var fiesta = FIESTAS.filter(function (f) { return f.fecha === c && c <= claveProxima; })[0];
-        if (!fiesta && toca(a, m, d)) fiesta = { fecha: c, sabor: '', enlace: 'la-carta.html' };
+        if (!fiesta && toca(a, m, d)) fiesta = { fecha: c, sabor: '', enlace: '/la-carta' };
         var clases = [];
         if (c < claveHoy) clases.push('dia-pasado');
         if (c === claveHoy) clases.push('dia-hoy');
