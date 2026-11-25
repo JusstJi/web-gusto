@@ -204,6 +204,7 @@
         album = a.closest('[data-album]');
         total = parseInt(album.dataset.fotos, 10);
         sabor.textContent = album.dataset.sabor;
+        visor.dataset.album = album.dataset.album;
         mostrar(parseInt(a.dataset.foto, 10));
         visor.showModal();
       });

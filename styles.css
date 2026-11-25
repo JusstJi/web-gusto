@@ -611,6 +611,9 @@ p { margin: 0; text-wrap: pretty; }
 .visor__foto { max-width: min(100%, 75rem); max-height: calc(100dvh - 9rem); width: auto; height: auto; border-radius: 3px; background: var(--acero-2); }
 .visor__pie { font-family: var(--ticket); font-variant-numeric: tabular-nums; }
 .visor__pie strong { font: 900 1.4rem var(--display); text-transform: uppercase; color: var(--lampara); margin-right: 0.4rem; }
+.visor[data-album="umami"] .visor__pie strong { color: #F7B6BA; }
+.visor[data-album="acido"] .visor__pie strong { color: #E3CF0E; }
+.visor[data-album="amargo"] .visor__pie strong { color: #82AC40; }
 .visor__descargar {
   position: fixed; top: max(1rem, env(safe-area-inset-top)); left: 1rem;
   display: inline-flex; align-items: center; min-height: 2.8rem; padding: 0 1.1rem;
